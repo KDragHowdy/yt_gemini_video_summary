@@ -46,7 +46,9 @@ def main():
         if not video_path:
             raise VideoProcessingError("Failed to download video.")
 
-        summary_chunks = process_video(video_path, video_id, duration_minutes)
+        summary_chunks = process_video(
+            video_path, video_id, video_title, duration_minutes
+        )
 
         generate_and_save_reports(video_id, video_title, summary_chunks, OUTPUT_DIR)
 
