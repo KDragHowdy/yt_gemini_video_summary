@@ -34,6 +34,13 @@ def process_video_chunk(video_file, transcript, chunk_start, chunk_end):
     3. Description of any visual aids (slides, charts, graphs) and their content
     4. The overall tone and style of presentation
 
+    Important: Ignore and do not include in your analysis any content related to:
+    - Requests for channel subscriptions
+    - Promotional content about the channel
+    - Discussions about video sponsors or advertisements
+
+    Focus solely on the main topic and content of the video. If the entire segment is promotional or sponsor-related, please indicate this briefly without going into details.
+
     Format the report in Markdown, using appropriate headings and structure.
     If there are clear examples of presentation materials, recreate that information in a separate appendix section.
     """
@@ -56,6 +63,9 @@ def process_video_chunk_second_draft(first_draft):
     6. Ensure that any visual information from the "Description of Visual Aids" section is incorporated into the main content where relevant.
     7. Format the output in Markdown.
     8. Do not include any statements about the absence of visual information or inability to process visual content.
+    9. Ensure that no content related to channel subscriptions, channel promotions, or sponsor discussions is included in the final draft.
+
+    Focus solely on the main topic and content of the video, excluding any promotional or sponsorship material.
     """
 
-    return generate_content(prompt)  # No video file needed for second draft
+    return generate_content(prompt)
