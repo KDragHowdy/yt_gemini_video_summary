@@ -1,6 +1,6 @@
-from .file_uploader import upload_video, wait_for_file_active
-from .content_generator import process_video_chunk, process_video_chunk_second_draft
-from .utils import get_transcript
+from file_uploader import upload_video, wait_for_file_active
+from content_generator import process_video_chunk, process_video_chunk_second_draft
+from utils import get_transcript
 import time
 
 
