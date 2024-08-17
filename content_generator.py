@@ -3,11 +3,14 @@ import google.generativeai as genai
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
-def generate_content(video_file, prompt):
+def generate_content(prompt, video_file=None):
     try:
-        response = model.generate_content(
-            [video_file, prompt], request_options={"timeout": 600}
-        )
+        if video_file:
+            response = model.generate_content(
+                [video_file, prompt], request_options={"timeout": 600}
+            )
+        else:
+            response = model.generate_content(prompt, request_options={"timeout": 600})
 
         if response.prompt_feedback:
             print(f"Prompt feedback: {response.prompt_feedback}")
@@ -35,7 +38,7 @@ def process_video_chunk(video_file, transcript, chunk_start, chunk_end):
     If there are clear examples of presentation materials, recreate that information in a separate appendix section.
     """
 
-    return generate_content(video_file, prompt)
+    return generate_content(prompt, video_file)
 
 
 def process_video_chunk_second_draft(first_draft):
@@ -55,4 +58,4 @@ def process_video_chunk_second_draft(first_draft):
     8. Do not include any statements about the absence of visual information or inability to process visual content.
     """
 
-    return generate_content(None, prompt)  # No video file needed for second draft
+    return generate_content(prompt)  # No video file needed for second draft

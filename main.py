@@ -1,15 +1,14 @@
 import os
 import sys
 from dotenv import load_dotenv
-
-# Add the project root directory to Python path
-project_root = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(project_root)
-
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
 from report_generator import generate_and_save_reports
 from utils import setup_directories
+
+# Add the project root directory to Python path
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(project_root)
 
 # Load environment variables
 load_dotenv()
