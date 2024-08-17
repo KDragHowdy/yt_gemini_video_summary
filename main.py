@@ -46,13 +46,9 @@ def main():
         if not video_path:
             raise VideoProcessingError("Failed to download video.")
 
-        first_draft_chunks, second_draft_chunks = process_video(
-            video_path, video_id, duration_minutes
-        )
+        summary_chunks = process_video(video_path, video_id, duration_minutes)
 
-        generate_and_save_reports(
-            video_id, video_title, first_draft_chunks, second_draft_chunks, OUTPUT_DIR
-        )
+        generate_and_save_reports(video_id, video_title, summary_chunks, OUTPUT_DIR)
 
         print("Video processing completed successfully.")
 
