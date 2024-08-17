@@ -86,3 +86,7 @@ docs/_build/
 
 # Cython debug symbols
 cython_debug/
+
+#videos
+input/
+output/

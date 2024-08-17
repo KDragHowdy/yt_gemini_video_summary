@@ -1,17 +1,18 @@
 from file_uploader import upload_video, wait_for_file_active
 from content_generator import process_video_chunk, process_video_chunk_second_draft
 from utils import get_transcript
+from error_handling import handle_exceptions, VideoProcessingError
 import time
 
 
+@handle_exceptions
 def process_video(video_path, video_id, duration_minutes):
     video_file = upload_video(video_path)
     video_file = wait_for_file_active(video_file)
 
     transcript = get_transcript(video_id)
     if not transcript:
-        print("Error: Unable to retrieve transcript. Exiting.")
-        return [], []
+        raise VideoProcessingError("Unable to retrieve transcript")
 
     print(f"Successfully retrieved transcript ({len(transcript)} characters).")
 
@@ -22,7 +23,7 @@ def process_video(video_path, video_id, duration_minutes):
         chunk_end = min(i + 60, duration_minutes)
         chunk_transcript = transcript[
             int(chunk_start * 60 * 10) : int(chunk_end * 60 * 10)
-        ]  # Assuming 10 words per second
+        ]
 
         print(f"Processing chunk {chunk_start}-{chunk_end} minutes...")
         first_draft = process_video_chunk(
