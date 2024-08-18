@@ -23,8 +23,8 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
     intertextual_chunks = []
 
     for i, chunk_path in enumerate(video_chunks):
-        chunk_start = i * 15
-        chunk_end = min((i + 1) * 15, duration_minutes)
+        chunk_start = i * 20  # Assuming 20-minute chunks
+        chunk_end = min((i + 1) * 20, duration_minutes)
         chunk_transcript = transcript[
             int(chunk_start * 60 * 10) : int(chunk_end * 60 * 10)
         ]
@@ -89,9 +89,18 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
         time.sleep(4)  # To respect the rate limit of 15 RPM
 
     # Consolidate work products
-    consolidate_work_products(video_id, video_title, "video_analysis")
-    consolidate_work_products(video_id, video_title, "transcript_analysis")
-    consolidate_work_products(video_id, video_title, "intertextual_analysis")
-    consolidate_work_products(video_id, video_title, "summary")
+    print("Debug: Starting consolidation of work products")
+    for analysis_type in [
+        "video_analysis",
+        "transcript_analysis",
+        "intertextual_analysis",
+    ]:
+        print(f"Debug: Consolidating {analysis_type}")
+        consolidated_content = consolidate_work_products(
+            video_id, video_title, analysis_type
+        )
+        print(
+            f"Debug: Consolidated {analysis_type} content length: {len(consolidated_content)}"
+        )
 
     return summary_chunks, intertextual_chunks

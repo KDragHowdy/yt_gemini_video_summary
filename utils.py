@@ -21,13 +21,32 @@ def consolidate_work_products(video_id, video_title, analysis_type):
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
 
     consolidated_content = ""
-    for file in sorted(os.listdir(interim_dir)):
-        if file.startswith(f"wp_{shortened_title}_{analysis_type}_chunk_"):
-            with open(os.path.join(interim_dir, file), "r") as f:
-                consolidated_content += f.read() + "\n\n"
+    chunk_files = []
 
-    consolidated_filename = f"wp_{shortened_title}_{analysis_type}_consolidated.txt"
-    with open(os.path.join(interim_dir, consolidated_filename), "w") as f:
-        f.write(consolidated_content)
+    # Collect all relevant chunk files
+    for file in os.listdir(interim_dir):
+        if file.startswith(
+            f"wp_{shortened_title}_{analysis_type}_chunk_"
+        ) and file.endswith(".txt"):
+            chunk_files.append(file)
 
-    print(f"Consolidated {analysis_type} saved as {consolidated_filename}")
+    # Sort chunk files to ensure correct order
+    chunk_files.sort(key=lambda x: int(x.split("_chunk_")[1].split("-")[0]))
+
+    # Combine content from all chunk files
+    for file in chunk_files:
+        with open(os.path.join(interim_dir, file), "r", encoding="utf-8") as f:
+            content = f.read()
+            consolidated_content += content + "\n\n"
+
+    if consolidated_content:
+        consolidated_filename = f"wp_{shortened_title}_{analysis_type}_consolidated.txt"
+        with open(
+            os.path.join(interim_dir, consolidated_filename), "w", encoding="utf-8"
+        ) as f:
+            f.write(consolidated_content)
+        print(f"Consolidated {analysis_type} saved as {consolidated_filename}")
+    else:
+        print(f"Warning: No content found to consolidate for {analysis_type}")
+
+    return consolidated_content

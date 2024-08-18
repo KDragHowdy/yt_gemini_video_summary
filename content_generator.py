@@ -31,8 +31,16 @@ def generate_content(prompt, video_file=None):
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):
+    print(f"Debug: Entering analyze_video_content function")
+    print(f"Debug: video_file = {video_file}")
+    print(f"Debug: chunk_start = {chunk_start}")
+    print(f"Debug: chunk_end = {chunk_end}")
+
+    frame_rate = 1  # 1 frame per second, as per Gemini API default
+
     prompt = f"""
     Analyze the visual content of the video from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
+    Note that the video is sampled at {frame_rate} frame(s) per second.
 
     For each structured element you identify:
     1. Describe the type of element (e.g., slide, graph, chart, code snippet).
@@ -45,7 +53,19 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
     Ignore general background visuals or footage of the speaker unless they contain relevant structured information.
 
-    Format the output as a numbered list of structured elements.
+    Format the output as a numbered list of structured elements, like this:
+
+    1. Element Type: [Type]
+       Timestamp: [Time]
+       Content:
+       [Detailed reproduction or description of the element]
+
+    2. Element Type: [Type]
+       Timestamp: [Time]
+       Content:
+       [Detailed reproduction or description of the element]
+
+    ... and so on for each identified structured element.
     """
     return generate_content(prompt, video_file)
 

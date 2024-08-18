@@ -2,6 +2,7 @@ import yt_dlp
 import os
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 
 def get_video_info(video_id):
@@ -18,7 +19,7 @@ def download_youtube_video(
 ):  # Default to 20 minutes
     url = f"https://www.youtube.com/watch?v={video_id}"
     ydl_opts = {
-        "format": "best",
+        "format": "bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
     }
     try:
@@ -34,9 +35,8 @@ def download_youtube_video(
         for i in range(0, int(duration), chunk_duration):
             start = i
             end = min(i + chunk_duration, duration)
-            chunk = video.subclip(start, end)
             chunk_filename = f"{os.path.splitext(filename)[0]}_chunk_{int(i//60):02d}-{int(end//60):02d}.mp4"
-            chunk.write_videofile(chunk_filename)
+            ffmpeg_extract_subclip(filename, start, end, targetname=chunk_filename)
             chunks.append(chunk_filename)
             print(f"Created chunk: {chunk_filename}")
         video.close()
