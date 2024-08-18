@@ -10,48 +10,75 @@ model = genai.GenerativeModel(
 def analyze_intertextual_references(
     video_analysis, transcript_analysis, chunk_start, chunk_end
 ):
-    prompt = f"""
-    Analyze the following video content description and transcript for intertextual references:
+    max_retries = 3
+    retry_delay = 1  # Start with 1 second delay
 
-    Video Content Description:
-    {video_analysis}
+    for attempt in range(max_retries):
+        try:
+            prompt = f"""
+            Analyze the following video content description and transcript for intertextual references:
 
-    Transcript:
-    {transcript_analysis}
+            Video Content Description:
+            {video_analysis}
 
-    Identify and explain any references to literary works, philosophical concepts, historical events, scientific theories, pop culture, AI technology, research papers, internet culture, or other notable ideas.
+            Transcript:
+            {transcript_analysis}
 
-    Using this JSON schema:
-    Reference = {{
-        "type": str,
-        "reference": str,
-        "context": str,
-        "explanation": str,
-        "significance": str
-    }}
+            Identify and explain any references to literary works, philosophical concepts, historical events, scientific theories, pop culture, AI technology, research papers, internet culture, or other notable ideas.
 
-    Return a `list[Reference]`
-    """
+            Format the output as a JSON array of objects with the following structure:
+            [
+                {{
+                    "type": "literary/philosophical/historical/scientific/pop_culture/ai_tech/research/internet_culture/other",
+                    "reference": "The actual reference",
+                    "context": "How it was used in the video",
+                    "explanation": "Brief explanation of the reference",
+                    "significance": "Why it's important in this context"
+                }}
+            ]
 
-    response = model.generate_content(prompt)
-    intertextual_analysis = response.text
+            Ensure that the output is a valid JSON array. Do not include any text before or after the JSON array.
+            """
 
-    print(
-        f"Debug: Raw intertextual analysis content for chunk {chunk_start}-{chunk_end}:\n{intertextual_analysis[:500]}..."
-    )
+            response = model.generate_content(prompt)
+            intertextual_analysis = response.text
 
-    try:
-        parsed_analysis = json.loads(intertextual_analysis)
-        if not isinstance(parsed_analysis, list):
-            raise ValueError("Parsed JSON is not a list")
-    except (json.JSONDecodeError, ValueError) as e:
-        print(
-            f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
-        )
-        print("Debug: Falling back to a default structure.")
-        parsed_analysis = []
+            print(
+                f"Debug: Raw intertextual analysis content for chunk {chunk_start}-{chunk_end}:\n{intertextual_analysis[:500]}..."
+            )
 
-    return json.dumps({"references": parsed_analysis}, indent=2)
+            # Attempt to parse the JSON
+            parsed_analysis = json.loads(intertextual_analysis)
+
+            # Ensure the parsed result is a list
+            if not isinstance(parsed_analysis, list):
+                raise ValueError("Parsed JSON is not a list")
+
+            return json.dumps({"references": parsed_analysis}, indent=2)
+
+        except (json.JSONDecodeError, ValueError) as e:
+            print(
+                f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
+            )
+            if attempt < max_retries - 1:
+                print(f"Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+                retry_delay *= 2  # Exponential backoff
+            else:
+                print("Debug: Falling back to a default structure.")
+                return json.dumps({"references": []}, indent=2)
+
+
+def process_intertextual_references(video_id, video_title, intertextual_chunks):
+    consolidated_references: List[Dict[str, Any]] = []
+    for chunk in intertextual_chunks:
+        try:
+            chunk_data = json.loads(chunk)
+            consolidated_references.extend(chunk_data.get("references", []))
+        except json.JSONDecodeError as e:
+            print(f"Error parsing intertextual chunk: {str(e)}")
+
+    return {"references": consolidated_references}
 
 
 def process_intertextual_references(video_id, video_title, intertextual_chunks):

@@ -30,6 +30,10 @@ def consolidate_work_products(video_id, video_title, analysis_type):
         ) and file.endswith(".txt"):
             chunk_files.append(file)
 
+    if not chunk_files:
+        print(f"Warning: No chunk files found for {analysis_type}")
+        return ""
+
     # Sort chunk files to ensure correct order
     chunk_files.sort(key=lambda x: int(x.split("_chunk_")[1].split("-")[0]))
 
