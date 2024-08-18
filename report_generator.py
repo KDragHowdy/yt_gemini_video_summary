@@ -1,7 +1,7 @@
 import os
 
 
-def generate_markdown_report(video_id, video_title, chunks):
+def generate_markdown_report(video_id, video_title, chunks, intertextual_references):
     markdown_content = f"""
 # Video Analysis Report: {video_title}
 
@@ -17,11 +17,25 @@ Video ID: {video_id}
 
 """
 
+    markdown_content += "\n## Intertextual References\n\n"
+    for ref in intertextual_references:
+        markdown_content += f"""
+### {ref['type'].capitalize()} Reference: {ref['reference']}
+- Context: {ref['context']}
+- Explanation: {ref['explanation']}
+- Significance: {ref['significance']}
+
+"""
+
     return markdown_content
 
 
-def generate_and_save_reports(video_id, video_title, summary_chunks, output_dir):
-    report = generate_markdown_report(video_id, video_title, summary_chunks)
+def generate_and_save_reports(
+    video_id, video_title, summary_chunks, intertextual_references, output_dir
+):
+    report = generate_markdown_report(
+        video_id, video_title, summary_chunks, intertextual_references
+    )
 
     # Create shortened title
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20].lower()

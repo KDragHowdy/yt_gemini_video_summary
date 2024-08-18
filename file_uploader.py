@@ -10,7 +10,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 
 def upload_video(video_path):
-    print("Uploading file...")
+    print(f"Uploading file...")
     video_file = genai.upload_file(path=video_path)
     print(f"Completed upload: {video_file.uri}")
     return video_file

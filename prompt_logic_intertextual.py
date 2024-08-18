@@ -4,7 +4,38 @@ from datetime import datetime
 from content_generator import generate_content
 
 
-def analyze_intertextual_references(video_analysis, transcript_analysis, video_title):
+def clean_json_string(json_string):
+    # Find the first '{' and the last '}'
+    start = json_string.find("{")
+    end = json_string.rfind("}") + 1
+    if start != -1 and end != 0:
+        return json_string[start:end]
+    return json_string
+
+
+def analyze_intertextual_references(video_id, video_title, chunk_start, chunk_end):
+    interim_dir = "./interim"
+
+    shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
+
+    video_analysis_file = (
+        f"wp_{shortened_title}_video_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
+    )
+    video_analysis_path = os.path.join(interim_dir, video_analysis_file)
+    print(f"Debug: Attempting to open video analysis file: {video_analysis_path}")
+    with open(video_analysis_path, "r") as f:
+        video_analysis = f.read()
+
+    transcript_analysis_file = (
+        f"wp_{shortened_title}_transcript_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
+    )
+    transcript_analysis_path = os.path.join(interim_dir, transcript_analysis_file)
+    print(
+        f"Debug: Attempting to open transcript analysis file: {transcript_analysis_path}"
+    )
+    with open(transcript_analysis_path, "r") as f:
+        transcript_analysis = f.read()
+
     prompt = f"""
     Analyze the following video content and transcript for intertextual references:
 
@@ -42,41 +73,68 @@ def analyze_intertextual_references(video_analysis, transcript_analysis, video_t
             }}
         ]
     }}
+
+    Ensure that the output is a valid JSON object. Do not include any text before or after the JSON object.
     """
 
     intertextual_analysis = generate_content(prompt)
+    print(
+        f"Debug: Raw intertextual analysis content:\n{intertextual_analysis[:500]}..."
+    )  # Print first 500 characters
 
-    # Save the interim work product
+    # Save the raw output for debugging
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    condensed_title = "".join(e for e in video_title if e.isalnum())[:30]
-    filename = f"interim wp - {condensed_title} - intertextual - {timestamp}.txt"
-
-    interim_dir = "./interim"
-    os.makedirs(interim_dir, exist_ok=True)
-
-    with open(os.path.join(interim_dir, filename), "w") as f:
+    raw_filename = f"wp_{shortened_title}_intertextual_raw_{int(chunk_start)}_{int(chunk_end)}_{timestamp}.txt"
+    raw_path = os.path.join(interim_dir, raw_filename)
+    with open(raw_path, "w", encoding="utf-8") as f:
         f.write(intertextual_analysis)
+    print(f"Debug: Saved raw intertextual analysis to: {raw_path}")
 
-    return json.loads(intertextual_analysis)
+    # Clean the JSON string
+    cleaned_json_string = clean_json_string(intertextual_analysis)
+    print(
+        f"Debug: Cleaned JSON string:\n{cleaned_json_string[:500]}..."
+    )  # Print first 500 characters
+
+    try:
+        parsed_analysis = json.loads(cleaned_json_string)
+    except json.JSONDecodeError as e:
+        print(f"Debug: JSON parsing error: {str(e)}")
+        print("Debug: Falling back to a default structure.")
+        parsed_analysis = {"references": []}
+
+    # Save the processed output as JSON
+    processed_filename = f"wp_{shortened_title}_intertextual_chunk_{int(chunk_start)}_{int(chunk_end)}_{timestamp}.json"
+    processed_path = os.path.join(interim_dir, processed_filename)
+    with open(processed_path, "w", encoding="utf-8") as f:
+        json.dump(parsed_analysis, f, indent=2, ensure_ascii=False)
+    print(f"Debug: Saved processed intertextual analysis to: {processed_path}")
+
+    return parsed_analysis
+
+
+def process_intertextual_references(video_id, video_title, duration_minutes):
+    all_references = []
+
+    for i in range(0, int(duration_minutes), 60):
+        chunk_start = i
+        chunk_end = min(i + 60, duration_minutes)
+
+        chunk_references = analyze_intertextual_references(
+            video_id, video_title, chunk_start, chunk_end
+        )
+        all_references.extend(chunk_references.get("references", []))
+
+    return all_references
 
 
 # Example usage
 if __name__ == "__main__":
-    # These would typically come from your main processing pipeline
-    sample_video_analysis = """
-    The video features a speaker discussing the implications of large language models.
-    They mention GPT-3 and show a slide comparing it to BERT.
-    The speaker makes a reference to the "Chinese Room" thought experiment.
-    There's a meme image of a cat saying "I can haz AI" displayed at one point.
-    """
-    sample_transcript_analysis = """
-    The speaker says: "Just as Turing's imitation game challenged our notions of intelligence, GPT-3 is forcing us to reconsider what it means for a machine to understand language."
-    They later mention: "This reminds me of Hofstadter's concept of strange loops, which we see echoed in the recursive nature of these models."
-    The talk concludes with: "As the AI winter thawed, we've entered what some call the 'eternal September' of AI development."
-    """
-    sample_video_title = "The Philosophy of Large Language Models"
+    video_id = "example_video_id"
+    video_title = "The Philosophy of Large Language Models"
+    duration_minutes = 120  # Example duration
 
-    result = analyze_intertextual_references(
-        sample_video_analysis, sample_transcript_analysis, sample_video_title
+    all_references = process_intertextual_references(
+        video_id, video_title, duration_minutes
     )
-    print(json.dumps(result, indent=2))
+    print(json.dumps(all_references, indent=2, ensure_ascii=False))

@@ -2,6 +2,7 @@ from file_uploader import upload_video, wait_for_file_active
 from content_generator import analyze_combined_video_and_transcript_wp
 from utils import get_transcript
 from error_handling import handle_exceptions, VideoProcessingError
+from prompt_logic_intertextual import process_intertextual_references
 import time
 
 
@@ -34,4 +35,9 @@ def process_video(video_path, video_id, video_title, duration_minutes):
 
         time.sleep(4)  # To respect the rate limit of 15 RPM
 
-    return summary_chunks
+    # After processing all chunks, perform intertextual analysis
+    intertextual_references = process_intertextual_references(
+        video_id, video_title, duration_minutes
+    )
+
+    return summary_chunks, intertextual_references

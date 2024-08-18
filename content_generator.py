@@ -1,4 +1,5 @@
 import google.generativeai as genai
+import time
 import os
 from datetime import datetime
 
@@ -25,6 +26,11 @@ def generate_content(prompt, video_file=None):
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):
+    print(f"Debug: Entering analyze_video_content function")
+    print(f"Debug: video_file = {video_file}")
+    print(f"Debug: chunk_start = {chunk_start}")
+    print(f"Debug: chunk_end = {chunk_end}")
+
     prompt = f"""
     Analyze the visual content of the video from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
@@ -57,6 +63,11 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
 
 def analyze_transcript(transcript, chunk_start, chunk_end):
+    print(f"Debug: Entering analyze_transcript function")
+    print(f"Debug: transcript length = {len(transcript)}")
+    print(f"Debug: chunk_start = {chunk_start}")
+    print(f"Debug: chunk_end = {chunk_end}")
+
     prompt = f"""
     Analyze the following transcript content from {chunk_start} to {chunk_end} minutes:
 
@@ -72,33 +83,17 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
     return generate_content(prompt)
 
 
-def save_interim_work_product(content, video_id, video_title, analysis_type):
-    shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
-
-    # Extract chunk information if present
-    if "chunk" in analysis_type:
-        chunk_info = analysis_type.split("chunk_")[1]
-        chunk_start, chunk_end = chunk_info.split("_")
-        chunk_start = float(chunk_start)
-        chunk_end = float(chunk_end)
-        filename = f"wp_{shortened_title}_{analysis_type.split('_')[0]}_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
-    else:
-        filename = f"wp_{shortened_title}_{analysis_type}.txt"
-
-    interim_dir = "./interim"
-    os.makedirs(interim_dir, exist_ok=True)
-
-    file_path = os.path.join(interim_dir, filename)
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(content)
-
-    print(f"Saved {analysis_type} interim work product: {filename}")
-    return filename
-
-
 def analyze_combined_video_and_transcript_wp(
     video_file, transcript, chunk_start, chunk_end, video_id, video_title
 ):
+    print(f"Debug: Entering analyze_combined_video_and_transcript_wp function")
+    print(f"Debug: video_file = {video_file}")
+    print(f"Debug: transcript length = {len(transcript)}")
+    print(f"Debug: chunk_start = {chunk_start}")
+    print(f"Debug: chunk_end = {chunk_end}")
+    print(f"Debug: video_id = {video_id}")
+    print(f"Debug: video_title = {video_title}")
+
     video_analysis = analyze_video_content(video_file, chunk_start, chunk_end)
     transcript_analysis = analyze_transcript(transcript, chunk_start, chunk_end)
 
@@ -140,3 +135,33 @@ def analyze_combined_video_and_transcript_wp(
     )
 
     return summary
+
+
+def save_interim_work_product(content, video_id, video_title, analysis_type):
+    print(f"Debug: Entering save_interim_work_product function")
+    print(f"Debug: content length = {len(content)}")
+    print(f"Debug: video_id = {video_id}")
+    print(f"Debug: video_title = {video_title}")
+    print(f"Debug: analysis_type = {analysis_type}")
+
+    shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
+
+    # Extract chunk information if present
+    if "chunk" in analysis_type:
+        chunk_info = analysis_type.split("chunk_")[1]
+        chunk_start, chunk_end = chunk_info.split("_")
+        chunk_start = float(chunk_start)
+        chunk_end = float(chunk_end)
+        filename = f"wp_{shortened_title}_{analysis_type.split('_')[0]}_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
+    else:
+        filename = f"wp_{shortened_title}_{analysis_type}.txt"
+
+    interim_dir = "./interim"
+    os.makedirs(interim_dir, exist_ok=True)
+
+    file_path = os.path.join(interim_dir, filename)
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    print(f"Saved {analysis_type} interim work product: {filename}")
+    return filename
