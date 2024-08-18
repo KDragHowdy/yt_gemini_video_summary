@@ -1,125 +1,66 @@
-import os
+import google.generativeai as genai
 import json
 from datetime import datetime
-from content_generator import generate_content
+
+model = genai.GenerativeModel(
+    "gemini-1.5-flash", generation_config={"response_mime_type": "application/json"}
+)
 
 
-def clean_json_string(json_string):
-    # Find the first '{' and the last '}'
-    start = json_string.find("{")
-    end = json_string.rfind("}") + 1
-    if start != -1 and end != 0:
-        return json_string[start:end]
-    return json_string
-
-
-def analyze_intertextual_references(video_id, video_title):
-    interim_dir = "./interim"
-    shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
-
-    video_analysis_file = f"wp_{shortened_title}_video_analysis_consolidated.txt"
-    transcript_analysis_file = (
-        f"wp_{shortened_title}_transcript_analysis_consolidated.txt"
-    )
-
-    video_analysis_path = os.path.join(interim_dir, video_analysis_file)
-    transcript_analysis_path = os.path.join(interim_dir, transcript_analysis_file)
-
-    print(f"Debug: Attempting to open video analysis file: {video_analysis_path}")
-    with open(video_analysis_path, "r") as f:
-        video_analysis = f.read()
-
-    print(
-        f"Debug: Attempting to open transcript analysis file: {transcript_analysis_path}"
-    )
-    with open(transcript_analysis_path, "r") as f:
-        transcript_analysis = f.read()
-
+def analyze_intertextual_references(
+    video_analysis, transcript_analysis, chunk_start, chunk_end
+):
     prompt = f"""
-    Analyze the following video content and transcript for intertextual references:
+    Analyze the following video content description and transcript for intertextual references:
 
-    Video Analysis:
+    Video Content Description:
     {video_analysis}
 
-    Transcript Analysis:
+    Transcript:
     {transcript_analysis}
 
-    Please identify and explain any references to:
-    1. Literary works
-    2. Philosophical concepts
-    3. Historical events
-    4. Scientific theories
-    5. Pop culture
-    6. AI technology and concepts
-    7. Research papers or academic works
-    8. Internet culture and memes
-    9. Other notable works or ideas
+    Identify and explain any references to literary works, philosophical concepts, historical events, scientific theories, pop culture, AI technology, research papers, internet culture, or other notable ideas.
 
-    For each reference, provide:
-    - The context in which it was mentioned
-    - A brief explanation of the reference
-    - Its significance or relevance to the speaker's point
-
-    Format the output as a JSON object with the following structure:
-    {{
-        "references": [
-            {{
-                "type": "literary/philosophical/historical/scientific/pop_culture/ai_tech/research/internet_culture/other",
-                "reference": "The actual reference",
-                "context": "How it was used in the video",
-                "explanation": "Brief explanation of the reference",
-                "significance": "Why it's important in this context"
-            }}
-        ]
+    Using this JSON schema:
+    Reference = {{
+        "type": str,
+        "reference": str,
+        "context": str,
+        "explanation": str,
+        "significance": str
     }}
 
-    Ensure that the output is a valid JSON object. Do not include any text before or after the JSON object.
+    Return a `list[Reference]`
     """
 
-    intertextual_analysis = generate_content(prompt)
-    print(
-        f"Debug: Raw intertextual analysis content:\n{intertextual_analysis[:500]}..."
-    )  # Print first 500 characters
+    response = model.generate_content(prompt)
+    intertextual_analysis = response.text
 
-    # Save the raw output for debugging
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    raw_filename = f"wp_{shortened_title}_intertextual_raw_{timestamp}.txt"
-    raw_path = os.path.join(interim_dir, raw_filename)
-    with open(raw_path, "w", encoding="utf-8") as f:
-        f.write(intertextual_analysis)
-    print(f"Debug: Saved raw intertextual analysis to: {raw_path}")
-
-    # Clean the JSON string
-    cleaned_json_string = clean_json_string(intertextual_analysis)
     print(
-        f"Debug: Cleaned JSON string:\n{cleaned_json_string[:500]}..."
-    )  # Print first 500 characters
+        f"Debug: Raw intertextual analysis content for chunk {chunk_start}-{chunk_end}:\n{intertextual_analysis[:500]}..."
+    )
 
     try:
-        parsed_analysis = json.loads(cleaned_json_string)
-    except json.JSONDecodeError as e:
-        print(f"Debug: JSON parsing error: {str(e)}")
+        parsed_analysis = json.loads(intertextual_analysis)
+        if not isinstance(parsed_analysis, list):
+            raise ValueError("Parsed JSON is not a list")
+    except (json.JSONDecodeError, ValueError) as e:
+        print(
+            f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
+        )
         print("Debug: Falling back to a default structure.")
-        parsed_analysis = {"references": []}
+        parsed_analysis = []
 
-    # Save the processed output as JSON
-    processed_filename = f"wp_{shortened_title}_intertextual_{timestamp}.json"
-    processed_path = os.path.join(interim_dir, processed_filename)
-    with open(processed_path, "w", encoding="utf-8") as f:
-        json.dump(parsed_analysis, f, indent=2, ensure_ascii=False)
-    print(f"Debug: Saved processed intertextual analysis to: {processed_path}")
-
-    return parsed_analysis
+    return json.dumps({"references": parsed_analysis}, indent=2)
 
 
-def process_intertextual_references(video_id, video_title):
-    return analyze_intertextual_references(video_id, video_title)
+def process_intertextual_references(video_id, video_title, intertextual_chunks):
+    consolidated_references = []
+    for chunk in intertextual_chunks:
+        try:
+            chunk_data = json.loads(chunk)
+            consolidated_references.extend(chunk_data.get("references", []))
+        except json.JSONDecodeError as e:
+            print(f"Error parsing intertextual chunk: {str(e)}")
 
-
-# Example usage
-if __name__ == "__main__":
-    video_id = "example_video_id"
-    video_title = "The Philosophy of Large Language Models"
-
-    all_references = process_intertextual_references(video_id, video_title)
-    print(json.dumps(all_references, indent=2, ensure_ascii=False))
+    return {"references": consolidated_references}

@@ -8,7 +8,6 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 def generate_content(prompt, video_file=None):
     try:
-        # Estimate tokens
         estimated_tokens = len(prompt) // 4
         if video_file:
             estimated_tokens += 1000  # Placeholder estimate for video file
@@ -32,11 +31,6 @@ def generate_content(prompt, video_file=None):
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):
-    print(f"Debug: Entering analyze_video_content function")
-    print(f"Debug: video_file = {video_file}")
-    print(f"Debug: chunk_start = {chunk_start}")
-    print(f"Debug: chunk_end = {chunk_end}")
-
     prompt = f"""
     Analyze the visual content of the video from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
@@ -51,29 +45,12 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
     Ignore general background visuals or footage of the speaker unless they contain relevant structured information.
 
-    Format the output as a numbered list of structured elements, like this:
-
-    1. Element Type: [Type]
-       Timestamp: [Time]
-       Content:
-       [Detailed reproduction or description of the element]
-
-    2. Element Type: [Type]
-       Timestamp: [Time]
-       Content:
-       [Detailed reproduction or description of the element]
-
-    ... and so on for each identified structured element.
+    Format the output as a numbered list of structured elements.
     """
     return generate_content(prompt, video_file)
 
 
 def analyze_transcript(transcript, chunk_start, chunk_end):
-    print(f"Debug: Entering analyze_transcript function")
-    print(f"Debug: transcript length = {len(transcript)}")
-    print(f"Debug: chunk_start = {chunk_start}")
-    print(f"Debug: chunk_end = {chunk_end}")
-
     prompt = f"""
     Analyze the following transcript content from {chunk_start} to {chunk_end} minutes:
 
@@ -90,34 +67,16 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
 
 
 def analyze_combined_video_and_transcript_wp(
-    video_file, transcript, chunk_start, chunk_end, video_id, video_title
+    video_analysis,
+    transcript_analysis,
+    intertextual_analysis,
+    chunk_start,
+    chunk_end,
+    video_id,
+    video_title,
 ):
-    print(f"Debug: Entering analyze_combined_video_and_transcript_wp function")
-    print(f"Debug: video_file = {video_file}")
-    print(f"Debug: transcript length = {len(transcript)}")
-    print(f"Debug: chunk_start = {chunk_start}")
-    print(f"Debug: chunk_end = {chunk_end}")
-    print(f"Debug: video_id = {video_id}")
-    print(f"Debug: video_title = {video_title}")
-
-    video_analysis = analyze_video_content(video_file, chunk_start, chunk_end)
-    transcript_analysis = analyze_transcript(transcript, chunk_start, chunk_end)
-
-    save_interim_work_product(
-        video_analysis,
-        video_id,
-        video_title,
-        f"video_analysis_chunk_{chunk_start}_{chunk_end}",
-    )
-    save_interim_work_product(
-        transcript_analysis,
-        video_id,
-        video_title,
-        f"transcript_analysis_chunk_{chunk_start}_{chunk_end}",
-    )
-
     prompt = f"""
-    Analyze the following video content and transcript from {chunk_start} to {chunk_end} minutes:
+    Analyze the following video content, transcript, and intertextual analysis from {chunk_start} to {chunk_end} minutes:
 
     Video Analysis (Structured Elements):
     {video_analysis}
@@ -125,22 +84,21 @@ def analyze_combined_video_and_transcript_wp(
     Transcript Analysis:
     {transcript_analysis}
 
-    Please provide a detailed report that combines and synthesizes the information from both analyses, including:
+    Intertextual Analysis:
+    {intertextual_analysis}
+
+    Please provide a detailed report that combines and synthesizes the information from all analyses, including:
     1. A chronological list of structured elements (slides, graphs, charts, code snippets) identified in the video, with their content and relevance to the spoken content.
     2. Key points and information presented, referencing the relevant visual elements where applicable.
     3. Notable quotes or statements, integrated naturally into the context and linked to visual elements if relevant.
-    4. Overall flow and structure of the video segment, highlighting how the visual elements support or illustrate the spoken content.
+    4. Intertextual references identified, explaining their significance in the context of the video content.
+    5. Overall flow and structure of the video segment, highlighting how the visual elements support or illustrate the spoken content.
 
     Format the report in Markdown, using appropriate headings and structure.
-    Ensure that each structured visual element is clearly presented and explained in the context of the spoken content.
+    Ensure that each structured visual element is clearly presented and explained in the context of the spoken content and any relevant intertextual references.
     """
 
-    summary = generate_content(prompt, video_file)
-    save_interim_work_product(
-        summary, video_id, video_title, f"summary_chunk_{chunk_start}_{chunk_end}"
-    )
-
-    return summary
+    return generate_content(prompt)
 
 
 def save_interim_work_product(content, video_id, video_title, analysis_type):
@@ -171,3 +129,12 @@ def save_interim_work_product(content, video_id, video_title, analysis_type):
 
     print(f"Saved {analysis_type} interim work product: {filename}")
     return filename
+
+
+__all__ = [
+    "generate_content",
+    "analyze_video_content",
+    "analyze_transcript",
+    "analyze_combined_video_and_transcript_wp",
+    "save_interim_work_product",
+]

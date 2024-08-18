@@ -27,13 +27,6 @@ Video ID: {video_id}
 
     markdown_content += "\n## Intertextual References\n\n"
 
-    if isinstance(intertextual_references, str):
-        try:
-            intertextual_references = json.loads(intertextual_references)
-        except json.JSONDecodeError:
-            print("Debug: Failed to parse intertextual_references as JSON")
-            intertextual_references = {}
-
     if (
         isinstance(intertextual_references, dict)
         and "references" in intertextual_references

@@ -6,6 +6,7 @@ from video_processor import process_video
 from report_generator import generate_and_save_reports
 from utils import setup_directories
 from error_handling import VideoProcessingError
+from prompt_logic_intertextual import process_intertextual_references
 
 # Add the project root directory to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -58,10 +59,15 @@ def main():
         print(f"Debug: Video downloaded to {video_path}")
 
         print("Debug: Starting video processing")
-        summary_chunks, intertextual_references = process_video(
+        summary_chunks, intertextual_chunks = process_video(
             video_path, video_id, video_title, duration_minutes
         )
         print("Debug: Video processing completed")
+
+        print("Debug: Processing intertextual references")
+        intertextual_references = process_intertextual_references(
+            video_id, video_title, intertextual_chunks
+        )
 
         print("Debug: Generating and saving reports")
         generate_and_save_reports(
