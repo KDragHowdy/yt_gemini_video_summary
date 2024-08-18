@@ -53,14 +53,15 @@ def main():
 
         print(f"Processing video: {video_title}")
         print("Debug: Downloading YouTube video")
-        video_path = download_youtube_video(video_id, INPUT_DIR)
-        if not video_path:
+        chunk_duration = 20 * 60  # 20 minutes in seconds
+        video_chunks = download_youtube_video(video_id, INPUT_DIR, chunk_duration)
+        if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
-        print(f"Debug: Video downloaded to {video_path}")
+        print(f"Debug: Video downloaded and split into {len(video_chunks)} chunks")
 
         print("Debug: Starting video processing")
         summary_chunks, intertextual_chunks = process_video(
-            video_path, video_id, video_title, duration_minutes
+            video_chunks, video_id, video_title, duration_minutes
         )
         print("Debug: Video processing completed")
 

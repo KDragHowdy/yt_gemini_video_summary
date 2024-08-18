@@ -12,10 +12,7 @@ import time
 
 
 @handle_exceptions
-def process_video(video_path, video_id, video_title, duration_minutes):
-    video_file = upload_video(video_path)
-    video_file = wait_for_file_active(video_file)
-
+def process_video(video_chunks, video_id, video_title, duration_minutes):
     transcript = get_transcript(video_id)
     if not transcript:
         raise VideoProcessingError("Unable to retrieve transcript")
@@ -25,14 +22,18 @@ def process_video(video_path, video_id, video_title, duration_minutes):
     summary_chunks = []
     intertextual_chunks = []
 
-    for i in range(0, int(duration_minutes), 15):
-        chunk_start = i
-        chunk_end = min(i + 15, duration_minutes)
+    for i, chunk_path in enumerate(video_chunks):
+        chunk_start = i * 15
+        chunk_end = min((i + 1) * 15, duration_minutes)
         chunk_transcript = transcript[
             int(chunk_start * 60 * 10) : int(chunk_end * 60 * 10)
         ]
 
         print(f"Processing chunk {chunk_start}-{chunk_end} minutes...")
+
+        # Upload and process video chunk
+        video_file = upload_video(chunk_path)
+        video_file = wait_for_file_active(video_file)
 
         # Analyze video content
         video_analysis = analyze_video_content(video_file, chunk_start, chunk_end)
