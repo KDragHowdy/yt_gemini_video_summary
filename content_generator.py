@@ -8,6 +8,12 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 def generate_content(prompt, video_file=None):
     try:
+        # Estimate tokens
+        estimated_tokens = len(prompt) // 4
+        if video_file:
+            estimated_tokens += 1000  # Placeholder estimate for video file
+        print(f"Estimated tokens for this call: {estimated_tokens}")
+
         if video_file:
             response = model.generate_content(
                 [video_file, prompt], request_options={"timeout": 600}

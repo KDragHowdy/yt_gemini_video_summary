@@ -13,23 +13,22 @@ def clean_json_string(json_string):
     return json_string
 
 
-def analyze_intertextual_references(video_id, video_title, chunk_start, chunk_end):
+def analyze_intertextual_references(video_id, video_title):
     interim_dir = "./interim"
-
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
 
-    video_analysis_file = (
-        f"wp_{shortened_title}_video_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
+    video_analysis_file = f"wp_{shortened_title}_video_analysis_consolidated.txt"
+    transcript_analysis_file = (
+        f"wp_{shortened_title}_transcript_analysis_consolidated.txt"
     )
+
     video_analysis_path = os.path.join(interim_dir, video_analysis_file)
+    transcript_analysis_path = os.path.join(interim_dir, transcript_analysis_file)
+
     print(f"Debug: Attempting to open video analysis file: {video_analysis_path}")
     with open(video_analysis_path, "r") as f:
         video_analysis = f.read()
 
-    transcript_analysis_file = (
-        f"wp_{shortened_title}_transcript_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
-    )
-    transcript_analysis_path = os.path.join(interim_dir, transcript_analysis_file)
     print(
         f"Debug: Attempting to open transcript analysis file: {transcript_analysis_path}"
     )
@@ -84,7 +83,7 @@ def analyze_intertextual_references(video_id, video_title, chunk_start, chunk_en
 
     # Save the raw output for debugging
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    raw_filename = f"wp_{shortened_title}_intertextual_raw_{int(chunk_start)}_{int(chunk_end)}_{timestamp}.txt"
+    raw_filename = f"wp_{shortened_title}_intertextual_raw_{timestamp}.txt"
     raw_path = os.path.join(interim_dir, raw_filename)
     with open(raw_path, "w", encoding="utf-8") as f:
         f.write(intertextual_analysis)
@@ -104,7 +103,7 @@ def analyze_intertextual_references(video_id, video_title, chunk_start, chunk_en
         parsed_analysis = {"references": []}
 
     # Save the processed output as JSON
-    processed_filename = f"wp_{shortened_title}_intertextual_chunk_{int(chunk_start)}_{int(chunk_end)}_{timestamp}.json"
+    processed_filename = f"wp_{shortened_title}_intertextual_{timestamp}.json"
     processed_path = os.path.join(interim_dir, processed_filename)
     with open(processed_path, "w", encoding="utf-8") as f:
         json.dump(parsed_analysis, f, indent=2, ensure_ascii=False)
@@ -113,28 +112,14 @@ def analyze_intertextual_references(video_id, video_title, chunk_start, chunk_en
     return parsed_analysis
 
 
-def process_intertextual_references(video_id, video_title, duration_minutes):
-    all_references = []
-
-    for i in range(0, int(duration_minutes), 60):
-        chunk_start = i
-        chunk_end = min(i + 60, duration_minutes)
-
-        chunk_references = analyze_intertextual_references(
-            video_id, video_title, chunk_start, chunk_end
-        )
-        all_references.extend(chunk_references.get("references", []))
-
-    return all_references
+def process_intertextual_references(video_id, video_title):
+    return analyze_intertextual_references(video_id, video_title)
 
 
 # Example usage
 if __name__ == "__main__":
     video_id = "example_video_id"
     video_title = "The Philosophy of Large Language Models"
-    duration_minutes = 120  # Example duration
 
-    all_references = process_intertextual_references(
-        video_id, video_title, duration_minutes
-    )
+    all_references = process_intertextual_references(video_id, video_title)
     print(json.dumps(all_references, indent=2, ensure_ascii=False))
