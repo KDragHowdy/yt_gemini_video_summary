@@ -1,14 +1,8 @@
+# prompt_logic_implied_knowledge.py
 import os
 import json
 from datetime import datetime
-import google.generativeai as genai
-
-# Configure Gemini API (you'll need to set up your API key)
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
-model = genai.GenerativeModel(
-    "gemini-1.5-pro", generation_config={"response_mime_type": "application/json"}
-)
+from models import get_gemini_pro_model
 
 
 def read_work_product(file_path):
@@ -17,6 +11,7 @@ def read_work_product(file_path):
 
 
 def analyze_implied_knowledge(video_analysis, transcript_analysis):
+    model = get_gemini_pro_model()
     prompt = f"""
     Analyze the following video content description and transcript for implied knowledge:
 
@@ -65,7 +60,6 @@ def save_implied_knowledge_analysis(analysis, video_id, chunk_start, chunk_end):
 def process_implied_knowledge(video_id):
     interim_dir = "./interim"
 
-    # Find all chunk files for this video ID
     video_chunks = [
         f
         for f in os.listdir(interim_dir)
@@ -82,11 +76,9 @@ def process_implied_knowledge(video_id):
         return
 
     for video_file in video_chunks:
-        # Extract chunk start and end from filename
         chunk_info = video_file.split("_chunk_")[1].split(".")[0]
         chunk_start, chunk_end = chunk_info.split("_")
 
-        # Find corresponding transcript file
         transcript_file = (
             f"wp_{video_id}_transcript_chunk_{chunk_start}_{chunk_end}.txt"
         )
@@ -111,7 +103,5 @@ def process_implied_knowledge(video_id):
 
 
 if __name__ == "__main__":
-    # Test the module
     video_id = "Imanaccelerationist"
-
     process_implied_knowledge(video_id)
