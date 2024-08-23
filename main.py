@@ -60,7 +60,7 @@ def main():
         print(f"Debug: Video downloaded and split into {len(video_chunks)} chunks")
 
         print("Debug: Starting video processing")
-        summary_chunks, intertextual_chunks = process_video(
+        summary_chunks, intertextual_chunks, video_analyses = process_video(
             video_chunks, video_id, video_title, duration_minutes
         )
         print("Debug: Video processing completed")
@@ -72,7 +72,12 @@ def main():
 
         print("Debug: Generating and saving reports")
         generate_and_save_reports(
-            video_id, video_title, summary_chunks, intertextual_references, OUTPUT_DIR
+            video_id,
+            video_title,
+            summary_chunks,
+            intertextual_references,
+            video_analyses,
+            OUTPUT_DIR,
         )
 
         print("Video processing completed successfully.")

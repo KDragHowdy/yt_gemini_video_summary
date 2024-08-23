@@ -60,16 +60,8 @@ def generate_content(prompt, video_file=None):
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):
-    print(f"Debug: Entering analyze_video_content function")
-    print(f"Debug: video_file = {video_file}")
-    print(f"Debug: chunk_start = {chunk_start}")
-    print(f"Debug: chunk_end = {chunk_end}")
-
-    frame_rate = 1  # 1 frame per second, as per Gemini API default
-
     prompt = f"""
-    Analyze the visual content of the video for the 10-minute chunk from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
-    Note: The video is sampled at {frame_rate} frame per second by the Gemini API.
+    Analyze the visual content of the video for the chunk from {chunk_start} to {chunk_end} minutes, focusing on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
     For each structured element you identify:
     1. Describe the type of element (e.g., slide, graph, chart, code snippet).
@@ -80,38 +72,24 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
        - For code snippets: Reproduce the code as exactly as possible.
        - For other structured elements: Provide a detailed description or reproduction.
 
-    Ignore general background visuals or footage of the speaker unless they contain relevant structured information.
-
-    Format the output as a numbered list of structured elements. Only include new or changed elements. If an element remains unchanged from the previous timestamp, do not include it in the list.
-
-    Example format:
-    1. Element Type: [Type]
-       Timestamp: [Time]
-       Content:
-       [Detailed reproduction or description of the element]
-
-    2. Element Type: [Type]
-       Timestamp: [Time]
-       Content:
-       [Detailed reproduction or description of the element]
-
-    ... and so on for each identified new or changed structured element.
+    Format your response in Markdown, using appropriate headings, subheadings, and formatting to recreate the structured elements as closely as possible.
     """
     return generate_content(prompt, video_file)
 
 
 def analyze_transcript(transcript, chunk_start, chunk_end):
     prompt = f"""
-    Analyze the following transcript content for the 10-minute chunk from {chunk_start} to {chunk_end} minutes:
+    Analyze the following transcript content for the chunk from {chunk_start} to {chunk_end} minutes:
 
     Transcript: {transcript}
 
-    Please provide a detailed list of observations that captures the essence of the spoken content, including:
+    Provide a detailed analysis that captures the essence of the spoken content, including:
     1. Key points and information presented
     2. Notable quotes or statements
     3. Names of speakers or people mentioned (if identifiable)
+    4. Any significant topics or themes discussed
 
-    Format the output as a numbered list of observations, maintaining chronological order.
+    Format your response in Markdown, using appropriate headings, subheadings, and bullet points.
     """
     return generate_content(prompt)
 

@@ -21,6 +21,7 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
 
     summary_chunks = []
     intertextual_chunks = []
+    video_analyses = []
 
     for i, chunk_path in enumerate(video_chunks):
         try:
@@ -44,6 +45,7 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
                 video_title,
                 f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
             )
+            video_analyses.append(video_analysis)
 
             # Analyze transcript
             transcript_analysis = analyze_transcript(
@@ -117,4 +119,4 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
             f"Debug: Consolidated {analysis_type} content length: {len(consolidated_content)}"
         )
 
-    return summary_chunks, intertextual_chunks
+    return summary_chunks, intertextual_chunks, video_analyses
