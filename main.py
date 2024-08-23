@@ -53,7 +53,7 @@ def main():
 
         print(f"Processing video: {video_title}")
         print("Debug: Downloading YouTube video")
-        chunk_duration = 20 * 60  # 20 minutes in seconds
+        chunk_duration = 10 * 60  # 10 minutes in seconds
         video_chunks = download_youtube_video(video_id, INPUT_DIR, chunk_duration)
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")

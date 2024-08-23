@@ -1,31 +1,42 @@
 import os
 import json
+from datetime import datetime
+from content_generator import generate_content
 
 
-def generate_markdown_report(video_id, video_title, chunks, intertextual_references):
-    print(
-        f"Debug: Type of intertextual_references in generate_markdown_report: {type(intertextual_references)}"
-    )
-    print(
-        f"Debug: Content of intertextual_references in generate_markdown_report: {intertextual_references}"
-    )
+def generate_markdown_report(
+    video_id, video_title, summary_chunks, intertextual_references
+):
+    combined_summary = "\n\n".join(summary_chunks)
+
+    prompt = f"""
+    Organize and synthesize the following summary chunks into a coherent final report for the video "{video_title}" (ID: {video_id}):
+
+    {combined_summary}
+
+    Please structure the report with the following sections:
+    1. Executive Summary
+    2. Key Points and Insights
+    3. Chronological Overview
+    4. Visual Elements and Their Significance
+    5. Intertextual References and Their Context
+    6. Conclusion and Future Implications
+
+    Use appropriate Markdown formatting for headings and subheadings.
+    """
+
+    organized_report = generate_content(prompt)
 
     markdown_content = f"""
 # Video Analysis Report: {video_title}
 
 Video ID: {video_id}
 
-"""
+{organized_report}
 
-    for i, chunk in enumerate(chunks, 1):
-        markdown_content += f"""
-## Segment {i}
-
-{chunk}
+## Intertextual References
 
 """
-
-    markdown_content += "\n## Intertextual References\n\n"
 
     if (
         isinstance(intertextual_references, dict)
@@ -51,13 +62,36 @@ Video ID: {video_id}
     return markdown_content
 
 
+def generate_structured_slides_appendix(video_id, video_title):
+    interim_dir = "./interim"
+    markdown_content = "# Appendix A: Structured Slides\n\n"
+
+    video_analysis_files = [
+        f
+        for f in os.listdir(interim_dir)
+        if f.startswith(f"wp_{video_id}_video_analysis_chunk_")
+    ]
+    video_analysis_files.sort()
+
+    for file in video_analysis_files:
+        with open(os.path.join(interim_dir, file), "r", encoding="utf-8") as f:
+            content = f.read()
+        chunk_info = file.split("_chunk_")[1].split(".")[0]
+        markdown_content += f"## Chunk {chunk_info}\n\n{content}\n\n"
+
+    return markdown_content
+
+
 def generate_and_save_reports(
     video_id, video_title, summary_chunks, intertextual_references, output_dir
 ):
     try:
-        report = generate_markdown_report(
+        main_report = generate_markdown_report(
             video_id, video_title, summary_chunks, intertextual_references
         )
+        structured_slides = generate_structured_slides_appendix(video_id, video_title)
+
+        full_report = f"{main_report}\n\n{structured_slides}\n\n# Appendix B: Intertextual Analysis\n\n{json.dumps(intertextual_references, indent=2)}"
 
         # Create shortened title
         shortened_title = "".join(e for e in video_title if e.isalnum())[:20].lower()
@@ -68,7 +102,7 @@ def generate_and_save_reports(
         # Save report
         report_file = os.path.join(output_dir, filename)
         with open(report_file, "w", encoding="utf-8") as f:
-            f.write(report)
+            f.write(full_report)
 
         print(f"Final report saved to {report_file}")
         return report_file

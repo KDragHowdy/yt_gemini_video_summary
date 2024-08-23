@@ -1,0 +1,95 @@
+{
+  "references": [
+    {
+      "type": "ai_tech",
+      "reference": "GPT-5",
+      "context": "The video discusses the expected capabilities of GPT-5 in 2025.",
+      "explanation": "GPT-5 is a hypothetical future version of the GPT (Generative Pre-trained Transformer) language model, known for its text generation capabilities.",
+      "significance": "It highlights the anticipated advancements in AI language models and their potential impact on various fields."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude-4",
+      "context": "The video mentions Claude-4 alongside GPT-5 as a prominent AI model expected to achieve significant advancements by 2025.",
+      "explanation": "Claude is an AI language model developed by Anthropic, known for its advanced conversational abilities.",
+      "significance": "It indicates the competitive landscape in the development of advanced AI models and the potential for multiple players to achieve significant progress."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "GPT-6",
+      "context": "The video discusses the anticipated release and capabilities of GPT-6 in 2026.",
+      "explanation": "GPT-6 is another hypothetical future version of the GPT language model, expected to surpass the capabilities of previous versions.",
+      "significance": "It emphasizes the ongoing progress in AI language model development and the expectation of substantial improvements in their capabilities."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude-5",
+      "context": "The video mentions Claude-5 as a potential advanced AI model to be released in 2026.",
+      "explanation": "Claude-5 is a hypothetical future version of the Claude language model, expected to be even more advanced than its predecessor.",
+      "significance": "It highlights the continuous advancements in the field of AI language models and the potential for multiple models to reach a high level of sophistication."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "AGI",
+      "context": "The video frequently mentions AGI (Artificial General Intelligence), particularly in the context of 2027.",
+      "explanation": "AGI refers to the hypothetical development of AI systems with human-level intelligence and the ability to perform any intellectual task that a human can.",
+      "significance": "It emphasizes the growing interest and speculation around the possibility of achieving AGI and its potential implications for society."
+    },
+    {
+      "type": "philosophical",
+      "reference": "Trough of Disillusionment",
+      "context": "The video mentions emerging from the 'trough of disillusionment' in 2026, referring to a stage in the Gartner Hype Cycle.",
+      "explanation": "The Gartner Hype Cycle is a graphical representation of the maturity and adoption of technologies, including a 'trough of disillusionment' phase where initial hype gives way to reality and challenges.",
+      "significance": "It suggests that the development of AI might follow a similar pattern, with initial enthusiasm followed by a period of skepticism before widespread adoption."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Droid brains",
+      "context": "The speaker refers to general purpose AI models as 'off-the-shelf Droid brains,' drawing a comparison to the Star Wars franchise.",
+      "explanation": "Droid brains are fictional artificial intelligences that power robots in the Star Wars universe.",
+      "significance": "It uses a popular cultural reference to illustrate the potential for general purpose AI to be widely used across various applications."
+    },
+    {
+      "type": "historical",
+      "reference": "2028 Election",
+      "context": "The video discusses the 2028 election as a potential turning point in AI's impact on politics.",
+      "explanation": "The 2028 election is a future event with no current certainty about its significance.",
+      "significance": "It highlights the potential for AI to become a major political issue and influence future elections."
+    },
+    {
+      "type": "internet_culture",
+      "reference": "Fortune 500",
+      "context": "The speaker uses 'Fortune 500' to refer to large corporations.",
+      "explanation": "The Fortune 500 is a list of the 500 largest publicly held companies in the United States.",
+      "significance": "It is a widely recognized term in business and finance, used to represent large and influential companies."
+    },
+    {
+      "type": "other",
+      "reference": "Benchmark Mastery",
+      "context": "The video uses 'Benchmark Mastery' as a title for its first slide, focusing on AI models' performance on benchmarks.",
+      "explanation": "Benchmarks are standardized tests used to evaluate the performance of AI models.",
+      "significance": "It indicates the importance of evaluating AI models' performance in the context of their intended applications."
+    },
+    {
+      "type": "other",
+      "reference": "Enterprise Ready",
+      "context": "The video uses 'Enterprise Ready' as a title for its second slide, highlighting the expected readiness of AI models for enterprise adoption.",
+      "explanation": "Enterprise readiness refers to the ability of a technology or solution to be successfully implemented and utilized in a large organization.",
+      "significance": "It signifies the transition of AI from experimental research to practical applications within businesses."
+    },
+    {
+      "type": "other",
+      "reference": "Year of AGI",
+      "context": "The video uses 'The Year of AGI' as a title for its third slide, predicting 2027 as a potential milestone for achieving AGI.",
+      "explanation": "AGI stands for Artificial General Intelligence, referring to the hypothetical development of AI systems with human-level intelligence.",
+      "significance": "It emphasizes the anticipation surrounding the possibility of achieving AGI and its potential implications for the future."
+    },
+    {
+      "type": "other",
+      "reference": "Election Year",
+      "context": "The video uses 'Election Year' as a title for its fourth slide, discussing the potential impact of AI on the 2028 election.",
+      "explanation": "The 2028 election is a future event with no current certainty about its significance.",
+      "significance": "It highlights the potential for AI to become a major political issue and influence future elections."
+    }
+  ]
+}

@@ -1,33 +1,62 @@
 import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import time
 import os
 from datetime import datetime
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel(
+    "gemini-1.5-flash",
+    generation_config={
+        "response_mime_type": "application/json",
+        "temperature": 1.0,
+        "top_p": 1.0,
+        "top_k": 40,
+    },
+)
 
 
 def generate_content(prompt, video_file=None):
-    try:
-        estimated_tokens = len(prompt) // 4
-        if video_file:
-            estimated_tokens += 1000  # Placeholder estimate for video file
-        print(f"Estimated tokens for this call: {estimated_tokens}")
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            estimated_tokens = len(prompt) // 4
+            if video_file:
+                estimated_tokens += 1000  # Placeholder estimate for video file
+            print(f"Estimated tokens for this call: {estimated_tokens}")
 
-        if video_file:
-            response = model.generate_content(
-                [video_file, prompt], request_options={"timeout": 600}
-            )
-        else:
-            response = model.generate_content(prompt, request_options={"timeout": 600})
+            safety_settings = {
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+            }
 
-        if response.prompt_feedback:
-            print(f"Prompt feedback: {response.prompt_feedback}")
+            if video_file:
+                response = model.generate_content(
+                    [video_file, prompt],
+                    safety_settings=safety_settings,
+                    generation_config={"response_mime_type": "application/json"},
+                )
+            else:
+                response = model.generate_content(
+                    prompt,
+                    safety_settings=safety_settings,
+                    generation_config={"response_mime_type": "application/json"},
+                )
 
-        return response.text
+            if response.prompt_feedback:
+                print(f"Prompt feedback: {response.prompt_feedback}")
 
-    except Exception as e:
-        print(f"Error generating content: {str(e)}")
-        return f"Error in analysis: {str(e)}"
+            if not response.text:
+                raise ValueError("Response was blocked or empty. Check safety ratings.")
+
+            return response.text
+
+        except Exception as e:
+            print(f"Error generating content (attempt {attempt + 1}): {str(e)}")
+            if attempt == max_retries - 1:
+                return f"Error in analysis: {str(e)}"
+            time.sleep(2**attempt)  # Exponential backoff
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):
@@ -36,11 +65,10 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
     print(f"Debug: chunk_start = {chunk_start}")
     print(f"Debug: chunk_end = {chunk_end}")
 
-    # Note: This frame rate is set by the Gemini API and cannot be changed
     frame_rate = 1  # 1 frame per second, as per Gemini API default
 
     prompt = f"""
-    Analyze the visual content of the video from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
+    Analyze the visual content of the video for the 10-minute chunk from {chunk_start} to {chunk_end} minutes, focusing specifically on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
     Note: The video is sampled at {frame_rate} frame per second by the Gemini API.
 
     For each structured element you identify:
@@ -74,7 +102,7 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
 def analyze_transcript(transcript, chunk_start, chunk_end):
     prompt = f"""
-    Analyze the following transcript content from {chunk_start} to {chunk_end} minutes:
+    Analyze the following transcript content for the 10-minute chunk from {chunk_start} to {chunk_end} minutes:
 
     Transcript: {transcript}
 
@@ -98,7 +126,7 @@ def analyze_combined_video_and_transcript_wp(
     video_title,
 ):
     prompt = f"""
-    Analyze the following video content, transcript, and intertextual analysis from {chunk_start} to {chunk_end} minutes:
+    Analyze the following video content, transcript, and intertextual analysis for the 10-minute chunk from {chunk_start} to {chunk_end} minutes:
 
     Video Analysis (Structured Elements):
     {video_analysis}
@@ -132,13 +160,12 @@ def save_interim_work_product(content, video_id, video_title, analysis_type):
 
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
 
-    # Extract chunk information if present
     if "chunk" in analysis_type:
         chunk_info = analysis_type.split("chunk_")[1]
         chunk_start, chunk_end = chunk_info.split("_")
         chunk_start = float(chunk_start)
         chunk_end = float(chunk_end)
-        filename = f"wp_{shortened_title}_{analysis_type.split('_')[0]}_chunk_{int(chunk_start)}_{int(chunk_end)}.txt"
+        filename = f"wp_{shortened_title}_{analysis_type.split('_')[0]}_chunk_{int(chunk_start):03d}_{int(chunk_end):03d}.txt"
     else:
         filename = f"wp_{shortened_title}_{analysis_type}.txt"
 

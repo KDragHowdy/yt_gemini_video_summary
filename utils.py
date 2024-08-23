@@ -35,7 +35,7 @@ def consolidate_work_products(video_id, video_title, analysis_type):
         return ""
 
     # Sort chunk files to ensure correct order
-    chunk_files.sort(key=lambda x: int(x.split("_chunk_")[1].split("-")[0]))
+    chunk_files.sort(key=lambda x: float(x.split("_chunk_")[1].split("_")[0]))
 
     # Combine content from all chunk files
     for file in chunk_files:

@@ -15,8 +15,8 @@ def get_video_info(video_id):
 
 
 def download_youtube_video(
-    video_id, output_dir, chunk_duration=20 * 60
-):  # Default to 20 minutes
+    video_id, output_dir, chunk_duration=10 * 60
+):  # Default to 10 minutes
     url = f"https://www.youtube.com/watch?v={video_id}"
     ydl_opts = {
         "format": "bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4]/best",
@@ -35,7 +35,7 @@ def download_youtube_video(
         for i in range(0, int(duration), chunk_duration):
             start = i
             end = min(i + chunk_duration, duration)
-            chunk_filename = f"{os.path.splitext(filename)[0]}_chunk_{int(i//60):02d}-{int(end//60):02d}.mp4"
+            chunk_filename = f"{os.path.splitext(filename)[0]}_chunk_{int(i//60):03d}-{int(end//60):03d}.mp4"
             ffmpeg_extract_subclip(filename, start, end, targetname=chunk_filename)
             chunks.append(chunk_filename)
             print(f"Created chunk: {chunk_filename}")

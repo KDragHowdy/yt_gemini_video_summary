@@ -1,0 +1,60 @@
+{
+  "references": [
+    {
+      "type": "ai_tech",
+      "reference": "GPT-5",
+      "context": "The speaker mentions the expected release of GPT-5 in late 2024 or early 2025.",
+      "explanation": "GPT-5 is the next iteration of the GPT (Generative Pre-trained Transformer) language model, known for its advanced capabilities in natural language processing and text generation.",
+      "significance": "GPT-5 is a significant development in the field of AI, representing a potential leap forward in language model technology and its applications."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude 4",
+      "context": "The speaker mentions the expected release of Claude 4 around the same time as GPT-5.",
+      "explanation": "Claude 4 is a rival language model developed by Anthropic, known for its focus on safety and alignment.",
+      "significance": "Claude 4 is a major competitor to GPT-5, indicating the increasing competition in the field of large language models."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Multimodal Models",
+      "context": "The speaker expects a growing focus on multimodality in AI, particularly with video and audio generators.",
+      "explanation": "Multimodal models refer to AI systems that can process and generate multiple forms of data, such as text, images, and audio.",
+      "significance": "Multimodality is a crucial development in AI, allowing for more comprehensive and realistic interactions with the world."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Humanoid Robots",
+      "context": "The speaker predicts the release of commercial humanoid robots in 2024.",
+      "explanation": "Humanoid robots are robots designed to resemble and interact with humans.",
+      "significance": "Humanoid robots represent a major step towards human-like machines, with potential applications in various industries."
+    },
+    {
+      "type": "internet_culture",
+      "reference": "Trough of Disillusionment",
+      "context": "The speaker predicts a 'trough of disillusionment' in the AI field.",
+      "explanation": "The 'trough of disillusionment' is a term used in the Gartner Hype Cycle to describe a period of disappointment and reduced interest following the peak of inflated expectations.",
+      "significance": "The speaker suggests that AI may be entering a period of disillusionment, a common pattern in technological development."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "AGI",
+      "context": "The speaker mentions the challenges of reaching Artificial General Intelligence (AGI) with current models.",
+      "explanation": "AGI refers to a hypothetical type of AI that possesses human-level intelligence and can perform any intellectual task that a human can.",
+      "significance": "AGI is a long-term goal in the field of AI, and the speaker suggests that current models may not be able to achieve it readily."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Benchmark Performance",
+      "context": "The speaker predicts that GPT-5 and Claude 4 will achieve 95th percentile performance on benchmarks.",
+      "explanation": "Benchmarks are standardized tests used to evaluate the performance of AI models across various tasks.",
+      "significance": "Reaching 95th percentile performance on benchmarks is a significant achievement in the traditional machine learning paradigm."
+    },
+    {
+      "type": "other",
+      "reference": "Old Paradigm of Machine Learning",
+      "context": "The speaker notes that 95th percentile performance usually signifies a 'solved problem' in the traditional machine learning paradigm.",
+      "explanation": "The traditional paradigm of machine learning focuses on building models for specific tasks, often based on labeled data and statistical methods.",
+      "significance": "The speaker suggests that the traditional machine learning paradigm may not fully apply to the challenges of AGI."
+    }
+  ]
+}

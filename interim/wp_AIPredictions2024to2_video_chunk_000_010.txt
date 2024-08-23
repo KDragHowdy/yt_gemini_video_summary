@@ -1,0 +1,22 @@
+[
+{
+"Element Type": "Slide",
+"Timestamp": 0,
+"Content": "The Next Few Years of AI\n2024 to 2030\nExciting and Turbulent\nTimes Ahead"
+},
+{
+"Element Type": "Slide",
+"Timestamp": 4,
+"Content": "2024: AI Expectations\nIn 2024, we anticipate significant advancements in AI technology.\nGPT-5 is rumored to be released, with Claude 4 also on the horizon,\nlikely intensifying the release cycle competition.\nMultimodal models, particularly those generating high-quality video and audio, are\nexpected to make a substantial impact.\nThere will likely be progress\nin creating smaller, faster, and more cost-effective models that\nmaintain high performance.\nAdditionally, the first commercial\nhumanoid robots might begin to appear, though they will likely be\nlimited in their initial capabilities.\n\n- GPT-5: Expected to be released in late 2024 or early 2025\n- Claude 4: Anticipated around the same time, increasing competition.\n- Multimodal Models: Improved video and audio generators emerging.\n- Condensed Models: Smaller, faster, and cheaper models maintaining high performance.\n- Humanoid Robots: First commercial versions potentially rolling out by year-end."
+},
+{
+"Element Type": "Slide",
+"Timestamp": 37,
+"Content": "2025: Benchmark Mastery\nIn 2025, the focus will likely shift to utilizing and integrating GPT-5\nand Claude-4 models.\nThese models are expected to bring\nincremental changes, achieving better performance but not\nrevolutionary improvements, achieving around 95% on benchmarks.\nThese models will still significantly impact many fields.\n Enterprises and SMBs will begin widespread deployment of these AI technologies,\nleading to increased hiring for AI-enabled roles.\nHowever, full integration may face initial infrastructure challenges and require new solutions. \n\n- GPT-5 and Claude-4: Incremental improvements over current models.\n- Benchmark Performance: Models achieving around 95% on reasoning tasks.\n- Enterprise Deployment: Widespread adoption by businesses and SMBs.\n- AI Hiring Surge: Increased demand for AI-enabled teams and roles.\n- Integration Challenges: Initial infrastructure limitations and new integration needs."
+},
+{
+"Element Type": "Image",
+"Timestamp": 38,
+"Content": "A red and white sign with the text \"HI, wanted\""
+}
+]

@@ -1,0 +1,74 @@
+{
+  "references": [
+    {
+      "type": "historical",
+      "reference": "Post-war boom of the 1950s",
+      "context": "The video compares the potential optimism of the 2030s to the post-war boom of the 1950s.",
+      "explanation": "The post-war boom refers to a period of rapid economic growth and prosperity in the United States and other developed countries following World War II.",
+      "significance": "The speaker uses this historical event to create an analogy and convey the potential for widespread economic and social progress in the 2030s as a result of technological advancements."
+    },
+    {
+      "type": "scientific",
+      "reference": "Quantum computing",
+      "context": "The video discusses the potential for quantum computing to accelerate AI development.",
+      "explanation": "Quantum computing is a type of computing that harnesses quantum-mechanical phenomena, such as superposition and entanglement, to perform operations on data.",
+      "significance": "The speaker highlights the potential of quantum computing to significantly enhance AI capabilities and accelerate its development."
+    },
+    {
+      "type": "scientific",
+      "reference": "Nuclear fusion",
+      "context": "The video mentions the potential commercialization of grid-scale nuclear fusion.",
+      "explanation": "Nuclear fusion is a nuclear reaction in which two or more atomic nuclei combine to form one or more different atomic nuclei and subatomic particles (neutrons or protons).",
+      "significance": "The speaker suggests that commercially viable nuclear fusion could provide a clean and sustainable energy source, further accelerating technological progress."
+    },
+    {
+      "type": "scientific",
+      "reference": "AGI (Artificial General Intelligence)",
+      "context": "The video discusses the potential emergence of AGI in 2027-2028.",
+      "explanation": "AGI refers to a hypothetical artificial intelligence that possesses the ability to understand and reason at the same level as a human, capable of performing any intellectual task that a human can.",
+      "significance": "AGI is a key focus of the video, as it is seen as a pivotal point in the development of artificial intelligence with potentially transformative implications."
+    },
+    {
+      "type": "scientific",
+      "reference": "Longevity Escape Velocity",
+      "context": "The video mentions the potential for Longevity Escape Velocity to be achieved by 2030.",
+      "explanation": "Longevity Escape Velocity is a concept that describes the point at which life expectancy increases faster than aging, leading to potentially significant increases in human lifespan.",
+      "significance": "This concept suggests a potential future where human lifespans could be significantly extended, potentially changing societal norms and values."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Bloomberg and Forbes",
+      "context": "The video predicts that these media outlets will be dominated by discussions on \"post-labor economics\" in the 2030s.",
+      "explanation": "Bloomberg and Forbes are prominent business and finance news outlets.",
+      "significance": "The speaker uses these outlets as examples of media platforms where the discussion of changing economic paradigms will likely occur."
+    },
+    {
+      "type": "other",
+      "reference": "Neoliberalism and Capitalism",
+      "context": "The video mentions a shift in economic systems beyond neoliberalism and capitalism.",
+      "explanation": "Neoliberalism and Capitalism are dominant economic ideologies that emphasize free markets, privatization, and deregulation.",
+      "significance": "The speaker suggests that the emergence of AGI and other technological advancements could lead to significant changes in existing economic systems, potentially ushering in new models."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Enterprise-ready general-purpose models",
+      "context": "The video suggests that these models will be crucial for widespread AGI adoption.",
+      "explanation": "Enterprise-ready general-purpose models are AI models designed for specific business applications and capable of performing a wide range of tasks.",
+      "significance": "The speaker emphasizes the importance of these models for businesses to readily adopt and integrate AGI into their operations."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Domestic assistant robots",
+      "context": "The video predicts the widespread availability of these robots by 2026.",
+      "explanation": "Domestic assistant robots are robots designed to assist with household tasks, such as cleaning, cooking, and providing companionship.",
+      "significance": "The speaker suggests that the development of these robots could significantly impact human lives and reshape domestic environments."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Hollywood Blockbuster film created entirely by AI",
+      "context": "The video predicts that such a film could be created by 2026 or 2027.",
+      "explanation": "This refers to a film with a high budget and wide audience appeal, entirely produced using AI technologies for tasks such as scriptwriting, directing, and visual effects.",
+      "significance": "The speaker suggests that AI's influence could extend into creative fields, potentially impacting the future of entertainment and filmmaking."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+[
+{
+"Element Type": "Slide",
+"Timestamp": "0:26",
+"Content": "2029: Technological Renaissance\nIn 2029, we will experience rapid AI adoption and integration, potentially  bolstered by quantum computing advancements and commercial grid-scale nuclear fusion. AGI-enabled material science and genetic technology will yield significant breakthroughs, leading to a resurgence of optimism akin to the post-war boom of the 1950s. The Fourth Industrial Revolution will  drive significant breakthroughs leading to a resurgence of optimism akin to  the post-war boom of the 1950s. The Fourth Industrial Revolution will drive frequent announcements of disease cures, lifespan extensions, and cybernetic implants. This progress will be achieved despite initial  infrastructure and deployment challenges. Domestic and commercial robots will become commonplace, though the most advanced models will remain costly.\n- AI and Quantum Leap: Rapid adoption and integration of AI and  quantum computing.\n- Fusion Energy: Potential commercial grid-scale nuclear fusion.\n- Medical Breakthroughs: Frequent announcements of disease cures and lifespan extensions.\n- Cybernetic Advancements: Introduction of advanced cybernetic implants.\n- Robot Integration: Commonplace domestic and commercial robots, with high-end models still expensive."
+},
+{
+"Element Type": "Slide",
+"Timestamp": "2:09",
+"Content": "2030: The Intelligence Age\nBy 2030, we will have begun settling into the \"new normal\" of the  Fourth Industrial Revolution, entering what may be called the  Intelligence Age. Significant socioeconomic shifts will accompany this era, alongside a new geopolitical paradigm.  Discussions on \"post-labor economics\" will dominate media like  Bloomberg and Forbes, as society redefines systems beyond neoliberalism and capitalism. We will also achieve Longevity  Escape Velocity, where life expectancy increases faster than aging for the moderately healthy.\n- Intelligence Age: The defining era of the 2030s and beyond.\n- Socioeconomic Shifts: Major changes in economics and social structures.\n- Geopolitical Evolution: New paradigms in global politics.\n- Post-Labor Economics: Discussions on life beyond traditional economic systems.\n- Longevity Escape Velocity: Life expectancy increases outpacing aging."
+}
+]
