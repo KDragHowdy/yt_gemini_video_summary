@@ -1,0 +1,81 @@
+{
+  "references": [
+    {
+      "type": "ai_tech",
+      "reference": "GPT-5",
+      "context": "The video discusses the potential impact of GPT-5 and Claude-4 in 2025.",
+      "explanation": "GPT-5 is a hypothetical future version of the GPT (Generative Pre-trained Transformer) language model series developed by OpenAI.",
+      "significance": "It represents the ongoing development and advancement of large language models, highlighting their anticipated role in shaping the future."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude-4",
+      "context": "The video discusses the potential impact of GPT-5 and Claude-4 in 2025.",
+      "explanation": "Claude-4 is a hypothetical future version of Claude, a large language model developed by Anthropic.",
+      "significance": "It highlights the competition and innovation within the field of AI language models, emphasizing the diverse approaches to developing advanced AI capabilities."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "GPT-6",
+      "context": "The video mentions the anticipated release of GPT-6 in 2026.",
+      "explanation": "GPT-6 is a hypothetical future version of the GPT language model series, expected to be significantly more advanced than its predecessors.",
+      "significance": "It symbolizes the continuous advancements in AI technology and the increasing capabilities of large language models."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude-5",
+      "context": "The video mentions the anticipated release of Claude-5 in 2026.",
+      "explanation": "Claude-5 is a hypothetical future version of Claude, expected to be a significant leap forward in AI capabilities.",
+      "significance": "It underscores the ongoing development of advanced AI models and their potential impact on various industries and aspects of society."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "AGI",
+      "context": "The video discusses the potential achievement of Artificial General Intelligence (AGI) in 2027.",
+      "explanation": "Artificial General Intelligence (AGI) refers to an AI system that possesses human-level intelligence and can perform any intellectual task that a human can.",
+      "significance": "It highlights the central theme of the video, which revolves around the potential emergence of AGI and its implications for the future."
+    },
+    {
+      "type": "philosophical",
+      "reference": "Trough of Disillusionment",
+      "context": "The video mentions emerging from the \"trough of disillusionment\" in 2026.",
+      "explanation": "The \"trough of disillusionment\" is a stage in the Gartner Hype Cycle, which describes the evolution of a technology's adoption and perception.",
+      "significance": "It refers to the common pattern of initial hype followed by disappointment and then a gradual resurgence of interest in a technology, which is applicable to the field of AI."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Uncanny Valley",
+      "context": "The video mentions AI models crossing the uncanny valley in 2026.",
+      "explanation": "The uncanny valley is a hypothetical concept in psychology, referring to the unsettling feeling people experience when looking at something that is almost human-like but not quite.",
+      "significance": "It highlights the potential for AI-powered robots and other AI-driven creations to evoke complex emotional responses in humans, potentially leading to social and ethical considerations."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Fortune 500",
+      "context": "The video mentions Fortune 500 companies adopting AI by 2028.",
+      "explanation": "The Fortune 500 is a list of the 500 largest companies in the United States, based on revenue.",
+      "significance": "It emphasizes the potential for AI to become widely adopted by major corporations, suggesting a significant impact on business and the economy."
+    },
+    {
+      "type": "historical",
+      "reference": "2028 Election",
+      "context": "The video discusses the potential impact of AI on the 2028 election.",
+      "explanation": "The 2028 US Presidential election is a future event that the video uses as a point of reference to speculate on the political landscape and the role of AI.",
+      "significance": "It highlights the potential for AI to become a significant factor in political discourse and decision-making, raising questions about its implications for democracy and governance."
+    },
+    {
+      "type": "other",
+      "reference": "Universal Basic Income",
+      "context": "The video mentions the potential debate around Universal Basic Income in the 2028 election.",
+      "explanation": "Universal Basic Income (UBI) is a social policy proposal that involves providing all citizens with a guaranteed minimum income.",
+      "significance": "It highlights the potential societal and economic implications of widespread AI adoption, particularly in terms of job displacement and the need for new social safety nets."
+    },
+    {
+      "type": "other",
+      "reference": "China and the USA",
+      "context": "The video mentions a potential conflict between China and the USA, catalyzed by AI in 2028.",
+      "explanation": "The relationship between China and the USA is a complex and significant geopolitical issue, and the video suggests AI could potentially exacerbate existing tensions.",
+      "significance": "It underscores the potential for AI to influence geopolitical dynamics and international relations, raising concerns about the responsible development and use of AI technology."
+    }
+  ]
+}

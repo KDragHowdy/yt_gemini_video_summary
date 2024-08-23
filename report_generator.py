@@ -29,6 +29,15 @@ def generate_markdown_report(
     return organized_report
 
 
+def generate_structured_slides_appendix(video_id, video_title, video_analyses):
+    markdown_content = "# Appendix A: Structured Slides\n\n"
+
+    for i, analysis in enumerate(video_analyses, 1):
+        markdown_content += f"## Chunk {i}\n\n{analysis}\n\n"
+
+    return markdown_content
+
+
 def generate_and_save_reports(
     video_id,
     video_title,
@@ -41,11 +50,35 @@ def generate_and_save_reports(
         main_report = generate_markdown_report(
             video_id, video_title, summary_chunks, intertextual_references
         )
-        structured_slides = generate_structured_slides_appendix(
-            video_id, video_title, video_analyses
-        )
 
-        full_report = f"{main_report}\n\n{structured_slides}\n\n# Appendix B: Intertextual Analysis\n\n{json.dumps(intertextual_references, indent=2)}"
+        try:
+            structured_slides = generate_structured_slides_appendix(
+                video_id, video_title, video_analyses
+            )
+        except Exception as e:
+            print(f"Error generating structured slides appendix: {str(e)}")
+            structured_slides = "# Appendix A: Structured Slides\n\nError generating structured slides appendix."
+
+        # Format intertextual references
+        intertextual_content = "# Appendix B: Intertextual Analysis\n\n"
+        if (
+            isinstance(intertextual_references, dict)
+            and "references" in intertextual_references
+        ):
+            for ref in intertextual_references["references"]:
+                intertextual_content += f"""
+## {ref.get('type', 'Unknown').capitalize()} Reference: {ref.get('reference', 'N/A')}
+- **Context:** {ref.get('context', 'N/A')}
+- **Explanation:** {ref.get('explanation', 'N/A')}
+- **Significance:** {ref.get('significance', 'N/A')}
+
+"""
+        else:
+            intertextual_content += (
+                "Error: Intertextual references data is not in the expected format.\n"
+            )
+
+        full_report = f"{main_report}\n\n{structured_slides}\n\n{intertextual_content}"
 
         # Create shortened title
         shortened_title = "".join(e for e in video_title if e.isalnum())[:20].lower()

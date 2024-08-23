@@ -1,0 +1,53 @@
+{
+  "references": [
+    {
+      "type": "ai_tech",
+      "reference": "GPT-5",
+      "context": "The speaker predicts the release of GPT-5 in 2024 or early 2025.",
+      "explanation": "GPT-5 is the next generation of the GPT (Generative Pre-trained Transformer) language model, developed by OpenAI.",
+      "significance": "GPT-5 is a highly anticipated AI model expected to advance natural language processing capabilities."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Claude 4",
+      "context": "The speaker mentions the release of Claude 4, competing with GPT-5.",
+      "explanation": "Claude 4 is a large language model developed by Anthropic, known for its safety and alignment research.",
+      "significance": "Claude 4 represents competition in the field of large language models, highlighting the rapidly evolving landscape of AI development."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Multimodal Models",
+      "context": "The speaker predicts the rise of multimodal models generating high-quality video and audio.",
+      "explanation": "Multimodal models are AI systems that can process and generate multiple types of data, including text, images, audio, and video.",
+      "significance": "Multimodal models represent a significant advancement in AI, enabling more comprehensive and engaging interactions with technology."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Humanoid Robots",
+      "context": "The speaker anticipates the emergence of commercial humanoid robots in 2024.",
+      "explanation": "Humanoid robots are designed to resemble and interact with humans, potentially taking on roles in various industries.",
+      "significance": "The development of humanoid robots signifies a potential shift in human-machine interaction and raises questions about the future of work and society."
+    },
+    {
+      "type": "other",
+      "reference": "Trough of Disillusionment",
+      "context": "The speaker predicts a period of disillusionment with AI.",
+      "explanation": "This refers to the 'Trough of Disillusionment' stage in the Gartner Hype Cycle, a model that describes the adoption of technologies over time.",
+      "significance": "This reference suggests that the speaker anticipates a period of lowered expectations for AI, despite its potential, following an initial surge of hype."
+    },
+    {
+      "type": "other",
+      "reference": "Benchmark Mastery",
+      "context": "The speaker expects AI models to achieve high performance on benchmarks in 2025.",
+      "explanation": "Benchmarks are standardized tests used to evaluate the performance of AI models.",
+      "significance": "This indicates that the speaker believes AI models will become more proficient in specific tasks but might still fall short of achieving true general intelligence."
+    },
+    {
+      "type": "other",
+      "reference": "95th Percentile",
+      "context": "The speaker mentions that reaching the 95th percentile on benchmarks is considered a solved problem in machine learning.",
+      "explanation": "In machine learning, achieving high performance on specific tasks, often represented by reaching the 95th percentile on benchmarks, is often considered a sign of success.",
+      "significance": "This reference highlights a potential shift in the focus of AI development, moving from solving specific problems to achieving broader, more general intelligence."
+    }
+  ]
+}
