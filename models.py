@@ -34,7 +34,8 @@ GEMINI_FLASH_LIMITER = RateLimiter(max_calls=60, period=60)
 def get_gemini_pro_model():
     GEMINI_PRO_LIMITER.wait()
     return genai.GenerativeModel(
-        "gemini-1.5-pro", generation_config={"response_mime_type": "application/json"}
+        "gemini-1.5-pro-exp-0801",
+        generation_config={"response_mime_type": "application/json"},
     )
 
 

@@ -3,51 +3,51 @@
     {
       "type": "ai_tech",
       "reference": "GPT-5",
-      "context": "The speaker predicts the release of GPT-5 in 2024 or early 2025.",
-      "explanation": "GPT-5 is the next generation of the GPT (Generative Pre-trained Transformer) language model, developed by OpenAI.",
-      "significance": "GPT-5 is a highly anticipated AI model expected to advance natural language processing capabilities."
+      "context": "The speaker discusses the potential release of GPT-5 in 2024 or early 2025.",
+      "explanation": "GPT-5 is a hypothetical future version of the GPT (Generative Pre-trained Transformer) language model series, developed by OpenAI.",
+      "significance": "It represents the ongoing development of large language models and the expectation of significant advancements in AI capabilities."
     },
     {
       "type": "ai_tech",
       "reference": "Claude 4",
-      "context": "The speaker mentions the release of Claude 4, competing with GPT-5.",
-      "explanation": "Claude 4 is a large language model developed by Anthropic, known for its safety and alignment research.",
-      "significance": "Claude 4 represents competition in the field of large language models, highlighting the rapidly evolving landscape of AI development."
+      "context": "The speaker mentions Claude 4, another large language model, as a potential competitor to GPT-5.",
+      "explanation": "Claude is a large language model developed by Anthropic, a company founded by former OpenAI researchers.",
+      "significance": "It highlights the increasing competition and rapid innovation in the field of AI language models."
     },
     {
       "type": "ai_tech",
-      "reference": "Multimodal Models",
-      "context": "The speaker predicts the rise of multimodal models generating high-quality video and audio.",
-      "explanation": "Multimodal models are AI systems that can process and generate multiple types of data, including text, images, audio, and video.",
-      "significance": "Multimodal models represent a significant advancement in AI, enabling more comprehensive and engaging interactions with technology."
+      "reference": "AGI",
+      "context": "The speaker expresses skepticism about AI reaching AGI (Artificial General Intelligence) in the near future.",
+      "explanation": "AGI refers to artificial intelligence that possesses human-level intelligence and can perform any intellectual task that a human can.",
+      "significance": "It reflects the ongoing debate and uncertainty surrounding the timeline and potential of AGI development."
     },
     {
-      "type": "ai_tech",
-      "reference": "Humanoid Robots",
-      "context": "The speaker anticipates the emergence of commercial humanoid robots in 2024.",
-      "explanation": "Humanoid robots are designed to resemble and interact with humans, potentially taking on roles in various industries.",
-      "significance": "The development of humanoid robots signifies a potential shift in human-machine interaction and raises questions about the future of work and society."
-    },
-    {
-      "type": "other",
+      "type": "internet_culture",
       "reference": "Trough of Disillusionment",
-      "context": "The speaker predicts a period of disillusionment with AI.",
-      "explanation": "This refers to the 'Trough of Disillusionment' stage in the Gartner Hype Cycle, a model that describes the adoption of technologies over time.",
-      "significance": "This reference suggests that the speaker anticipates a period of lowered expectations for AI, despite its potential, following an initial surge of hype."
+      "context": "The speaker refers to the 'Trough of Disillusionment' in the context of AI progress.",
+      "explanation": "The 'Trough of Disillusionment' is a stage in the Gartner Hype Cycle, which describes the evolution of technologies and their adoption by the market. It represents a period of disillusionment and disappointment following an initial surge of hype.",
+      "significance": "It suggests that the speaker anticipates a period of disillusionment with AI progress, despite ongoing advancements."
     },
     {
       "type": "other",
-      "reference": "Benchmark Mastery",
-      "context": "The speaker expects AI models to achieve high performance on benchmarks in 2025.",
-      "explanation": "Benchmarks are standardized tests used to evaluate the performance of AI models.",
-      "significance": "This indicates that the speaker believes AI models will become more proficient in specific tasks but might still fall short of achieving true general intelligence."
+      "reference": "PhD-level intelligence",
+      "context": "The speaker uses the analogy of 'PhD-level intelligence' to describe the potential of future AI models.",
+      "explanation": "The analogy compares the intelligence of AI models to the level of expertise typically associated with a PhD degree.",
+      "significance": "It emphasizes the potential for AI models to reach advanced levels of understanding and capability."
     },
     {
-      "type": "other",
-      "reference": "95th Percentile",
-      "context": "The speaker mentions that reaching the 95th percentile on benchmarks is considered a solved problem in machine learning.",
-      "explanation": "In machine learning, achieving high performance on specific tasks, often represented by reaching the 95th percentile on benchmarks, is often considered a sign of success.",
-      "significance": "This reference highlights a potential shift in the focus of AI development, moving from solving specific problems to achieving broader, more general intelligence."
+      "type": "pop_culture",
+      "reference": "Leopold Ashen Runner",
+      "context": "The speaker mentions 'Leopold Ashen Runner' as a fictional character.",
+      "explanation": "Leopold Ashen Runner is a fictional character from the science fiction novel 'Neuromancer' by William Gibson.",
+      "significance": "It suggests a connection to cyberpunk culture and a focus on the potential implications of advanced AI technology."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Disney",
+      "context": "The speaker refers to 'Disney' in the context of video generation.",
+      "explanation": "Disney is a major entertainment company known for its animated films and video production.",
+      "significance": "It highlights the challenge of achieving realistic and high-quality video generation in AI, referencing a company known for its animation expertise."
     }
   ]
 }
