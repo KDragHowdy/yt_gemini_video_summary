@@ -1,4 +1,3 @@
-# models.py
 import google.generativeai as genai
 import os
 import time
@@ -43,4 +42,21 @@ def get_gemini_flash_model():
     GEMINI_FLASH_LIMITER.wait()
     return genai.GenerativeModel(
         "gemini-1.5-flash", generation_config={"response_mime_type": "application/json"}
+    )
+
+
+# New section for final report generation models
+def get_final_report_model_json():
+    GEMINI_PRO_LIMITER.wait()
+    return genai.GenerativeModel(
+        "gemini-1.5-pro-exp-0801",
+        generation_config={"response_mime_type": "application/json"},
+    )
+
+
+def get_final_report_model_text():
+    GEMINI_PRO_LIMITER.wait()
+    return genai.GenerativeModel(
+        "gemini-1.5-pro-exp-0801",
+        generation_config={"response_mime_type": "text/plain"},
     )

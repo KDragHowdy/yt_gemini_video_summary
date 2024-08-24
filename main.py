@@ -7,6 +7,7 @@ from video_processor import process_video
 from generate_and_save_reports import generate_and_save_reports
 from utils import setup_directories
 from error_handling import VideoProcessingError
+from final_report_generator import generate_final_report  # New import
 
 # Add the project root directory to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -62,7 +63,10 @@ def main():
             OUTPUT_DIR,
         )
 
-        print("Video processing completed successfully.")
+        # Generate the final report
+        generate_final_report(video_title)
+
+        print("Video processing and final report generation completed successfully.")
 
     except VideoProcessingError as e:
         print(f"VideoProcessingError: {str(e)}")
