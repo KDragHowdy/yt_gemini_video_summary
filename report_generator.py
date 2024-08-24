@@ -1,4 +1,3 @@
-import os
 import json
 from models import get_gemini_pro_model
 
@@ -7,7 +6,7 @@ def extract_visual_elements(video_analyses):
     visual_elements_summary = []
     for analysis in video_analyses:
         try:
-            structured_elements = json.loads(analysis)["structured_elements"]
+            structured_elements = json.loads(analysis).get("structured_elements", [])
             for element in structured_elements:
                 if element.get("element_type") == "slide":
                     content = element.get("content", "")
@@ -37,26 +36,28 @@ def extract_visual_elements(video_analyses):
     return "\n\n".join(visual_elements_summary)
 
 
-def format_intertextual_references(intertextual_references):
+def format_intertextual_references(intertextual_chunks):
     formatted_references = []
-    if (
-        isinstance(intertextual_references, dict)
-        and "references" in intertextual_references
-    ):
-        for ref in intertextual_references["references"]:
-            formatted_references.append(
-                f"- {ref.get('type', 'Unknown').capitalize()} Reference: {ref.get('reference', 'N/A')}\n  Context: {ref.get('context', 'N/A')}\n  Significance: {ref.get('significance', 'N/A')}"
-            )
-    return "\n\n".join(formatted_references)
+    for chunk in intertextual_chunks:
+        try:
+            chunk_data = json.loads(chunk)
+            for ref in chunk_data.get("references", []):
+                formatted_references.append(
+                    f"- {ref.get('type', 'Unknown').capitalize()} Reference: {ref.get('reference', 'N/A')}\n"
+                    f"  Context: {ref.get('context', 'N/A')}\n"
+                    f"  Significance: {ref.get('significance', 'N/A')}\n"
+                )
+        except json.JSONDecodeError:
+            print(f"Error parsing intertextual chunk: {chunk[:100]}...")
+    return "\n".join(formatted_references)
 
 
 def generate_markdown_report(
-    video_id, video_title, summary_chunks, intertextual_references, video_analyses
+    video_id, video_title, summary_chunks, intertextual_chunks, video_analyses
 ):
     combined_summary = "\n\n".join(summary_chunks)
-
     visual_elements = extract_visual_elements(video_analyses)
-    formatted_intertextual = format_intertextual_references(intertextual_references)
+    formatted_intertextual = format_intertextual_references(intertextual_chunks)
 
     prompt = f"""
     Organize and synthesize the following information into a coherent final report for the video "{video_title}" (ID: {video_id}):
@@ -87,7 +88,6 @@ def generate_markdown_report(
     model = get_gemini_pro_model()
     response = model.generate_content(prompt)
 
-    # If the response is still in JSON format, we'll need to convert it
     try:
         report_data = json.loads(response.text)
         markdown_report = f"""
@@ -101,11 +101,11 @@ def generate_markdown_report(
 
 ### Key Points and Insights
 
-{report_data['Detailed Analysis'].get('Key Points and Insights', 'No key points provided.')}
+{report_data.get('Detailed Analysis', {}).get('Key Points and Insights', 'No key points provided.')}
 
 ### Chronological Overview
 
-{report_data['Detailed Analysis'].get('Chronological Overview', 'No chronological overview provided.')}
+{report_data.get('Detailed Analysis', {}).get('Chronological Overview', 'No chronological overview provided.')}
 
 ## 3. Implications and Future Outlook
 
@@ -124,7 +124,7 @@ def generate_structured_slides_appendix(video_id, video_title, video_analyses):
 
     for analysis in video_analyses:
         try:
-            structured_elements = json.loads(analysis)["structured_elements"]
+            structured_elements = json.loads(analysis).get("structured_elements", [])
             for element in structured_elements:
                 if element.get("element_type") == "slide":
                     content = element.get("content", "")
@@ -156,57 +156,3 @@ def generate_structured_slides_appendix(video_id, video_title, video_analyses):
             continue
 
     return markdown_content
-
-
-def generate_and_save_reports(
-    video_id,
-    video_title,
-    summary_chunks,
-    intertextual_references,
-    video_analyses,
-    output_dir,
-):
-    try:
-        main_report = generate_markdown_report(
-            video_id,
-            video_title,
-            summary_chunks,
-            intertextual_references,
-            video_analyses,
-        )
-        structured_slides = generate_structured_slides_appendix(
-            video_id, video_title, video_analyses
-        )
-
-        # Create shortened title
-        shortened_title = "".join(e for e in video_title if e.isalnum())[:20].lower()
-
-        # Generate filename
-        filename = f"final_report_{shortened_title}.md"
-
-        # Combine main report and appendices
-        full_report = f"{main_report}\n\n{structured_slides}\n\n"
-
-        # Save report
-        report_file = os.path.join(output_dir, filename)
-        with open(report_file, "w", encoding="utf-8") as f:
-            f.write(full_report)
-
-        print(f"Final report saved to {report_file}")
-        return report_file
-    except Exception as e:
-        print(f"Error in generate_and_save_reports: {str(e)}")
-        print(f"Debug: video_id = {video_id}")
-        print(f"Debug: video_title = {video_title}")
-        print(f"Debug: summary_chunks type = {type(summary_chunks)}")
-        print(f"Debug: intertextual_references type = {type(intertextual_references)}")
-        print(f"Debug: video_analyses type = {type(video_analyses)}")
-        print(f"Debug: output_dir = {output_dir}")
-
-        # Print more detailed information about video_analyses
-        print("Debug: video_analyses content:")
-        for i, analysis in enumerate(video_analyses):
-            print(f"Analysis {i}:")
-            print(analysis[:500])  # Print first 500 characters of each analysis
-
-        raise  # Re-raise the exception after logging debug info

@@ -5,7 +5,7 @@ from content_generator import (
     analyze_transcript,
     save_interim_work_product,
 )
-from utils import get_transcript, consolidate_work_products
+from utils import get_transcript
 from error_handling import handle_exceptions, VideoProcessingError
 from prompt_logic_intertextual import analyze_intertextual_references
 import time

@@ -1,12 +1,12 @@
 import os
 import sys
+import json
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
-from report_generator import generate_and_save_reports
+from generate_and_save_reports import generate_and_save_reports
 from utils import setup_directories
 from error_handling import VideoProcessingError
-from prompt_logic_intertextual import process_intertextual_references
 
 # Add the project root directory to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -24,58 +24,40 @@ INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 
 def main():
     try:
-        print("Debug: Starting main function")
         setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
-        print("Debug: Directories set up")
 
         video_id = input("Enter the YouTube video ID: ")
-        print(f"Debug: Video ID entered: {video_id}")
-
-        print("Debug: Getting video info")
         video_title, duration = get_video_info(video_id)
-        print(
-            f"Debug: Video info retrieved - Title: {video_title}, Duration: {duration}"
-        )
 
         if not video_title or not duration:
             raise VideoProcessingError("Failed to retrieve video information.")
 
         duration_minutes = duration / 60
-        print(f"Debug: Duration in minutes: {duration_minutes}")
+        print(f"Video duration: {duration_minutes:.2f} minutes")
 
         if duration_minutes > 60:
             proceed = input(
-                f"The video '{video_title}' is {duration_minutes:.2f} minutes long. Do you want to continue? (y/n): "
+                f"The video '{video_title}' is longer than an hour. Do you want to continue? (y/n): "
             )
             if proceed.lower() != "y":
                 print("Operation cancelled.")
                 return
 
         print(f"Processing video: {video_title}")
-        print("Debug: Downloading YouTube video")
         chunk_duration = 10 * 60  # 10 minutes in seconds
         video_chunks = download_youtube_video(video_id, INPUT_DIR, chunk_duration)
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
-        print(f"Debug: Video downloaded and split into {len(video_chunks)} chunks")
 
-        print("Debug: Starting video processing")
         summary_chunks, intertextual_chunks, video_analyses = process_video(
             video_chunks, video_id, video_title, duration_minutes
         )
-        print("Debug: Video processing completed")
 
-        print("Debug: Processing intertextual references")
-        intertextual_references = process_intertextual_references(
-            video_id, video_title, intertextual_chunks
-        )
-
-        print("Debug: Generating and saving reports")
         generate_and_save_reports(
             video_id,
             video_title,
             summary_chunks,
-            intertextual_references,
+            intertextual_chunks,
             video_analyses,
             OUTPUT_DIR,
         )
@@ -83,17 +65,18 @@ def main():
         print("Video processing completed successfully.")
 
     except VideoProcessingError as e:
-        print(f"Error: {str(e)}")
-        sys.exit(1)
+        print(f"VideoProcessingError: {str(e)}")
+    except FileNotFoundError as e:
+        print(f"FileNotFoundError: {str(e)}")
+    except json.JSONDecodeError as e:
+        print(f"JSONDecodeError: {str(e)}")
     except Exception as e:
         print(f"An unexpected error occurred: {str(e)}")
-        print(f"Debug: Exception type: {type(e)}")
-        print(f"Debug: Exception args: {e.args}")
+        print(f"Error type: {type(e).__name__}")
         import traceback
 
-        print("Debug: Full traceback:")
         traceback.print_exc()
-        sys.exit(1)
+    sys.exit(1)
 
 
 if __name__ == "__main__":

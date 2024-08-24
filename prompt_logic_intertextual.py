@@ -2,6 +2,7 @@ import google.generativeai as genai
 import json
 from datetime import datetime
 import time
+from typing import List, Dict, Any
 
 model = genai.GenerativeModel(
     "gemini-1.5-flash", generation_config={"response_mime_type": "application/json"}
