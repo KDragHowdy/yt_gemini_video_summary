@@ -1,53 +1,39 @@
 {
   "references": [
     {
+      "type": "internet_culture",
+      "reference": "Trough of disillusionment",
+      "context": "The speaker expects a 'down turn' in AI progress, entering a 'trough of disillusionment' despite remaining optimistic.",
+      "explanation": "The 'Trough of Disillusionment' is a phase in the Gartner Hype Cycle, a model that describes the maturity and adoption of technologies. It follows the peak of inflated expectations and represents a period of disappointment as the technology fails to live up to the hype.",
+      "significance": "The speaker uses the 'Trough of Disillusionment' to frame their prediction that 2025 will be a year of disillusionment for AI, as the advancements may not be as groundbreaking as anticipated."
+    },
+    {
       "type": "ai_tech",
       "reference": "GPT-5",
-      "context": "The speaker discusses the potential release of GPT-5 in 2024 or early 2025.",
-      "explanation": "GPT-5 is a hypothetical future version of the GPT (Generative Pre-trained Transformer) language model series, developed by OpenAI.",
-      "significance": "It represents the ongoing development of large language models and the expectation of significant advancements in AI capabilities."
+      "context": "The speaker predicts AGI in 2027 and discusses the timeline of GPT model releases, expecting GPT 5 by the end of 2024 or early 2025.",
+      "explanation": "GPT-5 is the hypothetical next iteration of the Generative Pre-trained Transformer (GPT) language model developed by OpenAI. GPT-3, the current version, is known for its impressive text generation capabilities.",
+      "significance": "The speaker's reference to GPT-5 highlights the ongoing development of advanced language models and their potential impact on AI progress."
     },
     {
       "type": "ai_tech",
-      "reference": "Claude 4",
-      "context": "The speaker mentions Claude 4, another large language model, as a potential competitor to GPT-5.",
-      "explanation": "Claude is a large language model developed by Anthropic, a company founded by former OpenAI researchers.",
-      "significance": "It highlights the increasing competition and rapid innovation in the field of AI language models."
+      "reference": "Humanoid robots",
+      "context": "The speaker highlights the advancements in multimodality and the expected emergence of commercial and domestic humanoid robots in 2024.",
+      "explanation": "Humanoid robots are machines designed to resemble humans in appearance and/or functionality. They have the potential to revolutionize various industries, from manufacturing to healthcare.",
+      "significance": "The speaker's prediction of commercial humanoid robots in 2024 highlights the rapid progress being made in robotics and the potential for their widespread adoption in the near future."
     },
     {
       "type": "ai_tech",
-      "reference": "AGI",
-      "context": "The speaker expresses skepticism about AI reaching AGI (Artificial General Intelligence) in the near future.",
-      "explanation": "AGI refers to artificial intelligence that possesses human-level intelligence and can perform any intellectual task that a human can.",
-      "significance": "It reflects the ongoing debate and uncertainty surrounding the timeline and potential of AGI development."
+      "reference": "Sora",
+      "context": "Sora and video generators are going to be really interesting",
+      "explanation": "Sora is a text-to-video AI model developed by Google that can generate high-quality videos from textual descriptions. It represents a significant advancement in video generation technology.",
+      "significance": "The speaker's mention of Sora indicates the increasing capability of AI to create realistic and complex video content, potentially revolutionizing the film and entertainment industries."
     },
     {
-      "type": "internet_culture",
-      "reference": "Trough of Disillusionment",
-      "context": "The speaker refers to the 'Trough of Disillusionment' in the context of AI progress.",
-      "explanation": "The 'Trough of Disillusionment' is a stage in the Gartner Hype Cycle, which describes the evolution of technologies and their adoption by the market. It represents a period of disillusionment and disappointment following an initial surge of hype.",
-      "significance": "It suggests that the speaker anticipates a period of disillusionment with AI progress, despite ongoing advancements."
-    },
-    {
-      "type": "other",
-      "reference": "PhD-level intelligence",
-      "context": "The speaker uses the analogy of 'PhD-level intelligence' to describe the potential of future AI models.",
-      "explanation": "The analogy compares the intelligence of AI models to the level of expertise typically associated with a PhD degree.",
-      "significance": "It emphasizes the potential for AI models to reach advanced levels of understanding and capability."
-    },
-    {
-      "type": "pop_culture",
-      "reference": "Leopold Ashen Runner",
-      "context": "The speaker mentions 'Leopold Ashen Runner' as a fictional character.",
-      "explanation": "Leopold Ashen Runner is a fictional character from the science fiction novel 'Neuromancer' by William Gibson.",
-      "significance": "It suggests a connection to cyberpunk culture and a focus on the potential implications of advanced AI technology."
-    },
-    {
-      "type": "pop_culture",
-      "reference": "Disney",
-      "context": "The speaker refers to 'Disney' in the context of video generation.",
-      "explanation": "Disney is a major entertainment company known for its animated films and video production.",
-      "significance": "It highlights the challenge of achieving realistic and high-quality video generation in AI, referencing a company known for its animation expertise."
+      "type": "ai_tech",
+      "reference": "AI benchmarks",
+      "context": "The speaker discusses the challenges of reaching the 95th percentile in AI benchmarks, highlighting the difficulty of solving problems even after significant progress.",
+      "explanation": "AI benchmarks are standardized tests designed to evaluate the performance of AI systems on specific tasks. They provide a way to measure progress and compare different AI models.",
+      "significance": "The speaker's reference to AI benchmarks underscores the importance of objective evaluation in AI research and the challenges associated with achieving high performance across different tasks."
     }
   ]
 }

@@ -17,14 +17,22 @@ def get_transcript(video_id):
 
 
 def consolidate_work_products(video_id, video_title, analysis_type):
-    interim_dir = "./interim"
+    # Get the absolute path to the project root directory
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    interim_dir = os.path.join(project_root, "interim")
+
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
+
+    print(f"Debug: Looking for files in {interim_dir}")
+    print(f"Debug: Shortened title: {shortened_title}")
+    print(f"Debug: Analysis type: {analysis_type}")
 
     consolidated_content = ""
     chunk_files = []
 
     # Collect all relevant chunk files
     for file in os.listdir(interim_dir):
+        print(f"Debug: Found file: {file}")
         if file.startswith(
             f"wp_{shortened_title}_{analysis_type}_chunk_"
         ) and file.endswith(".txt"):
@@ -33,6 +41,8 @@ def consolidate_work_products(video_id, video_title, analysis_type):
     if not chunk_files:
         print(f"Warning: No chunk files found for {analysis_type}")
         return ""
+
+    print(f"Debug: Found {len(chunk_files)} chunk files")
 
     # Sort chunk files to ensure correct order
     chunk_files.sort(key=lambda x: float(x.split("_chunk_")[1].split("_")[0]))

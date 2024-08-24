@@ -81,39 +81,39 @@ def generate_markdown_report(
     - Integrate visual elements and intertextual references throughout the analysis where they provide context or deeper understanding.
     - Use the intertextual references to explain complex concepts or cultural references mentioned in the video.
     - Ensure smooth transitions between different parts of the video and provide concluding remarks.
-    - Format the output as a valid JSON object with keys corresponding to each section.
+    - Format the output as a properly structured Markdown document, not as JSON.
     """
 
     model = get_gemini_pro_model()
     response = model.generate_content(prompt)
 
+    # If the response is still in JSON format, we'll need to convert it
     try:
         report_data = json.loads(response.text)
-    except json.JSONDecodeError:
-        print("Error: Unable to parse JSON response. Falling back to raw text.")
-        return response.text
-
-    markdown_report = f"""
+        markdown_report = f"""
 # {video_title} - AI Predictions Analysis
 
 ## 1. Executive Summary
 
-{report_data.get('executive_summary', 'No executive summary provided.')}
+{report_data.get('Executive Summary', 'No executive summary provided.')}
 
 ## 2. Detailed Analysis
 
 ### Key Points and Insights
 
-{report_data.get('key_points_and_insights', 'No key points provided.')}
+{report_data['Detailed Analysis'].get('Key Points and Insights', 'No key points provided.')}
 
 ### Chronological Overview
 
-{report_data.get('chronological_overview', 'No chronological overview provided.')}
+{report_data['Detailed Analysis'].get('Chronological Overview', 'No chronological overview provided.')}
 
 ## 3. Implications and Future Outlook
 
-{report_data.get('implications_and_future_outlook', 'No implications and future outlook provided.')}
-    """
+{report_data.get('Implications and Future Outlook', 'No implications and future outlook provided.')}
+        """
+    except json.JSONDecodeError:
+        # If it's not JSON, assume it's already in markdown format
+        markdown_report = response.text
 
     return markdown_report
 

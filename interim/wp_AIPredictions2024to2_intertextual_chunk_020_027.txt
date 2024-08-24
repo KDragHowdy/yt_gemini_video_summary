@@ -1,53 +1,60 @@
 {
   "references": [
     {
-      "type": "scientific",
-      "reference": "Longevity Escape Velocity",
-      "context": "The speaker predicts that by 2030, we will achieve Longevity Escape Velocity, where life expectancy increases faster than aging for the moderately healthy.",
-      "explanation": "Longevity Escape Velocity is a theoretical concept in biogerontology that suggests a point where technological advancements in life extension outpace the aging process, resulting in a rapid increase in lifespan.",
-      "significance": "This reference highlights the potential for significant life extension in the near future, a topic of ongoing discussion and research in the field of aging."
+      "type": "ai_tech",
+      "reference": "AGI (Artificial General Intelligence)",
+      "context": "The speaker predicts that AGI will be achieved by 2027, with general purpose AI models reaching a level of capability equivalent to a person with 5 years of experience.",
+      "explanation": "AGI refers to artificial intelligence that possesses the ability to understand, learn, and perform any intellectual task that a human can.",
+      "significance": "The achievement of AGI is considered a major milestone in the field of AI, with the potential to revolutionize many aspects of society and industry."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "Superintelligence (ASI)",
+      "context": "The speaker predicts that AI will surpass human intelligence, reaching a level equivalent to every PhD on the planet.",
+      "explanation": "Superintelligence refers to AI that surpasses human intelligence in all aspects, including cognitive abilities, creativity, and problem-solving.",
+      "significance": "The concept of superintelligence raises significant ethical and philosophical concerns, as it has the potential to drastically alter the balance of power and the future of humanity."
     },
     {
       "type": "historical",
       "reference": "Post-war boom of the 1950s",
-      "context": "The speaker suggests that the technological advancements in 2029 will lead to a resurgence of optimism akin to the post-war boom of the 1950s.",
-      "explanation": "The post-war boom was a period of rapid economic growth and prosperity in the United States and other developed countries following World War II.",
-      "significance": "This reference draws a parallel between the technological optimism of the post-war era and the potential for a similar surge in progress driven by AI and other advancements in the near future."
+      "context": "The speaker compares the potential technological advancements of the 2030s to the post-war boom of the 1950s.",
+      "explanation": "The post-war boom was a period of rapid economic growth and technological advancement in the United States following World War II, driven by factors such as government spending, consumer demand, and new technologies.",
+      "significance": "This comparison highlights the speaker's belief that the coming decades will see a similar surge in technological progress and economic prosperity, driven by advancements in AI and other fields."
     },
     {
-      "type": "ai_tech",
-      "reference": "General-purpose AI models",
-      "context": "The speaker believes that by 2027-2028, general-purpose AI models will reach a level of capability comparable to PhD-level experts, potentially constituting \"super intelligence.\"",
-      "explanation": "General-purpose AI models are designed to be capable of performing a wide range of tasks, rather than being specialized for a specific purpose. The speaker predicts that these models will become increasingly sophisticated and capable in the near future.",
-      "significance": "The reference to general-purpose AI models underscores the potential for AI to become increasingly versatile and applicable across many domains, potentially leading to significant societal and economic impacts."
-    },
-    {
-      "type": "ai_tech",
-      "reference": "Super intelligence (ASI)",
-      "context": "The speaker believes that by 2027-2028, general-purpose AI models will reach a level of capability comparable to PhD-level experts, potentially constituting \"super intelligence.\"",
-      "explanation": "Super intelligence (ASI) is a hypothetical type of AI that surpasses human intelligence in all aspects, including cognitive abilities, creativity, and problem-solving skills.",
-      "significance": "The speaker's prediction of potential super intelligence raises important questions about the future of AI and its implications for humanity. This concept has been widely discussed in science fiction and academic circles, and it remains a subject of ongoing debate and research."
-    },
-    {
-      "type": "ai_tech",
-      "reference": "Quantum computing advancements",
-      "context": "The speaker mentions potential advancements in quantum computing in 2029, which could bolster the adoption of AI.",
-      "explanation": "Quantum computing is a new type of computing that harnesses the principles of quantum mechanics to solve problems that are intractable for classical computers. It has the potential to revolutionize fields such as drug discovery, materials science, and artificial intelligence.",
-      "significance": "The speaker's mention of quantum computing highlights the importance of this emerging technology in the context of AI development and its potential to accelerate the pace of progress."
-    },
-    {
-      "type": "pop_culture",
-      "reference": "Hollywood Blockbuster film",
-      "context": "The speaker predicts that by 2026 or 2027, we might see the first Hollywood blockbuster film created entirely by AI.",
-      "explanation": "Hollywood blockbusters are major motion pictures with large budgets, extensive marketing campaigns, and often star-studded casts.",
-      "significance": "This reference to Hollywood blockbusters underscores the potential for AI to play a significant role in entertainment and creative industries, potentially displacing human roles in the production of films and other forms of content."
+      "type": "historical",
+      "reference": "Fourth Industrial Revolution",
+      "context": "The speaker describes the current era as the Fourth Industrial Revolution, characterized by rapid technological advancements.",
+      "explanation": "The concept of the Fourth Industrial Revolution refers to the current wave of technological advancements, characterized by the fusion of physical, digital, and biological technologies, such as AI, robotics, and biotechnology.",
+      "significance": "The speaker emphasizes the profound impact that these advancements are expected to have on society, economy, and geopolitics."
     },
     {
       "type": "economic",
-      "reference": "Post-labor economics",
-      "context": "The speaker predicts that by 2030, discussions on \"post-labor economics\" will dominate media like Bloomberg and Forbes, as society redefines systems beyond neoliberalism and capitalism.",
-      "explanation": "Post-labor economics is a theoretical framework that envisions a future where traditional economic systems based on labor are replaced or significantly transformed by automation and technological advancements. This raises questions about how work, income, and social structures will evolve in a world where machines perform much of the work previously done by humans.",
-      "significance": "The reference to post-labor economics highlights the potential for significant changes in the global economy and the way we think about work and wealth in the future. This topic is increasingly relevant as AI and automation continue to advance and impact various sectors."
+      "reference": "Neoliberalism and capitalism",
+      "context": "The speaker mentions that the Intelligence Age will lead to discussions on \"post-labor economics\" and a redefinition of systems beyond neoliberalism and capitalism.",
+      "explanation": "Neoliberalism and capitalism are economic systems that emphasize free markets, deregulation, and privatization. The speaker suggests that the rise of AI and automation will challenge these traditional economic systems.",
+      "significance": "This reference highlights the potential for AI to radically transform economic structures and create new models of work and wealth distribution."
+    },
+    {
+      "type": "scientific",
+      "reference": "Longevity Escape Velocity",
+      "context": "The speaker predicts that by 2030, we will achieve Longevity Escape Velocity, where life expectancy increases faster than aging.",
+      "explanation": "Longevity Escape Velocity is a hypothetical point in time when technological advancements in medicine and biotechnology will enable humans to live significantly longer lives, potentially extending beyond the current biological limits of aging.",
+      "significance": "This concept highlights the potential for AI and biotechnology to dramatically extend human lifespans, raising ethical and societal questions about the implications of such advancements."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Hollywood Blockbuster Film",
+      "context": "The speaker predicts that the first AI-generated feature-length Hollywood blockbuster film will emerge around 2026 or 2027.",
+      "explanation": "Hollywood blockbuster films are commercially successful, large-budget films that often feature action, special effects, and popular stars.",
+      "significance": "This prediction suggests that AI will soon be able to create high-quality content that can compete with human-made entertainment, potentially disrupting the film industry and other creative fields."
+    },
+    {
+      "type": "other",
+      "reference": "Domestic Robots",
+      "context": "The speaker anticipates the introduction of domestic robots by around 2026, with early models being expensive but prices decreasing with competition and economies of scale.",
+      "explanation": "Domestic robots are robots designed for use in homes, such as cleaning, cooking, or providing companionship.",
+      "significance": "This prediction suggests that AI and robotics will soon become integrated into our everyday lives, transforming how we live, work, and interact with technology."
     }
   ]
 }
