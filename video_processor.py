@@ -104,19 +104,4 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
             2
         )  # Reduced from 4 to 2 seconds to account for more frequent, smaller chunks
 
-    # Consolidate work products
-    print("Debug: Starting consolidation of work products")
-    for analysis_type in [
-        "video_analysis",
-        "transcript_analysis",
-        "intertextual_analysis",
-    ]:
-        print(f"Debug: Consolidating {analysis_type}")
-        consolidated_content = consolidate_work_products(
-            video_id, video_title, analysis_type
-        )
-        print(
-            f"Debug: Consolidated {analysis_type} content length: {len(consolidated_content)}"
-        )
-
     return summary_chunks, intertextual_chunks, video_analyses

@@ -1,0 +1,46 @@
+{
+  "references": [
+    {
+      "type": "philosophical",
+      "reference": "Systems Thinking",
+      "context": "The video discusses forcing functions in the context of systems thinking.",
+      "explanation": "Systems thinking is a holistic approach to understanding complex systems, focusing on the interconnectedness of components and their interactions.",
+      "significance": "Systems thinking provides a framework for analyzing how forcing functions can influence the behavior of a system as a whole."
+    },
+    {
+      "type": "other",
+      "reference": "Constraints and Affordances",
+      "context": "The video uses the terms \"constraints\" and \"affordances\" in relation to forcing functions.",
+      "explanation": "Constraints limit user behavior, while affordances suggest possible actions within a system.",
+      "significance": "These concepts from design thinking highlight how forcing functions shape user interaction and behavior within a given system."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "The 1500 Square Foot Workshop",
+      "context": "The video uses a 1500 square foot workshop as an example of a space constraint.",
+      "explanation": "The size of a workspace is a common topic in pop culture, particularly in discussions of organization, minimalism, and productivity.",
+      "significance": "This relatable example allows viewers to connect the concept of forcing functions to their own experiences with space management."
+    },
+    {
+      "type": "other",
+      "reference": "Laundry Basket Constraints",
+      "context": "The video mentions a laundry basket as an example of a space constraint, suggesting that the number of clothes that fit in the basket acts as a forcing function.",
+      "explanation": "Laundry baskets often serve as a practical limit for the amount of laundry that can be done at once.",
+      "significance": "This everyday example further illustrates the idea of forcing functions as practical constraints that influence behavior."
+    },
+    {
+      "type": "other",
+      "reference": "Dishwasher Capacity",
+      "context": "The video mentions a dishwasher as an example of a space constraint, suggesting that the number of dishes that fit in the dishwasher acts as a forcing function.",
+      "explanation": "The capacity of a dishwasher is a common constraint for people who do dishes, influencing the frequency of washing.",
+      "significance": "This familiar example helps viewers understand how seemingly mundane constraints can function as forcing functions in everyday life."
+    },
+    {
+      "type": "other",
+      "reference": "Pant Size as a Weight Management Tool",
+      "context": "The video uses a personal rule of not buying pants larger than size 32 as an example of a forcing function for weight management.",
+      "explanation": "This method relies on a physical limitation (pant size) to motivate a desired change (weight loss).",
+      "significance": "The video uses this unconventional example to highlight the versatility of forcing functions, showing how they can be implemented in personal contexts beyond traditional design elements."
+    }
+  ]
+}
