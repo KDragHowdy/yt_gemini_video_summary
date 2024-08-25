@@ -9,7 +9,6 @@ from report_generator import (
 def generate_and_save_reports(
     video_id,
     video_title,
-    summary_chunks,
     intertextual_chunks,
     video_analyses,
     output_dir,
@@ -18,7 +17,6 @@ def generate_and_save_reports(
         main_report = generate_markdown_report(
             video_id,
             video_title,
-            summary_chunks,
             intertextual_chunks,
             video_analyses,
         )

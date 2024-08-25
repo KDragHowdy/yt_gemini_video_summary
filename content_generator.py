@@ -44,7 +44,7 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
     Analyze the visual content of the video for the chunk from {chunk_start} to {chunk_end} minutes, focusing on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
     For each structured element you identify:
-    1. Describe the type of element (e.g., slide, graph, chart, code snippet).
+    1. Determine the type of element for use in the start of the title (e.g., "Slide:", "Graph:", "Chart:", "Code Snippet:").
     2. Provide the timestamp or time range when it appears.
     3. Recreate the content of the element as accurately as possible, including:
        - For slides: Reproduce the text, bullet points, and describe any images.
@@ -52,7 +52,10 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
        - For code snippets: Reproduce the code as exactly as possible.
        - For other structured elements: Provide a detailed description or reproduction.
 
-    Format your response in Markdown, using appropriate headings, subheadings, and formatting to recreate the structured elements as closely as possible.
+    Format your response in Markdown using appropriate headings, subheadings and formatting to recreate the structured elements as closely as possible.
+    Ensure that each element is clearly presented sequentially, with a one line title based on materials presented.  For any elements that are not easily categorized, use a generic title like "Structured Element 1," "Structured Element 2,".  Do not output descriptions for any segments that are considered unstructured.
+    Seperate each structured element with a blank line.
+    Don't add text before or after the structured elemennts
     """
     return generate_content(prompt, video_file, use_json=False)
 
@@ -64,55 +67,22 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
     Transcript: {transcript}
 
     Provide a detailed analysis that captures the essence of the spoken content, including:
-    1. Key points and information presented
-    2. Notable quotes or statements
+    1. The sequential development of the arguments
+    2. The key points and information presented
+    3. Notable quotes or statements made by the speaker
     3. Names of speakers or people mentioned (if identifiable)
     4. Any significant topics or themes discussed
-    5. Describe in a narrator style as if you were relay the content to someone else, maintaining the context of the original transcript. Avoid repeating phrases like "the speaker said" or "the transcript mentions."
+    5. Try to exclude extraneous commentary unrelated to the topic being presented.
+    6. Present in a narrator style as if you were relay the content to someone else, maintaining the context of the original transcript. Try to avoid phrases like "the speaker said" or "the transcript mentions.", jsut present the content as if you were telling someone about it.
+    7. Dont include any text before or after the transcript content.
 
     Format your response in Markdown, using appropriate headings, subheadings, and bullet points.
     """
     return generate_content(prompt, use_json=False)
 
 
-def analyze_combined_video_and_transcript_wp(
-    video_analysis,
-    transcript_analysis,
-    intertextual_analysis,
-    chunk_start,
-    chunk_end,
-    video_id,
-    video_title,
-):
-    prompt = f"""
-    Analyze the following video content, transcript, and intertextual analysis for the 10-minute chunk from {chunk_start} to {chunk_end} minutes:
-
-    Video Analysis (Structured Elements):
-    {video_analysis}
-
-    Transcript Analysis:
-    {transcript_analysis}
-
-    Intertextual Analysis:
-    {intertextual_analysis}
-
-    Please provide a detailed report that combines and synthesizes the information from all analyses, including:
-    1. A chronological list of structured elements (slides, graphs, charts, code snippets) identified in the video, with their content and relevance to the spoken content.
-    2. Key points and information presented, referencing the relevant visual elements where applicable.
-    3. Notable quotes or statements, integrated naturally into the context and linked to visual elements if relevant.
-    4. Intertextual references identified, explaining their significance in the context of the video content.
-    5. Overall flow and structure of the video segment, highlighting how the visual elements support or illustrate the spoken content.
-    6. Describe in a narrator style as if you were relay the content to someone else. Avoid repeating phrases like "the speaker said" or "the video mentions."
-
-    Format the report in Markdown, using appropriate headings and structure.
-    Ensure that each structured visual element is clearly presented and explained in the context of the spoken content and any relevant intertextual references.
-    """
-
-    return generate_content(prompt)
-
-
 def save_interim_work_product(content, video_id, video_title, analysis_type):
-    print(f"Debug: Entering save_interim_work_product function")
+    print("Debug: Entering save_interim_work_product function")
     print(f"Debug: content length = {len(content)}")
     print(f"Debug: video_id = {video_id}")
     print(f"Debug: video_title = {video_title}")
@@ -144,6 +114,5 @@ __all__ = [
     "generate_content",
     "analyze_video_content",
     "analyze_transcript",
-    "analyze_combined_video_and_transcript_wp",
     "save_interim_work_product",
 ]
