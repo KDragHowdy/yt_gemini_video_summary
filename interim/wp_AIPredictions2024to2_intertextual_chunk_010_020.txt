@@ -1,0 +1,46 @@
+{
+  "references": [
+    {
+      "type": "pop_culture",
+      "reference": "Droid brains",
+      "context": "The speaker uses this term to describe 'general purpose' AI models, capable of handling diverse tasks and data types.",
+      "explanation": "Droid brains are a fictional technology in the Star Wars universe, representing advanced artificial intelligence capable of performing various tasks.",
+      "significance": "The reference highlights the speaker's optimistic view of AI's potential to become versatile and adaptable, similar to the fictional droids."
+    },
+    {
+      "type": "other",
+      "reference": "Street smarts",
+      "context": "The speaker argues that existing AI benchmarks fail to capture the full spectrum of intelligence, including 'street smarts'.",
+      "explanation": "Street smarts refers to practical intelligence and common sense, often acquired through real-world experience.",
+      "significance": "This reference emphasizes the need for AI to develop beyond theoretical benchmarks and adapt to the complexities of the real world."
+    },
+    {
+      "type": "other",
+      "reference": "Post-labor economy",
+      "context": "The speaker envisions a future where AI integration leads to a 'post-labor economic' utopia.",
+      "explanation": "A post-labor economy is a hypothetical economic system where automation and AI have significantly reduced the need for human labor, potentially leading to increased leisure time and social welfare.",
+      "significance": "This reference highlights the speaker's optimistic view of AI's potential to reshape the economy and create a more equitable society."
+    },
+    {
+      "type": "other",
+      "reference": "Fortune 500 companies",
+      "context": "The speaker predicts that 2026 will mark a turning point, with AI models becoming 'Enterprise ready' and widely adopted by Fortune 500 companies.",
+      "explanation": "Fortune 500 companies are the 500 largest companies in the United States, by revenue.",
+      "significance": "The reference emphasizes the speaker's belief that AI will eventually be adopted by large, established corporations, signifying mainstream acceptance."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "General purpose AI models",
+      "context": "The speaker highlights the importance of developing 'general purpose' AI models, capable of handling diverse tasks and data types.",
+      "explanation": "General purpose AI models are designed to perform a wide range of tasks, unlike specialized AI models that are trained for specific purposes.",
+      "significance": "This reference reflects the growing interest in developing AI systems that can adapt to various situations and learn new tasks, moving beyond narrow applications."
+    },
+    {
+      "type": "other",
+      "reference": "Early AGI",
+      "context": "The speaker suggests that these general purpose models, with their broad capabilities, could be considered 'early AGI'.",
+      "explanation": "AGI (Artificial General Intelligence) refers to AI systems that possess human-level intelligence and can perform any intellectual task that a human can.",
+      "significance": "The reference indicates that the speaker believes general purpose AI models could be a stepping stone towards achieving AGI, a significant milestone in AI development."
+    }
+  ]
+}

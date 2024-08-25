@@ -68,13 +68,11 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
     2. Notable quotes or statements
     3. Names of speakers or people mentioned (if identifiable)
     4. Any significant topics or themes discussed
+    5. Describe in a narrator style as if you were relay the content to someone else, maintaining the context of the original transcript. Avoid repeating phrases like "the speaker said" or "the transcript mentions."
 
     Format your response in Markdown, using appropriate headings, subheadings, and bullet points.
     """
     return generate_content(prompt, use_json=False)
-
-
-# ... (rest of the file remains unchanged)
 
 
 def analyze_combined_video_and_transcript_wp(
@@ -104,6 +102,7 @@ def analyze_combined_video_and_transcript_wp(
     3. Notable quotes or statements, integrated naturally into the context and linked to visual elements if relevant.
     4. Intertextual references identified, explaining their significance in the context of the video content.
     5. Overall flow and structure of the video segment, highlighting how the visual elements support or illustrate the spoken content.
+    6. Describe in a narrator style as if you were relay the content to someone else. Avoid repeating phrases like "the speaker said" or "the video mentions."
 
     Format the report in Markdown, using appropriate headings and structure.
     Ensure that each structured visual element is clearly presented and explained in the context of the spoken content and any relevant intertextual references.

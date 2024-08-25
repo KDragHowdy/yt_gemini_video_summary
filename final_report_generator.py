@@ -3,7 +3,7 @@ import json
 from typing import List, Dict
 from models import get_gemini_flash_model_text, get_gemini_flash_model_json
 
-BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
+BASE_DIR = r"C:\\Users\\kevin\\repos\\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
@@ -78,35 +78,33 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
         model = get_gemini_flash_model_text()
 
     if work_product_type == "intertextual_analysis":
-        prompt = f"""
-        Consolidate the following {work_product_type} chunks into a single coherent JSON document:
-
-        {'\n\n'.join(chunks)}
-
-        Instructions:
-        1. Combine all references from all chunks into a single JSON array.
-        2. Maintain the original structure of each reference object.
-        3. Ensure all unique references from each chunk are retained.
-        4. Do not summarize or paraphrase the content; instead, reorganize it.
-
-        Format the output as a valid JSON array of reference objects.
-        """
+        chunks_text = "\n\n".join(chunks)
+        prompt = (
+            f"Consolidate the following {work_product_type} chunks into a single coherent JSON document:\n\n"
+            f"{chunks_text}\n\n"
+            "Instructions:\n"
+            "1. Combine all references from all chunks into a single JSON array.\n"
+            "2. Maintain the original structure of each reference object.\n"
+            "3. Ensure all unique references from each chunk are retained.\n"
+            "4. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
+            "Format the output as a valid JSON array of reference objects."
+            "Do not include any text before or after the consolidated content."
+        )
     else:
-        prompt = f"""
-        Consolidate the following {work_product_type} chunks into a single coherent document:
-
-        {'\n\n'.join(chunks)}
-
-        Instructions:
-        1. Identify the common headers across all chunks.
-        2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
-        3. Present the consolidated information under a single set of headers.
-        4. Ensure all unique information from each chunk is retained.
-        5. Maintain the chronological order of information where applicable.
-        6. Do not summarize or paraphrase the content; instead, reorganize it.
-
-        Format the output as a well-structured Markdown document.
-        """
+        chunks_text = "\n\n".join(chunks)
+        prompt = (
+            f"Consolidate the following {work_product_type} chunks into a single coherent document:\n\n"
+            f"{chunks_text}\n\n"
+            "Instructions:\n"
+            "1. Identify the common headers across all chunks.\n"
+            "2. For each header, combine the relevant content from all chunks, maintaining the original sequence.\n"
+            "3. Present the consolidated information under a single set of headers.\n"
+            "4. Ensure all unique information from each chunk is retained.\n"
+            "5. Maintain the chronological order of information where applicable.\n"
+            "6. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
+            "Format the output as a well-structured Markdown document."
+            "Do not include any text before or after the consolidated content."
+        )
 
     save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
@@ -128,25 +126,23 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
     prompt = f"""
     Generate a comprehensive report based on the following consolidated analyses:
 
-    Video Analysis:
-    {consolidated_products['video_analysis']}
-
     Transcript Analysis:
     {consolidated_products['transcript_analysis']}
 
+    Video Structured Element Analysis:
+    {consolidated_products['video_analysis']}   
+    
     Intertextual Analysis:
     {consolidated_products['intertextual_analysis']}
 
-    Summary:
-    {consolidated_products['summary']}
+    
+    Describe in a narrator style as if you were relay the content to someone else. Avoid repeating phrases like "the speaker said" or "the video mentions."
 
-    Please structure the report with the following sections:
-    1. Executive Summary
-    2. Key Points and Insights
-    3. Detailed Analysis
-    4. Conclusion and Implications
+    
+    Please structure the report to work best with the context you have analysed.  The report will have an appendix with the recreated structured video elements and the intertextual references that you may refer to and incorporate in the main content to add more depth to the analysis.
 
-    Ensure that you incorporate relevant information from all analyses in a cohesive manner.
+    Use Markdown formatting for better readability.
+    Don't include any text before or after the analyses.
     """
 
     save_prompt(prompt, "prompt_main_content.txt")
@@ -167,12 +163,20 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     print("Debug: Generating structured elements appendix")
     model = get_gemini_flash_model_text()
     prompt = f"""
-    Extract and format all structured elements (such as slides, charts, or diagrams) mentioned in the following video analysis:
+    Generate an appendix of structured elements based on the following video analysis:
 
     {video_analysis}
 
-    Present these elements in a clear, organized manner suitable for an appendix.
+    Please structure the appendix with the following sections:
+    1. Slides
+    2. Graphs and Charts
+    3. Code Snippets
+    4. Other Structured Elements
+
+    For each structured element, include the timestamp, a brief description, and any relevant details.
+
     Use Markdown formatting for better readability.
+    Don't include any text before or after the structured elements.
     """
 
     save_prompt(prompt, "prompt_structured_elements_appendix.txt")
@@ -193,12 +197,21 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     print("Debug: Generating intertextual analysis appendix")
     model = get_gemini_flash_model_text()
     prompt = f"""
-    Organize and present the following intertextual analysis in a clear, structured format suitable for an appendix:
+    Generate an appendix for intertextual analysis based on the following content:
 
     {intertextual_analysis}
 
-    Group related references and provide brief explanations for each.
-    Use Markdown formatting for better readability.
+    Please structure the appendix with the following sections:
+    1. AI References
+    2. Other Technology
+    3. Cultural References
+    4. Literary References
+    5. Other Intertextual References
+
+    For each reference, include the original context, and an explanation of its significance in the video.
+
+    Use Markdown formatting for better readability. Don't use bullet points. Leave a line space between each reference.
+    Dont include any text before or after the references.
     """
 
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
@@ -233,6 +246,10 @@ def generate_final_report(video_title: str):
         consolidated_products["intertextual_analysis"]
     )
 
+    # Simplified filename
+    short_title = "".join(e for e in video_title if e.isalnum())[:12]
+    output_file = os.path.join(OUTPUT_DIR, f"{short_title}_final_report.md")
+
     final_report = f"""
     # {video_title} - Analysis Report
 
@@ -247,9 +264,6 @@ def generate_final_report(video_title: str):
     {intertextual_appendix}
     """
 
-    output_file = os.path.join(
-        OUTPUT_DIR, f"{video_title.replace(' ', '_')}_final_report.md"
-    )
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(final_report)
 
@@ -258,5 +272,4 @@ def generate_final_report(video_title: str):
 
 
 if __name__ == "__main__":
-    video_title = "Forcing Functions - Constraints, Affordances, Bounds, and Systems Behavior  [SYSTEMS THINKING]"
-    generate_final_report(video_title)
+    pass

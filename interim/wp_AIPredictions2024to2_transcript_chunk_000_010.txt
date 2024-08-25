@@ -1,0 +1,39 @@
+##  A Look Ahead: AI Predictions for 2024-2030
+
+The speaker, a self-proclaimed AI enthusiast, is addressing the perceived inconsistency in their previous predictions. They acknowledge that while they still anticipate a "down term" in the AI field, they remain optimistic about the future. 
+
+###  The "Trough of Disillusionment"
+
+The speaker believes we're entering a period of disappointment with AI, a "trough of disillusionment," where progress might seem slower than expected. They attribute this to the increasing cost of achieving breakthroughs and the diminishing returns of current AI models.
+
+###  Key Milestones and Predictions
+
+* **2024:** 
+    * The speaker predicts that GPT-5 and Claude-4 will be released, likely in the latter half of the year.
+    * They anticipate a surge in commercial and domestic robots, citing examples from companies in China, America, and even Disney.
+    * While they acknowledge the impressive advancements in video generators, they believe reaching Hollywood-quality visuals will be challenging.
+* **2025:**
+    * This year is marked as the "year of disillusionment," where expectations might not be met by the advancements in AI.
+    * The speaker expects GPT-5 and Claude-4 to achieve high performance, reaching the 95th percentile on various benchmarks. However, they emphasize that this might not be enough to achieve true AGI (Artificial General Intelligence).
+
+###  Notable Quotes
+
+* "We're entering into the trough of disillusionment."
+* "The breakthroughs that we that we're hoping to see are going to be happening slower even if the Cadence of model releases is a little bit faster."
+* "I think that 2024 we're not going to have a whole lot more exciting news. I think robotics is going to be the next most exciting thing."
+* "2025 I think is going to be the year of the disillusionment where a lot of people myself included are going to be kind of disappointed."
+
+###  People Mentioned
+
+* **Leopold Ashen Runner:** Mentioned as a source for the prediction of AGI arriving in 2027.
+
+###  Themes
+
+* **The Pace of AI Progress:** The speaker acknowledges the slowing down of breakthroughs, despite the rapid release of new AI models.
+* **The "Trough of Disillusionment":** This term describes the expected period of disappointment as AI progress might not meet expectations.
+* **The Importance of Robotics:** The speaker emphasizes the potential of robotics as the next big step in AI advancements.
+* **The Limitations of Current AI Models:** The speaker highlights the challenges in achieving true AGI, even with the expected advancements in models like GPT-5 and Claude-4.
+
+###  Overall Tone
+
+The speaker maintains a cautiously optimistic tone, acknowledging the challenges ahead while remaining hopeful about the future of AI. They emphasize the need for realistic expectations and a focus on the potential of robotics as the next frontier in AI development. 

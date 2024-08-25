@@ -1,5 +1,6 @@
 import yt_dlp
 import os
+from pytube import YouTube
 from moviepy.editor import VideoFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
@@ -18,8 +19,7 @@ def download_youtube_video(
 ):  # Default to 10 minutes
     url = f"https://www.youtube.com/watch?v={video_id}"
     ydl_opts = {
-        # Limit the resolution to 480p and select only the video stream
-        "format": "bestvideo[ext=mp4][height<=480]",
+        "format": "bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
     }
     try:
@@ -28,8 +28,8 @@ def download_youtube_video(
             filename = ydl.prepare_filename(info)
         print(f"Video successfully downloaded to {filename}")
 
-        # Load the video without audio
-        video = VideoFileClip(filename, audio=False)
+        # Split the video into chunks
+        video = VideoFileClip(filename)
         duration = video.duration
         chunks = []
         for i in range(0, int(duration), chunk_duration):

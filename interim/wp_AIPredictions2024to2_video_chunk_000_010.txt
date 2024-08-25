@@ -1,0 +1,40 @@
+## Structured Presentation Elements in the Video (0-10 minutes)
+
+The video contains several structured elements, primarily slides with text and bullet points. Here's a breakdown of each element:
+
+### Slide 1
+- **Type:** Slide
+- **Timestamp:** 0:00
+- **Content:** 
+  - **Title:** The Next Few Years of AI
+  - **Subtitle:** 2024 to 2030
+  - **Sub-subtitle:** Exciting and Turbulent Times Ahead
+  - **Image:** A large, abstract "DS" logo with a swirling, colorful design.
+
+### Slide 2
+- **Type:** Slide
+- **Timestamp:** 1:04
+- **Content:**
+  - **Title:** 2024: AI Expectations
+  - **Text:** In 2024, we anticipate significant advancements in AI technology. GPT-5 is rumored to be released, with Claude 4 also on the horizon, likely intensifying the release cycle competition. Multimodal models, particularly those generating high-quality video and audio, are expected to make a substantial impact. There will likely be progress in creating smaller, faster, and more cost-effective models that maintain high performance. Additionally, the first commercial humanoid robots might begin to appear, though they will likely be limited in their initial capabilities.
+  - **Bullet Points:**
+    - GPT-5: Expected to release in late 2024 or early 2025.
+    - Claude 4: Anticipated around the same time, increasing competition.
+    - Multimodal Models: Improved video and audio generators emerging.
+    - Condensed Models: Smaller, faster, and cheaper models maintaining high performance.
+    - Humanoid Robots: First commercial versions potentially rolling out by year-end.
+  - **Image:** A humanoid robot with a large, colorful, abstract design.
+
+### Slide 3
+- **Type:** Slide
+- **Timestamp:** 4:38
+- **Content:**
+  - **Title:** 2025: Benchmark Mastery
+  - **Text:** In 2025, the focus will likely shift to utilizing and integrating GPT-5 and Claude-4 models. These models are expected to bring incremental changes, achieving better performance but not revolutionary improvements, achieving around 95% on benchmarks, these models will still significantly impact many fields. Enterprises and SMBs will begin widespread deployment of these AI technologies, leading to increased hiring for AI-enabled roles. However, full integration may face initial infrastructure challenges and require new solutions.
+  - **Bullet Points:**
+    - GPT-5 and Claude-4: Incremental improvements over current models.
+    - Benchmark Performance: Models achieving around 95% on reasoning tasks.
+    - Enterprise Deployment: Widespread adoption by businesses and SMBs.
+    - AI Hiring Surge: Increased demand for AI-enabled teams and roles.
+    - Integration Challenges: Initial infrastructure limitations and new integration needs.
+  - **Image:** A "Help Wanted" sign with a large "H" and a "wanted" sign. 
