@@ -46,7 +46,7 @@ def get_gemini_flash_model_json():
         generation_config={
             "response_mime_type": "application/json",
             "temperature": 0.5,
-            "top_p": 0.9,  # Updated to 0.9
+            "top_p": 0.9,
             "top_k": 40,
         },
         safety_settings=SAFETY_SETTINGS,
@@ -59,7 +59,7 @@ def get_gemini_flash_model_text():
         "gemini-1.5-flash",
         generation_config={
             "temperature": 0.5,
-            "top_p": 0.9,  # Updated to 0.9
+            "top_p": 0.9,
             "top_k": 40,
         },
         safety_settings=SAFETY_SETTINGS,
@@ -72,7 +72,7 @@ def get_final_report_model_text():
         "gemini-1.5-pro-exp-0801",
         generation_config={
             "temperature": 0.5,
-            "top_p": 0.9,  # Updated to 0.9
+            "top_p": 0.9,
             "top_k": 40,
         },
         safety_settings=SAFETY_SETTINGS,

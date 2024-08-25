@@ -1,7 +1,7 @@
 import os
 import json
 from typing import List, Dict
-from models import get_final_report_model_text
+from models import get_gemini_flash_model_text, get_gemini_flash_model_json
 
 BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
@@ -64,22 +64,49 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
 
 
 def save_prompt(prompt: str, filename: str):
-    """
-    Save the prompt to a file for debugging purposes.
-    """
     with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
         f.write(prompt)
     print(f"Debug: Saved prompt to {filename}")
 
 
 def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
-    """
-    Use LLM to consolidate chunks of a specific work product type.
-    """
     print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
-    model = get_final_report_model_text()
-    prompt = f"Consolidate the following {work_product_type} chunks into a coherent summary:\n\n"
-    prompt += "\n\n".join(chunks)
+
+    if work_product_type == "intertextual_analysis":
+        model = get_gemini_flash_model_json()
+    else:
+        model = get_gemini_flash_model_text()
+
+    if work_product_type == "intertextual_analysis":
+        prompt = f"""
+        Consolidate the following {work_product_type} chunks into a single coherent JSON document:
+
+        {'\n\n'.join(chunks)}
+
+        Instructions:
+        1. Combine all references from all chunks into a single JSON array.
+        2. Maintain the original structure of each reference object.
+        3. Ensure all unique references from each chunk are retained.
+        4. Do not summarize or paraphrase the content; instead, reorganize it.
+
+        Format the output as a valid JSON array of reference objects.
+        """
+    else:
+        prompt = f"""
+        Consolidate the following {work_product_type} chunks into a single coherent document:
+
+        {'\n\n'.join(chunks)}
+
+        Instructions:
+        1. Identify the common headers across all chunks.
+        2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
+        3. Present the consolidated information under a single set of headers.
+        4. Ensure all unique information from each chunk is retained.
+        5. Maintain the chronological order of information where applicable.
+        6. Do not summarize or paraphrase the content; instead, reorganize it.
+
+        Format the output as a well-structured Markdown document.
+        """
 
     save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
@@ -87,7 +114,6 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     consolidated = response.text
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
 
-    # Save the consolidated output
     output_file = os.path.join(OUTPUT_DIR, f"consolidated_{work_product_type}.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(consolidated)
@@ -97,11 +123,8 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
 
 
 def generate_main_content(consolidated_products: Dict[str, str]) -> str:
-    """
-    Generate the main content of the report using consolidated work products.
-    """
     print("Debug: Generating main content")
-    model = get_final_report_model_text()
+    model = get_gemini_flash_model_text()
     prompt = f"""
     Generate a comprehensive report based on the following consolidated analyses:
 
@@ -132,7 +155,6 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
     main_content = response.text
     print(f"Debug: Generated main content length: {len(main_content)}")
 
-    # Save the main content
     output_file = os.path.join(OUTPUT_DIR, "main_content.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(main_content)
@@ -142,11 +164,8 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
 
 
 def generate_structured_elements_appendix(video_analysis: str) -> str:
-    """
-    Generate the appendix for structured elements from video analysis.
-    """
     print("Debug: Generating structured elements appendix")
-    model = get_final_report_model_text()
+    model = get_gemini_flash_model_text()
     prompt = f"""
     Extract and format all structured elements (such as slides, charts, or diagrams) mentioned in the following video analysis:
 
@@ -162,7 +181,6 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     appendix = response.text
     print(f"Debug: Generated structured elements appendix length: {len(appendix)}")
 
-    # Save the structured elements appendix
     output_file = os.path.join(OUTPUT_DIR, "structured_elements_appendix.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(appendix)
@@ -172,11 +190,8 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
-    """
-    Generate the appendix for intertextual analysis.
-    """
     print("Debug: Generating intertextual analysis appendix")
-    model = get_final_report_model_text()
+    model = get_gemini_flash_model_text()
     prompt = f"""
     Organize and present the following intertextual analysis in a clear, structured format suitable for an appendix:
 
@@ -192,7 +207,6 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     appendix = response.text
     print(f"Debug: Generated intertextual analysis appendix length: {len(appendix)}")
 
-    # Save the intertextual analysis appendix
     output_file = os.path.join(OUTPUT_DIR, "intertextual_analysis_appendix.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(appendix)
@@ -202,23 +216,16 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
 
 
 def generate_final_report(video_title: str):
-    """
-    Main function to generate the final report.
-    """
     print(f"Debug: Starting final report generation for '{video_title}'")
 
-    # Load work products
     work_products = load_work_products(INTERIM_DIR)
 
-    # Consolidate chunks for each work product type
     consolidated_products = {}
     for wp_type, chunks in work_products.items():
         consolidated_products[wp_type] = consolidate_chunks(chunks, wp_type)
 
-    # Generate main content
     main_content = generate_main_content(consolidated_products)
 
-    # Generate appendices
     structured_elements_appendix = generate_structured_elements_appendix(
         consolidated_products["video_analysis"]
     )
@@ -226,7 +233,6 @@ def generate_final_report(video_title: str):
         consolidated_products["intertextual_analysis"]
     )
 
-    # Combine all parts into the final report
     final_report = f"""
     # {video_title} - Analysis Report
 
@@ -241,7 +247,6 @@ def generate_final_report(video_title: str):
     {intertextual_appendix}
     """
 
-    # Save the final report
     output_file = os.path.join(
         OUTPUT_DIR, f"{video_title.replace(' ', '_')}_final_report.md"
     )

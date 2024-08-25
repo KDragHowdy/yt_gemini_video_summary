@@ -1,27 +1,93 @@
-[
-{
-"type": "slide",
-"timestamp": "0:44-0:58",
-"content": "## Affordances vs. Forcing Functions\nAffordances and forcing functions both influence behavior, but through different mechanisms. Affordances are design considerations that provide flexibility and ease of use, promoting desired behaviors by reducing effort. Forcing functions, however, compel specific actions through constraints.\n\n- **Design Tolerances:** Example of the AK-47's design for sand tolerance and loose parts.\n- **Lower Friction:** Making desired behaviors the easiest path.\n- **Environmental Design:** Structuring systems to promote specific behaviors.\n- **Forcing Functions:** Compel actions through strict constraints and boundaries.\n- **Ease of Use:** For instance, easier incorporation laws in the U.S. encourage company formation.\n\n[An image of an AK-47 is displayed on the right side of the slide.]"
-},
-{
-"type": "slide",
-"timestamp": "0:58-1:50",
-"content": "## System Fragility\nAll systems have operational tolerances within which they function optimally. When these tolerances are exceeded, the system's efficiency can drop drastically, become unstable, or collapse. This concept explains why systems, such as the economy or a car, must operate within specific boundaries.\n\n- **Operational Tolerances:** Conditions under which systems function optimally.\n- **Critical Boundaries:** Upper and lower bounds maintaining system stability.\n- **System Collapse:** Exceeding tolerances leads to instability or failure.\n- **Economic Recession:** Violation of economic tolerances, like excessive debt, causes slowdowns.\n- **KPI Correlation:** Optimal performance often linked to maintaining specific metrics.\n\n[An image of a train engine with steam coming out of it, and some smoke, is displayed on the right side of the slide.]"
-},
-{
-"type": "slide",
-"timestamp": "1:50-2:58",
-"content": "##  Environmental Forcing Functions\nEnvironmental forcing functions are natural cycles and variations that compel adaptations within ecosystems. These functions, such as the day-night cycle, hydrological cycles, and seasonal temperature changes, drive both behavioral and genetic adaptations in ecological systems.\n\n- **Day-Night Cycle:** Forces diurnal and nocturnal behavioral adaptations.\n- **Hydrological Cycles:** Rainy and wet seasons drive adaptations in water-dependent species.\n- **Seasonal Temperature Variations:** Compel genetic and behavioral changes to survive changing conditions.\n- **Deciduous Trees:** Adapt to seasonal changes by shedding leaves in autumn.\n- **Desert Frogs:** Adapt to long dry periods with behavioral strategies during periodic wet seasons.\n\n[An image of a forest with a river running through it and a bird flying above, and some frogs in the water, is displayed on the right side of the slide.]"
-},
-{
-"type": "slide",
-"timestamp": "2:58-3:51",
-"content": "##  Social Upheaval\nSocial upheaval driven by political pressure and economic hardship acts as a forcing function, necessitating mechanisms to prevent violence and ensure systemic change. Political willpower and the threat of violence can force change when pressures exceed tolerable limits.\n\n- **Economic Hardship:** Drives political pressure and social unrest.\n- **Values Alignment:** Discrepancies between societal values and governance lead to tension.\n- **Pressure Relief Mechanisms:** Democratic integrity allows the system to adapt and change.\n- **Political Willpower:** Threat of violence as an upper bound compelling change.\n- **Term Limits:** A forcing function ensuring regular systemic changes and preventing stagnation.\n\n[An image of a collection of black silhouettes of people is displayed on the right side of the slide.  Several of the people are in red.]"
-},
-{
-"type": "slide",
-"timestamp": "3:51-4:58",
-"content": "##  Death as a Forcing Function\nDeath acts as a critical forcing function from both evolutionary and social perspectives. It ensures resource availability, clears the path for new individuals and ideas, and is inevitable due to biological and environmental constraints.\n\n- **Evolutionary Benefits:** Removes individuals, reducing resource contention within a species.\n- **Natural Exit:** Acts as a conclusion to each individual's evolutionary experiment.\n- **Resource Management:** Frees up resources for younger, fitter generations.\n- **Social Renewal:** Clears the way for new ideas and societal progress.\n- **Inevitabile Outcome:** Constraints like disease, accidents, and violence make death unavoidable despite potential advances in lifespan.\n[An image of a skull, with trees growing out of the skull, is displayed on the right side of the slide.]"
-}
-]
+## Structured Elements from 10 to 20 Minutes
+
+The video features several structured elements from 10 to 20 minutes, primarily slides with text and images. 
+
+### Slide 1: Incentives vs. Forcing Functions (0:00 - 0:44)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 0:00 - 0:44
+- **Content:**
+    - **Title:** Incentives vs. Forcing Functions
+    - **Text:** Incentives and forcing functions both shape behavior, but in different ways. Forcing functions, like laws, compel specific actions and set boundaries. In contrast, incentives offer rewards to encourage desired behaviors without imposing restrictions.
+    - **Bullet Points:**
+        - **Forcing Functions:** Compel actions through laws and regulations.
+        - **Behavioral Constraints:** Set upper or lower bounds on behaviors.
+        - **Legal Requirements:** Examples include tax laws and traffic laws.
+        - **Incentive Structures:** Encourage behaviors with rewards, not constraints.
+        - **Reward Mechanisms:** Provide financial or social incentives for desired actions.
+    - **Image:** A scale with two pans, one labeled "Forcing Functions" and the other labeled "Incentive Structures".
+
+### Slide 2: Affordances vs. Forcing Functions (0:44 - 2:58)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 0:44 - 2:58
+- **Content:**
+    - **Title:** Affordances vs. Forcing Functions
+    - **Text:** Affordances and forcing functions both influence behavior, but through different mechanisms. Affordances are design considerations that provide flexibility and ease of use, promoting desired behaviors by reducing effort. Forcing functions, however, compel specific actions through constraints.
+    - **Bullet Points:**
+        - **Design Tolerances:** Example of the AK-47's design for sand tolerance and loose parts.
+        - **Lower Friction:** Making desired behaviors the easiest path.
+        - **Environmental Design:** Structuring systems to promote specific behaviors.
+        - **Forcing Functions:** Compel actions through strict constraints and boundaries.
+        - **Ease of Use:** For instance, easier incorporation laws in the U.S. encourage company formation.
+    - **Image:** An image of an AK-47 rifle.
+
+### Slide 3: System Fragility (2:58 - 5:51)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 2:58 - 5:51
+- **Content:**
+    - **Title:** System Fragility
+    - **Text:** All systems have operational tolerances within which they function optimally. When these tolerances are exceeded, the system's efficiency can drop drastically, become unstable, or collapse. This concept explains why systems, such as the economy or a car, must operate within specific boundaries.
+    - **Bullet Points:**
+        - **Operational Tolerances:** Conditions under which systems function optimally.
+        - **Critical Boundaries:** Upper and lower bounds maintaining system stability.
+        - **System Collapse:** Exceeding tolerances leads to instability or failure.
+        - **Economic Recession:** Violation of economic tolerances, like excessive debt, causes slowdowns.
+        - **KPI Correlation:** Optimal performance often linked to maintaining specific metrics.
+    - **Image:** A close-up image of a train engine with steam coming out.
+
+### Slide 4: Environmental Forcing Functions (5:51 - 8:07)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 5:51 - 8:07
+- **Content:**
+    - **Title:** Environmental Forcing Functions
+    - **Text:** Environmental forcing functions are natural cycles and variations that compel adaptations within ecosystems. These functions, such as the day-night cycle, hydrological cycles, and seasonal temperature changes, drive both behavioral and genetic adaptations in ecological systems.
+    - **Bullet Points:**
+        - **Day-Night Cycle:** Forces diurnal and nocturnal behavioral adaptations.
+        - **Hydrological Cycles:** Rainy and wet seasons drive adaptations in water-dependent species.
+        - **Seasonal Temperature Variations:** Compel genetic and behavioral changes to survive changing conditions.
+        - **Deciduous Trees:** Adapt to seasonal changes by shedding leaves in autumn.
+        - **Desert Frogs:** Adapt to long dry periods with behavioral strategies during periodic wet seasons.
+    - **Image:** A cartoon-like depiction of a forest with a river running through it. The image features a bird, a tree, a frog, and a fish.
+
+### Slide 5: Social Upheaval (8:07 - 9:30)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 8:07 - 9:30
+- **Content:**
+    - **Title:** Social Upheaval
+    - **Text:** Social upheaval driven by political pressure and economic hardship acts as a forcing function, necessitating mechanisms to prevent violence and ensure systemic change. Political willpower and the threat of violence can force change when pressures exceed tolerable limits.
+    - **Bullet Points:**
+        - **Economic Hardship:** Drives political pressure and social unrest.
+        - **Values Alignment:** Discrepancies between societal values and governance lead to tension.
+        - **Pressure Relief Mechanisms:** Democratic integrity allows the system to adapt and change.
+        - **Political Willpower:** Threat of violence as an upper bound compelling change.
+        - **Term Limits:** A forcing function ensuring regular systemic changes and preventing stagnation.
+    - **Image:** A group of black silhouettes of people with their fists raised.
+
+### Slide 6: Death as a Forcing Function (9:30 - 10:00)
+
+- **Type:** Slide with text and image
+- **Timestamp:** 9:30 - 10:00
+- **Content:**
+    - **Title:** Death as a Forcing Function
+    - **Text:** Death acts as a critical forcing function from both evolutionary and social perspectives. It ensures resource availability, clears the path for new individuals and ideas, and is inevitable due to biological and environmental constraints.
+    - **Bullet Points:**
+        - **Evolutionary Benefits:** Removes individuals, reducing resource contention within a species.
+        - **Natural Exit:** Acts as a conclusion to each individual's evolutionary experiment.
+        - **Resource Management:** Frees up resources for younger, fitter generations.
+        - **Social Renewal:** Clears the way for new ideas and societal progress.
+        - **Inevitable Outcome:** Constraints like disease, accidents, and violence make death unavoidable despite potential advances in lifespan.
+    - **Image:** A skull with trees growing out of it. 
