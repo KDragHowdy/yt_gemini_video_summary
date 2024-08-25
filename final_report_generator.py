@@ -1,7 +1,12 @@
 import os
 import json
 from typing import List, Dict
-from models import get_gemini_flash_model_text, get_gemini_flash_model_json
+from models import (
+    get_gemini_flash_model_text,
+    get_gemini_flash_model_json,
+    get_final_report_model_text,
+)
+from model_statistics import record_model_call
 
 BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
@@ -110,7 +115,11 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
 
     save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
-    response = model.generate_content(prompt)
+    @record_model_call
+    def generate_content(model, prompt):
+        return model.generate_content(prompt)
+
+    response = generate_content(model, prompt)
     consolidated = response.text
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
 
@@ -124,7 +133,7 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
 
 def generate_main_content(consolidated_products: Dict[str, str]) -> str:
     print("Debug: Generating main content")
-    model = get_gemini_flash_model_text()
+    model = get_final_report_model_text()
     prompt = f"""
     Generate a comprehensive report based on the following consolidated analyses:
 
@@ -151,7 +160,11 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
 
     save_prompt(prompt, "prompt_main_content.txt")
 
-    response = model.generate_content(prompt)
+    @record_model_call
+    def generate_content(model, prompt):
+        return model.generate_content(prompt)
+
+    response = generate_content(model, prompt)
     main_content = response.text
     print(f"Debug: Generated main content length: {len(main_content)}")
 
@@ -165,7 +178,7 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
 
 def generate_structured_elements_appendix(video_analysis: str) -> str:
     print("Debug: Generating structured elements appendix")
-    model = get_gemini_flash_model_text()
+    model = get_final_report_model_text()
     prompt = f"""
     Extract and format all structured elements (such as slides, charts, or diagrams) mentioned in the following video analysis:
 
@@ -177,7 +190,11 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
     save_prompt(prompt, "prompt_structured_elements_appendix.txt")
 
-    response = model.generate_content(prompt)
+    @record_model_call
+    def generate_content(model, prompt):
+        return model.generate_content(prompt)
+
+    response = generate_content(model, prompt)
     appendix = response.text
     print(f"Debug: Generated structured elements appendix length: {len(appendix)}")
 
@@ -191,7 +208,7 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     print("Debug: Generating intertextual analysis appendix")
-    model = get_gemini_flash_model_text()
+    model = get_final_report_model_text()
     prompt = f"""
     Organize and present the following intertextual analysis in a clear, structured format suitable for an appendix:
 
@@ -203,7 +220,11 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
 
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
 
-    response = model.generate_content(prompt)
+    @record_model_call
+    def generate_content(model, prompt):
+        return model.generate_content(prompt)
+
+    response = generate_content(model, prompt)
     appendix = response.text
     print(f"Debug: Generated intertextual analysis appendix length: {len(appendix)}")
 

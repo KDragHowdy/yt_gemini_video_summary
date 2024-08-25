@@ -8,6 +8,7 @@ from video_processor import process_video
 from final_report_generator import generate_final_report
 from utils import setup_directories
 from error_handling import VideoProcessingError
+from model_statistics import model_stats
 
 # Add the project root directory to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -88,6 +89,10 @@ def main():
         import traceback
 
         traceback.print_exc()
+
+    # Print model statistics report
+    print("\n" + model_stats.generate_report())
+
     sys.exit(1)
 
 
