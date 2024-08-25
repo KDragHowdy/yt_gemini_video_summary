@@ -1,10 +1,30 @@
+# final_report_generator.py
+
+import os
 import time
+import json
+from typing import List, Dict
 from models import get_gemini_flash_model_text, get_gemini_flash_model_json
 from api_statistics import api_stats
 
 BASE_DIR = r"C:\\Users\\kevin\\repos\\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+
+
+def save_prompt(prompt: str, filename: str):
+    file_path = os.path.join(OUTPUT_DIR, filename)
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(prompt)
+    print(f"Debug: Saved prompt to {filename}")
+
+
+def save_consolidated_work_product(content: str, work_product_type: str):
+    filename = f"consolidated_{work_product_type}.txt"
+    file_path = os.path.join(OUTPUT_DIR, filename)
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"Debug: Saved consolidated {work_product_type} to {filename}")
 
 
 def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
@@ -56,13 +76,7 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
     return work_products
 
 
-def save_prompt(prompt: str, filename: str):
-    with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
-        f.write(prompt)
-    print(f"Debug: Saved prompt to {filename}")
-
-
-def consolidate_chunks(chunks, work_product_type):
+def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
 
     if work_product_type == "intertextual_analysis":
@@ -87,25 +101,37 @@ def consolidate_chunks(chunks, work_product_type):
     Format the output as a well-structured Markdown document.
     """
 
+    save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
+
     start_time = time.time()
     response = model.generate_content(prompt)
+    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="consolidate_chunks",
+        model=model.__class__.__name__,
         start_time=start_time,
-        response=response,
+        end_time=end_time,
+        input_tokens=len(prompt),
+        output_tokens=len(response.text),
     )
 
     consolidated = response.text
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
 
+    save_consolidated_work_product(consolidated, work_product_type)
+
     return consolidated
 
 
 def generate_integrated_report(
-    consolidated_products, video_title, video_date, channel_name, speaker_name
-):
+    consolidated_products: Dict[str, str],
+    video_title: str,
+    video_date: str,
+    channel_name: str,
+    speaker_name: str,
+) -> str:
     model = get_gemini_flash_model_text()
     report_title = f"Understanding the Implications of AI: A Holistic Examination\n{video_title} ({video_date}) - {channel_name} by {speaker_name}"
 
@@ -124,18 +150,26 @@ def generate_integrated_report(
     The report should be formatted in Markdown with appropriate sections and headings, ensuring that the narrative is clear, authoritative, and compelling.
     """
 
+    save_prompt(prompt, "prompt_integrated_report.txt")
+
     start_time = time.time()
     response = model.generate_content(prompt)
+    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_integrated_report",
+        model=model.__class__.__name__,
         start_time=start_time,
-        response=response,
+        end_time=end_time,
+        input_tokens=len(prompt),
+        output_tokens=len(response.text),
     )
 
     integrated_report = response.text
     print(f"Generated integrated report length: {len(integrated_report)}")
+
+    save_consolidated_work_product(integrated_report, "integrated_report")
 
     return integrated_report
 
@@ -159,26 +193,28 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
+    save_prompt(prompt, "prompt_structured_elements_appendix.txt")
+
     start_time = time.time()
     response = model.generate_content(prompt)
+    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_structured_elements_appendix",
+        model=model.__class__.__name__,
         start_time=start_time,
-        response=response,
+        end_time=end_time,
+        input_tokens=len(prompt),
+        output_tokens=len(response.text),
     )
 
     appendix = response.text
     print(f"Generated structured elements appendix length: {len(appendix)}")
 
+    save_consolidated_work_product(appendix, "structured_elements_appendix")
+
     return appendix
-
-
-# Example usage:
-# video_analysis = "... your video analysis content ..."
-# structured_elements_appendix = generate_structured_elements_appendix(video_analysis)
-# print(structured_elements_appendix)
 
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
@@ -200,26 +236,28 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
+    save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
+
     start_time = time.time()
     response = model.generate_content(prompt)
+    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_intertextual_analysis_appendix",
+        model=model.__class__.__name__,
         start_time=start_time,
-        response=response,
+        end_time=end_time,
+        input_tokens=len(prompt),
+        output_tokens=len(response.text),
     )
 
     appendix = response.text
     print(f"Generated intertextual analysis appendix length: {len(appendix)}")
 
+    save_consolidated_work_product(appendix, "intertextual_analysis_appendix")
+
     return appendix
-
-
-# Example usage:
-# intertextual_analysis = "... your intertextual analysis content ..."
-# intertextual_appendix = generate_intertextual_analysis_appendix(intertextual_analysis)
-# print(intertextual_appendix)
 
 
 def generate_final_report(
@@ -266,3 +304,12 @@ def generate_final_report(
 
     print(f"Final report generated: {output_file}")
     print(f"Debug: Final report length: {len(final_report)}")
+
+
+if __name__ == "__main__":
+    # This block is for testing purposes
+    video_title = "Sample Video Title"
+    video_date = "2023-08-25"
+    channel_name = "Sample Channel"
+    speaker_name = "John Doe"
+    generate_final_report(video_title, video_date, channel_name, speaker_name)

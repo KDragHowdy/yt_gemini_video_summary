@@ -1,112 +1,87 @@
 ## Slide: 0:00
-- A Twitter page for Eliezer Yudkowsky (@ESYudkowsky) is displayed.
-- The page shows 22.3K posts and a profile picture of Yudkowsky.
-- A red and white equation is displayed at the top of the page: P(B|A) = P(B|A)P(A) / P(B)
-- The text below the profile picture reads: 
-    - The original AI alignment person. Missing punctuation at the end of a sentence means it's humor, if you're not sure, it's also very likely humor.
-    - Joined June 2014
-    - 179K Followers
-- Below the text is a "Following" button.
-- Below the "Following" button is the text: 
-    - Followed by Tess Reuss, Remy, +45 others and you follow
-- Below the "Followed by..." text are the tabs: 
-    - Posts
-    - Replies
-    - Highlights
-    - Media
-- Below the tabs is a pinned tweet:
-    - Eliezer Yudkowsky  @ESYudkowsky - Dec 4, 2018
-    - Safely aligning a powerful AGI is difficult.
-    - 732 Retweets
-    - 1 Quote Tweet
-    - 517 Likes
-    - 3.4K 
-    - 
-- The right side of the screen shows:
-    - "You might like" with a list of Twitter users:
-        - Sam Altman @sama
-        - Scott Alexander @SlateStarCodex
-        - Stephen Wolfram @stephen_wolfram
-    - "What's happening" with a list of trending topics:
-        - Panthers at Patriots NFL - Last night
-        - #OpenAI Technology - Trending
-        - #TrumpMeltdown Politics - Trending
-        - Messages
+- A Twitter profile for Eliezer Yudkowsky, with a blue verification checkmark. 
+- The profile picture is a headshot of Yudkowsky, with a beard and glasses. 
+- The username is "@ESYudkowsky."
+- The bio reads: "The original AI alignment person. Missing punctuation at the end of a sentence means it's humor, if you're not sure, it's also very likely humor."
+- The account has 22.3K posts and 175K followers.
+- The account has a blue "Following" button.
+- There is a red and white image of a math formula.
+- Below the bio, there are buttons for "Posts," "Replies," "Highlights," and "Media."
+- There is a pinned tweet from Eliezer Yudkowsky, dated December 4, 2018, that reads: "Safely aligning a powerful AGI is difficult."
 
-## Slide: 1:56
-- A black background with white text and a colorful abstract sphere is displayed.
-- The text reads:
-    - Should we Pause AI?
-    - TLDR: NO
+## Slide: 0:56
+- A black background with white text, "Should we Pause AI?"
+- Below the text, "TLDR: NO" is displayed in orange text.
+- On the right side of the slide, a sphere with a swirling pattern of various colors is displayed. The sphere has a white "DS" centered in it.
 
 ## Slide: 1:59
-- A black background with white text is displayed.
-- The text reads:
-    - Pause Giant AI Experiments
-    - The "Pause Giant AI Experiments" letter was published by the Future of Life Institute on March 22, 2023. It called for a six-month pause on AI systems more powerful than GPT-4, highlighting the need to assess risks and develop responsible development protocols. High-profile signatories included Elon Musk, Steve Wozniak, Yoshua Bengio, and Stuart Russell. While the letter didn't lead to a pause, it sparked significant debate about AI safety, governance, and regulation.
-    - Publication Date: Released by the Future of Life Institute on March 22, 2023.
-    - High-Profile Signatories: Signed by Elon Musk, Steve Wozniak, and other prominent figures.
-    - Key Request: Called for a six-month halt on developing AI systems more powerful than GPT-4.
-    - Main Concerns: Emphasized risks, the need for assessment, and involvement of policymakers.
-    - Impact: Sparked debate on AI safety and increased discussions on governance and regulation.
-- The right side of the screen shows a robot with a white background. 
+- A black background with white text, "Pause Giant AI Experiments."
+- Below the title, a robot with a white face and blue eyes is depicted. The robot is wearing a blue suit and has a blue and white background.
+- The text below the image reads:
+    - "The "Pause Giant AI Experiments" letter was published by the **Future of Life Institute on March 22, 2023**. It called for a six-month pause on AI systems more powerful than GPT-4, highlighting the need to assess risks and develop responsible development protocols. **High-profile signatories** included Elon Musk, Steve Wozniak, Yoshua Bengio, and Stuart Russell. While the letter didn't lead to a pause, it sparked significant debate about AI safety, governance, and regulation."
+- Below the text, there are bullet points:
+    - **Publication Date:** Released by the Future of Life Institute on March 22, 2023.
+    - **High-Profile Signatories:** Signed by Elon Musk, Steve Wozniak, and other prominent figures.
+    - **Key Request:** Called for a six-month halt on developing AI systems more powerful than GPT-4.
+    - **Main Concerns:** Emphasized risks, the need for assessment, and involvement of policymakers.
+    - **Impact:** Sparked debate on AI safety and increased discussions on governance and regulation.
 
 ## Slide: 2:55
-- A black background with white text is displayed.
-- The text reads:
-    - Primary Arguments in Favor
-    - Advocates for pausing AI development argue for a careful approach to ensure safety, control, and ethical considerations in the creation of advanced AI systems. They emphasize the need to develop regulatory frameworks and address societal impacts before proceeding with more powerful AI technologies. A pause is seen as necessary to prevent potential risks and ensure that AI serves humanity positively.
-    - Safety and Control: Concerns about AI systems becoming uncontrollable or posing existential risks.
-    - Ethical Considerations: Need to address bias, privacy, and accountability in AI systems.
-    - Regulatory Framework: Time to develop regulations and governance for AI technologies.
-    - Societal Impact: Concerns about job displacement, economic inequality, and social changes.
-    - Power Dynamics: Potential concentration of power among those controlling advanced AI systems.
-- The right side of the screen shows three robots in a courtroom setting.
+- A black background with white text, "Primary Arguments in Favor."
+- Below the title, a courtroom scene is depicted. Three robots are sitting at a table, wearing suits and ties.
+- The text below the image reads:
+    - "Advocates for pausing AI development argue for a careful approach to ensure safety, control, and ethical considerations in the creation of advanced AI systems. They emphasize the need to develop regulatory frameworks and address societal impacts before proceeding with more powerful AI technologies. A pause is seen as necessary to prevent potential risks and ensure that AI serves humanity positively."
+- Below the text, there are bullet points:
+    - **Safety and Control:** Concerns about AI systems becoming uncontrollable or posing existential risks.
+    - **Ethical Considerations:** Need to address bias, privacy, and accountability in AI systems.
+    - **Regulatory Framework:** Time to develop regulations and governance for AI technologies.
+    - **Societal Impact:** Concerns about job displacement, economic inequality, and social changes.
+    - **Power Dynamics:** Potential concentration of power among those controlling advanced AI systems.
 
 ## Slide: 5:12
-- A black background with white text is displayed.
-- The text reads:
-    - Impact of the AI Pause Letter
-    - The "Pause Giant AI Experiments" letter initiated a robust debate on AI development, garnering both support and criticism. Supporters saw it as a prudent call for caution, while critics feared it might impede beneficial AI research. Though the letter did not halt AI advancements, it played a pivotal role in raising awareness about AI safety and governance issues, and it continues to influence discussions on responsible AI development.
-    - Support: Seen as a necessary caution by many in the rapidly advancing AI field.
-    - Criticism: Concerns that a pause might hinder beneficial AI research and innovation.
-    - Public Awareness: Increased awareness of AI safety concerns among the general public.
-    - Governance Discussions: Spurred more discussions about AI regulation and governance.
-    - Industry Scrutiny: Led to heightened scrutiny of AI companies and their practices.
-- The right side of the screen shows two robots boxing.
+- A black background with white text, "Impact of the AI Pause Letter."
+- Below the title, two robots are depicted in a boxing ring. One robot is pink and the other is blue.
+- The text below the image reads:
+    - "The "Pause Giant AI Experiments" letter initiated a robust debate on AI development, garnering both support and criticism. Supporters saw it as a prudent call for caution, while critics feared it might impede beneficial AI research. Though the letter did not halt AI advancements, it played a pivotal role in raising awareness about AI safety and governance issues, and it continues to influence discussions on responsible AI development."
+- Below the text, there are bullet points:
+    - **Support:** Seen as a necessary caution by many in the rapidly advancing AI field.
+    - **Criticism:** Concerns that a pause might hinder beneficial AI research and innovation.
+    - **Public Awareness:** Increased awareness of AI safety concerns among the general public.
+    - **Governance Discussions:** Spurred more discussions about AI regulation and governance.
+    - **Industry Scrutiny:** Led to heightened scrutiny of AI companies and their practices.
 
 ## Slide: 6:15
-- A black background with white text is displayed.
-- The text reads:
-    - Active Pause Efforts
-    - The "Pause AI" movement remains vibrant, with ongoing protests and legislative efforts focusing on regulating AI development. Recent demonstrations in multiple countries highlight global concerns about AI's societal impact. Legislative initiatives in the U.S. aim to establish standards and accountability, while facing resistance from tech companies wary of stifling innovation. These efforts underscore the ongoing debate about balancing AI advancement with safety and ethics.
-    - Global Protests: Demonstrations in 13 countries on May 13, 2024 demanded stricter AI regulations.
-    - Safety Concerns: Protesters emphasized the need for rigorous safety evaluations of AI systems.
-    - U.S. Legislation: Senate Committee passed ten AI-related bills on July 31, 2024, addressing regulation and standards.
-    - Key Bills: Includes the VET Act, AI Research and Innovation Act, and Promoting US Leadership in Standards Act.
-    - California Bill: A proposed state bill aims to enforce AI safety rules, facing opposition from tech companies.
-- The right side of the screen shows a robot walking.
+- A black background with white text, "Active Pause Efforts."
+- Below the title, a robot is depicted walking forward. The robot is black with a yellow eye and a blue and white background.
+- The text below the image reads:
+    - "The "Pause AI" movement remains vibrant, with ongoing protests and legislative efforts focusing on regulating AI development. Recent demonstrations in multiple countries highlight global concerns about AI's societal impact. Legislative initiatives in the U.S. aim to establish standards and accountability, while facing resistance from tech companies wary of stifling innovation. These efforts underscore the ongoing debate about balancing AI advancement with safety and ethics."
+- Below the text, there are bullet points:
+    - **Global Protests:** Demonstrations in 13 countries on May 13, 2024 demanded stricter AI regulations.
+    - **Safety Concerns:** Protesters emphasized the need for rigorous safety evaluations of AI systems.
+    - **U.S. Legislation:** Senate Committee passed ten AI-related bills on July 31, 2024, addressing regulation and standards.
+    - **Key Bills:** Includes the VET Act, AI Research and Innovation Act, and Promoting US Leadership in Standards Act.
+    - **California Bill:** A proposed state bill aims to enforce AI safety rules, facing opposition from tech companies.
 
 ## Slide: 7:44
-- A black background with white text is displayed.
-- The text reads:
-    - Arguments Against AI Pause
-    - Critics of the AI pause argue that it presents numerous challenges and potential downsides. Legal and enforcement issues make it difficult to implement effectively, while it could negatively impact AI advancements and economic growth. Geopolitical concerns suggest that a pause might benefit other countries, and there are worries about overreach and misplaced focus. Instead, some propose focusing on regulation and ethical guidelines to manage AI risks.
-    - Legal Challenges: Lack of clear legal authority and difficulty enforcing a pause without international cooperation.
-    - Negative Impact: Potential hindrance to beneficial AI advancements and imbalanced progress.
-    - Geopolitical Concerns: Risk of other countries gaining a competitive edge if the pause isn't global.
-    - Economic Concerns: Slowing technological progress could hinder economic growth and innovation.
-    - Misplaced Focus: Emphasizes future risks over current issues like bias and misinformation.
-- The right side of the screen shows a robot running.
+- A black background with white text, "Arguments Against AI Pause."
+- Below the title, a robot is depicted running forward. The robot is black with a yellow eye and a blue and white background.
+- The text below the image reads:
+    - "Critics of the AI pause argue that it presents numerous challenges and potential downsides. **Legal and enforcement issues** make it difficult to implement effectively, while it could negatively impact AI advancements and economic growth. **Geopolitical concerns** suggest that a pause might benefit other countries, and there are worries about overreach and misplaced focus. Instead, some propose focusing on regulation and ethical guidelines to manage AI risks."
+- Below the text, there are bullet points:
+    - **Legal Challenges:** Lack of clear legal authority and difficulty enforcing a pause without international cooperation.
+    - **Negative Impact:** Potential hindrance to beneficial AI advancements and imbalanced progress.
+    - **Geopolitical Concerns:** Risk of other countries gaining a competitive edge if the pause isn't global.
+    - **Economic Concerns:** Slowing technological progress could hinder economic growth and innovation.
+    - **Misplaced Focus:** Emphasizes future risks over current issues like bias and misinformation.
 
 ## Slide: 9:33
-- A black background with white text is displayed.
-- The text reads:
-    - Opportunity Cost of AI Pause
-    - From a game theory perspective, the AI pause efforts are considered suboptimal due to significant opportunity costs. Resources such as time, money, and social capital spent on advocating for a pause could be better allocated to addressing nuanced safety concerns. In the context of corporate and geopolitical competition, delays in AI progress lead to a loss of momentum. The Nash equilibrium suggests that all players should continue advancing rapidly, as coordinating a pause is impractical. Consequently, a race condition is inevitable, and efforts might be better spent on adapting to the current landscape.
-    - Resource Allocation: Time and money spent on pause efforts could address specific AI safety concerns.
-    - Competitive Edge: Delaying AI progress may result in losing momentum in corporate and geopolitical arenas.
-    - Game Theory: The Nash equilibrium suggests continued rapid advancement, as a pause is unenforceable.
-    - Inevitable Race: A race condition is guaranteed, making coordinated pauses impractical.
-    - Narrative Shift: Focus on accepting and adapting to the reality of ongoing AI development.
-- The right side of the screen shows a robot walking. 
+- A black background with white text, "Opportunity Cost of AI Pause."
+- Below the title, a robot is depicted walking forward. The robot is black with a yellow eye and a blue and white background.
+- The text below the image reads:
+    - "From a game theory perspective, the AI pause efforts are considered suboptimal due to significant opportunity costs. Resources such as time, money, and social capital spent on advocating for a pause could be better allocated to addressing nuanced safety concerns. In the context of corporate and geopolitical competition, delays in AI progress lead to a loss of momentum. The **Nash equilibrium** suggests that all players should continue advancing rapidly, as coordinating a pause is impractical. Consequently, a race condition is inevitable, and efforts might be better spent on adapting to the current landscape."
+- Below the text, there are bullet points:
+    - **Resource Allocation:** Time and money spent on pause efforts could address specific AI safety concerns.
+    - **Competitive Edge:** Delaying AI progress may result in losing momentum in corporate and geopolitical arenas.
+    - **Game Theory:** The Nash equilibrium suggests continued rapid advancement, as a pause is unenforceable.
+    - **InevitabIe Race:** A race condition is guaranteed, making coordinated pauses impractical.
+    - **Narrative Shift:** Focus on accepting and adapting to the reality of ongoing AI development.
