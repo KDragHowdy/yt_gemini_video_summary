@@ -1,49 +1,30 @@
 ## Slide: 0:00
-- Eliezer Yudkowsky 
+- Eliezer Yudkowsky
 - @ESYudkowsky
-- The original AI alignment person. Missing punctuation at the end of a sentence means it's humor, if you're not sure. It's also very likely humor. 
+- The original AI alignment person. Missing punctuation at the end of a sentence means it's humor, if you're not sure. It's also very likely humor.
 - Joined June 2014
 - 92 Following 179K Followers
-- Followed by Tess Hess, Remy, +45 others you follow
+- Followed by Tess  Hess, Remy, + 45 others you follow
 - Posts Replies Highlights Media
+- Pinned
+- Eliezer Yudkowsky @ESYudkowsky - Dec 4, 2018
+- Safely aligning a powerful AGI is difficult.
+- 732 1.1K 517 3.4K 44K
+-  A picture of Eliezer Yudkowsky with a serious expression. 
 
-## Slide: 0:00
-- You might like
-    - Sam Altman 
-        - @sama
-        - Follow
-    - Scott Alexander
-        - @SlateStarCodex
-        - Follow
-    - Stephen Wolfram
-        - @stephen_wolfram
-        - Follow
-- Show more
-
-## Slide: 0:00
-- What's happening
-    - Panthers at Patriots
-        - NFL - Last Night
-    - #OpenAI
-        - Technology - Trending
-        - 1,335 posts
-    - #TrumpMeltdown
-        - Politics - Trending
-        - 787 posts
-- Messages
-
-## Slide: 1:56
-- Should we Pause AI?
+## Slide: 0:56
+- Should we pause AI?
 - TLDR: NO
 
-## Slide: 1:59
+## Slide: 0:59
 - Pause Giant AI Experiments
-- The "Pause Giant AI Experiments" letter was published by the Future of Life Institute on March 22, 2023. It called for a six-month pause on AI systems more powerful than GPT-4, highlighting the need to assess risks and develop responsible development protocols. High-profile signatories included Elon Musk, Steve Wozniak, Yoshua Bengio, and Stuart Russell. While the letter didn't lead to a pause, it sparked significant debate about AI safety, governance, and regulation. 
+- The "Pause Giant AI Experiments" letter was published by the Future of Life Institute on March 22, 2023. It called for a six-month pause on AI systems more powerful than GPT-4, highlighting the need to assess risks and develop responsible development protocols. High-profile signatories included Elon Musk, Steve Wozniak, Yoshua Bengio, and Stuart Russell. While the letter didn't lead to a pause, it sparked significant debate about AI safety, governance, and regulation.
 - Publication Date: Released by the Future of Life Institute on March 22, 2023.
 - High-Profile Signatories: Signed by Elon Musk, Steve Wozniak, and other prominent figures.
 - Key Request: Called for a six-month halt on developing AI systems more powerful than GPT-4.
-- Main Concerns: Emphasized risks, the need for assessment, and involvement of policymakers.
-- Impact: Sparked debate on AI safety and increased discussions on governance and regulation.
+- Main Concerns: Emphasized risks, the need for assessment, and debate on AI safety and  governance.
+- Impact: Sparked involvement of policymakers, discussions on governance and regulation.
+- A picture of a robot with a white background. 
 
 ## Slide: 2:55
 - Primary Arguments in Favor
@@ -53,15 +34,17 @@
 - Regulatory Framework: Time to develop regulations and governance for AI technologies.
 - Societal Impact: Concerns about job displacement, economic inequality, and social changes.
 - Power Dynamics: Potential concentration of power among those controlling advanced AI systems.
+- A picture of three robots sitting in a courtroom. 
 
 ## Slide: 5:12
 - Impact of the AI Pause Letter
-- The "Pause Giant AI Experiments" letter initiated a robust debate on AI development, garnering both support and criticism. Supporters saw it as a prudent call for caution, while critics feared it might impede beneficial AI research. Though the letter did not halt AI advancements, it played a pivotal role in raising awareness about AI safety and governance issues, and it continues to influence discussions on responsible AI development.
+- The "Pause Giant AI Experiments" letter initiated a robust debate on AI development, garnering both support and criticism. Supporters saw it as a prudent call for caution, while critics feared it might impede beneficial AI research. Though the letter did not halt advancements, it played a pivotal role in raising awareness about AI safety and governance issues, and it continues to influence discussions on responsible AI development.
 - Support: Seen as a necessary caution by many in the rapidly advancing AI field.
 - Criticism: Concerns that a pause might hinder beneficial AI research and innovation.
 - Public Awareness: Increased awareness of AI safety concerns among the general public.
 - Governance Discussions: Spurred more discussions about AI regulation and governance.
 - Industry Scrutiny: Led to heightened scrutiny of AI companies and their practices.
+- A picture of two robots boxing in a ring. 
 
 ## Slide: 6:15
 - Active Pause Efforts
@@ -71,6 +54,7 @@
 - U.S. Legislation: Senate Committee passed ten AI-related bills on July 31, 2024, addressing regulation and standards.
 - Key Bills: Includes the VET Act, AI Research and Innovation Act, and Promoting US Leadership in Standards Act.
 - California Bill: A proposed state bill aims to enforce safety rules, facing opposition from tech companies.
+- A picture of a robot walking in a city. 
 
 ## Slide: 7:44
 - Arguments Against AI Pause
@@ -80,6 +64,7 @@
 - Geopolitical Concerns: Risk of other countries gaining a competitive edge if the pause isn't global.
 - Economic Concerns: Slowing technological progress could hinder economic growth and innovation.
 - Misplaced Focus: Emphasizes future risks over current issues like bias and misinformation.
+- A picture of a robot walking through a city with a map of the world behind it. 
 
 ## Slide: 9:33
 - Opportunity Cost of AI Pause
@@ -88,4 +73,5 @@
 - Competitive Edge: Delaying AI progress may result in losing momentum in corporate and geopolitical arenas.
 - Game Theory: The Nash equilibrium suggests continued rapid advancement, as a pause is unenforceable.
 - Inevitable Race: A race condition is guaranteed, making coordinated pauses impractical.
-- Narrative Shift: Focus on accepting and adapting to the reality of ongoing AI development. 
+- Narrative Shift: Focus on accepting and adapting to the reality of ongoing AI development.
+- A picture of a robot walking on a road. 

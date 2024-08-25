@@ -64,7 +64,7 @@ def main():
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
 
-        summary_chunks, intertextual_chunks, video_analyses = process_video(
+        intertextual_chunks, video_analyses = process_video(
             video_chunks, video_id, video_title, duration_minutes
         )
 

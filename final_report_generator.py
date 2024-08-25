@@ -13,7 +13,6 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
         "video_analysis": [],
         "transcript_analysis": [],
         "intertextual_analysis": [],
-        "summary": [],
     }
 
     print(f"Debug: Searching for files in {interim_dir}")
@@ -42,11 +41,6 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
                         work_products["intertextual_analysis"].append(content)
                         print(
                             f"Debug: Loaded intertextual_analysis from {filename} (length: {len(content)})"
-                        )
-                    elif "summary_chunk" in filename:
-                        work_products["summary"].append(content)
-                        print(
-                            f"Debug: Loaded summary from {filename} (length: {len(content)})"
                         )
                     else:
                         print(

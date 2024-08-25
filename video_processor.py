@@ -18,7 +18,6 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
 
     print(f"Successfully retrieved transcript ({len(transcript)} characters).")
 
-    summary_chunks = []
     intertextual_chunks = []
     video_analyses = []
 
@@ -85,4 +84,4 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
             2
         )  # Reduced from 4 to 2 seconds to account for more frequent, smaller chunks
 
-    return summary_chunks, intertextual_chunks, video_analyses
+    return intertextual_chunks, video_analyses
