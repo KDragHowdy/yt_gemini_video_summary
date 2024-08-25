@@ -18,20 +18,9 @@ def get_video_info(video_id):
 def download_youtube_video(
     video_id: str, output_dir: str, chunk_duration=10 * 60
 ) -> tuple:
-    """
-    Downloads a YouTube video and extracts relevant metadata.
-
-    Args:
-        video_id (str): The ID of the YouTube video to download.
-        output_dir (str): The directory where the video will be saved.
-        chunk_duration (int): Duration of each video chunk in seconds.
-
-    Returns:
-        tuple: chunks, video_title, video_date, channel_name, speaker_name
-    """
     url = f"https://www.youtube.com/watch?v={video_id}"
     ydl_opts = {
-        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4",
+        "format": "bestvideo[ext=mp4]/mp4",  # Changed to download video only
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
     }
 
@@ -44,7 +33,6 @@ def download_youtube_video(
             channel_name = info_dict.get("uploader", "Unknown Channel")
             description = info_dict.get("description", "")
 
-            # Format upload date to YYYY-MM-DD
             if upload_date:
                 video_date = datetime.strptime(upload_date, "%Y%m%d").strftime(
                     "%Y-%m-%d"
@@ -52,15 +40,12 @@ def download_youtube_video(
             else:
                 video_date = "Unknown Date"
 
-            # Speaker name extraction logic
             speaker_name = extract_speaker_name(description, channel_name)
 
             print(f"Video successfully downloaded: {filename}")
 
-            # Split the video into chunks
             chunks = split_video_into_chunks(filename, chunk_duration)
 
-            # Remove the original file
             os.remove(filename)
             print(f"Removed original file: {filename}")
 
@@ -72,16 +57,6 @@ def download_youtube_video(
 
 
 def extract_speaker_name(description: str, channel_name: str) -> str:
-    """
-    Extracts the speaker's name from the video description if available.
-
-    Args:
-        description (str): The video description.
-        channel_name (str): The channel name, used as a fallback.
-
-    Returns:
-        str: The speaker's name.
-    """
     import re
 
     patterns = [
@@ -100,7 +75,7 @@ def extract_speaker_name(description: str, channel_name: str) -> str:
 
 
 def split_video_into_chunks(filename, chunk_duration):
-    video = VideoFileClip(filename)
+    video = VideoFileClip(filename, audio=False)  # Changed to exclude audio
     duration = video.duration
     chunks = []
     for i in range(0, int(duration), chunk_duration):
@@ -114,7 +89,6 @@ def split_video_into_chunks(filename, chunk_duration):
     return chunks
 
 
-# Make sure to export all necessary functions
 __all__ = [
     "get_video_info",
     "download_youtube_video",
