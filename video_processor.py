@@ -1,6 +1,5 @@
 from file_uploader import upload_video, wait_for_file_active
 from content_generator import (
-    analyze_combined_video_and_transcript_wp,
     analyze_video_content,
     analyze_transcript,
     save_interim_work_product,
@@ -67,24 +66,6 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
                 video_id,
                 video_title,
                 f"intertextual_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            )
-
-            # Generate combined summary
-            summary = analyze_combined_video_and_transcript_wp(
-                video_analysis,
-                transcript_analysis,
-                intertextual_analysis,
-                chunk_start,
-                chunk_end,
-                video_id,
-                video_title,
-            )
-            summary_chunks.append(summary)
-            save_interim_work_product(
-                summary,
-                video_id,
-                video_title,
-                f"summary_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
             )
 
             intertextual_chunks.append(intertextual_analysis)

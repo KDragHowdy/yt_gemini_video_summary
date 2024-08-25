@@ -1,83 +1,59 @@
-## Structured Presentation Elements (0-10 minutes)
+## Slide: 0:00
+Steelmanning Doomerism
 
-### Slide 1
-- **Type:** Slide
-- **Timestamp:** 0:00
-- **Content:**
-    - Title: Steelmanning Doomerism
-    - Subtitle: Doomers are not thinking big enough picture. Here are the real nightmare scenarios.
-    - Image: A large, distorted, 3D "DS" with a red, orange, purple, and blue color scheme.
-    - Speaker: A man with a bald head and a beard, wearing a red Star Trek uniform, is standing in front of a microphone and looking directly at the camera. 
+Doomers are not thinking big enough picture. Here are the real nightmare scenarios.
 
-### Slide 2
-- **Type:** Slide
-- **Timestamp:** 1:20
-- **Content:**
-    - Title: Analytical Thirdspace
-    - Text: In this presentation, I often operate within an analytical thirdspace, where I temporarily accept premises I don't truly endorse—commonly known as "steelmanning" an argument. This approach can create an impression of inconsistency, as I frequently forget to clarify that I'm merely testing ideas, view this as trying ideas on for size, a practice that aligns with the notion that an educated mind can entertain thoughts without necessarily accepting them. Additionally, Kegan's stages of development emphasize the importance of being aware of one's own point of view, inhabiting others' perspectives, and understanding systems within systems. This slide aims to explain any perceived inconsistency in my approach.
-    - Bullet Points:
-        - Analytical Thirdspace: Temporarily accepting premises I don't endorse.
-        - Steelmanning: Strengthening opposing arguments to test their validity.
-        - Idea Testing: Trying on ideas without committing to them.
-        - Kegan's Development Stages: Emphasizing perspective awareness and systems thinking.
-        - Clarifying Consistency: Explaining apparent inconsistencies in my approach.
-    - Image: A cartoon drawing of a man's head, with a large, red nose and a wide, toothy grin. The text "Analytical Thirdspace" is above the image.
+## Slide: 1:20
+Analytical Thirdspace
 
-### Slide 3
-- **Type:** Slide
-- **Timestamp:** 2:37
-- **Content:**
-    - Title: Current Arguments
-    - Text: To date, there is a significant lack of empirical evidence that AI models are intrinsically incorrigible (unsteerable) or latently malevolent. While there are counter-examples, such as jailbreaking models, adversarial attacks, and other vulnerabilities, these issues do not indicate fundamental failure modes. Instead, they represent challenges that can be addressed through improved safety measures, rather than proof of inherent dangers in AI systems.
-    - Bullet Points:
-        - No Intrinsic Incorrigibility: AI models have not shown themselves to be unsteerable.
-        - No Latent Malevolence: There's no evidence AI systems are inherently malevolent.
-        - Counter-Examples: Vulnerabilities like jailbreaking and adversarial attacks exist.
-        - Not Fundamental: These vulnerabilities are not indicative of deeper or permanent failure modes.
-        - Improvement Potential: Safety measures can mitigate current AI challenges.
-    - Image: A man with a bald head and a beard, wearing a red Star Trek uniform, is standing in front of two microphones, with a large screen behind him displaying the text.
+In this presentation, I often operate within an analytical thirdspace, where I temporarily accept premises I don't truly endorse—commonly known as "steelmanning" an argument. This approach can create an impression of inconsistency, as I frequently forget to clarify that I'm merely testing ideas, view this as trying ideas on for size, a practice that aligns with the notion that an educated mind can entertain thoughts without necessarily accepting them. Additionally, Kegan's stages of development emphasize the importance of being aware of one's own point of view, inhabiting others' perspectives, and understanding systems within systems. This slide aims to explain any perceived inconsistency in my approach.
 
-### Slide 4
-- **Type:** Slide
-- **Timestamp:** 4:28
-- **Content:**
-    - Title: 20% Doomers
-    - Text: Around 20% of my audience aligns with the belief that AI will lead to catastrophic outcomes. I've identified this through split-half consistency testing, where I ask different questions aimed at uncovering the same underlying belief. For example, I might ask how many would support pausing AI development and then inquire how many think AI will ultimately cause human extinction. These questions consistently converge on roughly the same subset of respondents, providing a reliable measure of this belief within my audience.
-    - Bullet Points:
-        - AI Doom Belief: 20% of my audience expects catastrophic AI outcomes.
-        - Split-Half Testing: Method used to validate this belief across different questions.
-        - Triangulation: Different questions target similar underlying beliefs.
-        - Consistent Convergence: Results consistently point to the same audience segment.
-        - Audience Insight: Understanding this helps tailor the rest of the presentation.
-    - Image: A large, metallic, Terminator-like robot head, with a red eye. The text "20% Doomers" is above the image.
-    - Speaker: A man with a bald head and a beard, wearing a red Star Trek uniform, is standing in front of a microphone and looking directly at the camera. 
+- Analytical Thirdspace: Temporarily accepting premises I don't endorse.
+- Steelmanning: Strengthening opposing arguments to test their validity.
+- Idea Testing: Trying on ideas without committing to them.
+- Kegan's Development Stages: Emphasizing perspective awareness and systems thinking.
+- Clarifying Consistency: Explaining apparent inconsistencies in my approach.
 
-### Slide 5
-- **Type:** Slide
-- **Timestamp:** 5:47
-- **Content:**
-    - Title: How AI Could Spell Disaster
-    - Text: Although I believe the likelihood of AI leading to disaster is low, it remains a genuine possibility worth exploring. My probability of AI-driven doom is around 30%, primarily due to the absence of key safeguards, such as an international research organization. Additionally, the risk of widespread suffering is significant—not because AI will intentionally cause harm, but due to corporate greed and entrenched power structures that could misuse AI. In this section, we'll steelman the concerns of AI doomsayers, taking a serious look at potential scenarios where AI could spell disaster for humanity as we'll steelman the concerns of AI doomsayers, taking a serious look at potential scenarios where AI could spell disaster for humanity.
-    - Bullet Points:
-        - Low Likelihood: I personally assess AI-driven disaster as unlikely (~30%).
-        - Key Milestones: The lack of an international research body heightens risk.
-        - Risk of Suffering: Corporate greed and power structures are major concerns.
-        - Steelman Approach: Exploring the strongest arguments for AI-driven doom.
-        - Genuine Possibility: Taking an honest look at how AI could go wrong.
-    - Image: A large, metallic, Terminator-like robot head, with a red eye. The text "How AI Could Spell Disaster" is above the image.
-    - Speaker: A man with a bald head and a beard, wearing a red Star Trek uniform, is standing in front of a microphone and looking directly at the camera. 
+## Slide: 2:37
+Current Arguments
 
-### Slide 6
-- **Type:** Slide
-- **Timestamp:** 7:39
-- **Content:**
-    - Title: Bioweapons
-    - Text: The creation of bioweapons is, in my view, the most significant risk posed by AI. As AI systems advance in material science, exemplified by projects like AlphaFold, the ability to design chemical and biological agents—such as prions or viruses—becomes dangerously accessible. Many of these breakthroughs are being released open source and fall under DURC (Dual Use Research of Concern). The COVID-19 pandemic demonstrated how biological agents can evolve uncontrollably, and require no energy or oversight to spread. For those bent on causing mass extinction, an engineered plague could be the "best" method, or at least a precursor to human extermination. AI dramatically lowers the threshold of danger, making these capabilities more accessible to state actors or terrorists.
-    - Bullet Points:
-        - Bioweapon Risk: AI advancements make designing deadly agents easier.
-        - Material Science: Projects like AlphaFold increase capabilities in bioengineering.
-        - DURC Concerns: Dual-use research heightens the risk of misuse.
-        - Pandemic Lessons: Biological agents can evolve uncontrollably and spread autonomously.
-        - Lowered Threshold: AI reduces the barriers for state actors or terrorists to create bioweapons.
-    - Image: A large, green, stylized "W" shape, with a white outline. The text "Bioweapons" is above the image.
-    - Speaker: A man with a bald head and a beard, wearing a red Star Trek uniform, is standing in front of a microphone and looking directly at the camera. 
+To date, there is a significant lack of empirical evidence that AI models are intrinsically incorrigible (unsteerable) or latently malevolent. While there are counter-examples, such as jailbreaking models, adversarial attacks, and other vulnerabilities, these issues do not indicate fundamental failure modes. Instead, they represent challenges that can be addressed through improved safety measures, rather than proof of inherent dangers in AI systems.
+
+- No Intrinsic Incorrigibility: AI models have not shown themselves to be unsteerable.
+- No Latent Malevolence: There's no evidence AI systems are inherently malevolent.
+- Counter-Examples: Vulnerabilities like jailbreaking and adversarial attacks exist.
+- Not Fundamental: These vulnerabilities are not indicative of deeper or permanent failure modes.
+- Improvement Potential: Safety measures can mitigate current AI challenges.
+
+## Slide: 4:28
+20% Doomers
+
+Around 20% of my audience aligns with the belief that AI will lead to catastrophic outcomes. I've identified this through split-half consistency testing, where I ask different questions aimed at uncovering the same underlying belief. For example, I might ask how many would support pausing AI development and then inquire how many think AI will ultimately cause human extinction. These questions consistently converge on roughly the same subset of respondents, providing a reliable measure of this belief within my audience.
+
+- AI Doom Belief: 20% of my audience expects catastrophic outcomes.
+- Split-Half Testing: Method used to validate this belief across different questions.
+- Triangulation: Different questions target similar underlying beliefs.
+- Consistent Convergence: Results consistently point to the same audience segment.
+- Audience Insight: Understanding this helps tailor the rest of the presentation.
+
+## Slide: 5:47
+How AI Could Spell Disaster
+
+Although I believe the likelihood of AI leading to disaster is low, it remains a genuine possibility worth exploring. My probability of AI-driven doom is around 30%, primarily due to the absence of key safeguards, such as an international research organization. Additionally, the risk of widespread suffering is significant—not because AI will intentionally cause harm, but due to corporate greed and entrenched power structures that could misuse AI. In this section, we'll steelman the concerns of AI doomsayers, taking a serious look at potential scenarios where AI could spell disaster for humanity as we'll steelman the concerns of AI doomsayers, taking a serious look at potential scenarios where AI could spell disaster for humanity as
+
+- Low Likelihood: I personally assess AI-driven disaster as unlikely (~30%).
+- Key Milestones: The lack of an international research body heightens risk.
+- Risk of Suffering: Corporate greed and power structures are major concerns.
+- Steelman Approach: Exploring the strongest arguments for AI-driven doom.
+- Genuine Possibility: Taking an honest look at how AI could go wrong.
+
+## Slide: 7:39
+Bioweapons
+
+The creation of bioweapons is, in my view, the most significant risk posed by AI. As AI systems advance in material science, exemplified by projects like AlphaFold, the ability to design chemical and biological agents—such as prions or viruses—becomes dangerously accessible. Many of these breakthroughs are being released open source and fall under DURC (Dual Use Research of Concern). The COVID-19 pandemic demonstrated how biological agents can evolve uncontrollably, and require no energy or oversight to spread. For those bent on causing mass extinction, an engineered plague could be the "best" method, or at least a precursor to human extermination. AI dramatically lowers the threshold of danger, making these capabilities more accessible to state actors or terrorists.
+
+- Bioweapon Risk: AI advancements make designing deadly agents easier.
+- Material Science: Projects like AlphaFold increase capabilities in bioengineering.
+- DURC Concerns: Dual-use research heightens the risk of misuse.
+- Pandemic Lessons: Biological agents can evolve uncontrollably and spread autonomously.
+- Lowered Threshold: AI reduces the barriers for state actors or terrorists to create bioweapons. 
