@@ -1,15 +1,14 @@
 import os
 import json
 from typing import List, Dict
-from models import get_final_report_model_json, get_final_report_model_text
+from models import get_final_report_model_text
 
-OUTPUT_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary\output"
+BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
+INTERIM_DIR = os.path.join(BASE_DIR, "interim")
+OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
 
-def load_work_products(output_dir: str) -> Dict[str, List[str]]:
-    """
-    Load all work products from the specified output directory.
-    """
+def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
     work_products = {
         "video_analysis": [],
         "transcript_analysis": [],
@@ -17,34 +16,91 @@ def load_work_products(output_dir: str) -> Dict[str, List[str]]:
         "summary": [],
     }
 
-    for filename in os.listdir(output_dir):
+    print(f"Debug: Searching for files in {interim_dir}")
+    for filename in os.listdir(interim_dir):
+        print(f"Debug: Found file: {filename}")
         if filename.endswith(".txt"):
-            for wp_type in work_products.keys():
-                if wp_type in filename:
-                    with open(
-                        os.path.join(output_dir, filename), "r", encoding="utf-8"
-                    ) as f:
-                        work_products[wp_type].append(f.read())
+            file_path = os.path.join(interim_dir, filename)
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read().strip()
+                    if not content:
+                        print(f"Warning: File {filename} is empty.")
+                        continue
+
+                    if "video_chunk" in filename:
+                        work_products["video_analysis"].append(content)
+                        print(
+                            f"Debug: Loaded video_analysis from {filename} (length: {len(content)})"
+                        )
+                    elif "transcript_chunk" in filename:
+                        work_products["transcript_analysis"].append(content)
+                        print(
+                            f"Debug: Loaded transcript_analysis from {filename} (length: {len(content)})"
+                        )
+                    elif "intertextual_chunk" in filename:
+                        work_products["intertextual_analysis"].append(content)
+                        print(
+                            f"Debug: Loaded intertextual_analysis from {filename} (length: {len(content)})"
+                        )
+                    elif "summary_chunk" in filename:
+                        work_products["summary"].append(content)
+                        print(
+                            f"Debug: Loaded summary from {filename} (length: {len(content)})"
+                        )
+                    else:
+                        print(
+                            f"Debug: Skipping file {filename} as it doesn't match any known type."
+                        )
+            except IOError as e:
+                print(f"Error reading file {filename}: {str(e)}")
+            except Exception as e:
+                print(f"Unexpected error processing file {filename}: {str(e)}")
+
+    for wp_type, chunks in work_products.items():
+        print(f"Debug: Total {wp_type} chunks loaded: {len(chunks)}")
 
     return work_products
+
+
+def save_prompt(prompt: str, filename: str):
+    """
+    Save the prompt to a file for debugging purposes.
+    """
+    with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
+        f.write(prompt)
+    print(f"Debug: Saved prompt to {filename}")
 
 
 def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     """
     Use LLM to consolidate chunks of a specific work product type.
     """
+    print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
     model = get_final_report_model_text()
     prompt = f"Consolidate the following {work_product_type} chunks into a coherent summary:\n\n"
     prompt += "\n\n".join(chunks)
 
+    save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
+
     response = model.generate_content(prompt)
-    return response.text
+    consolidated = response.text
+    print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
+
+    # Save the consolidated output
+    output_file = os.path.join(OUTPUT_DIR, f"consolidated_{work_product_type}.txt")
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(consolidated)
+    print(f"Debug: Saved consolidated {work_product_type} to {output_file}")
+
+    return consolidated
 
 
 def generate_main_content(consolidated_products: Dict[str, str]) -> str:
     """
     Generate the main content of the report using consolidated work products.
     """
+    print("Debug: Generating main content")
     model = get_final_report_model_text()
     prompt = f"""
     Generate a comprehensive report based on the following consolidated analyses:
@@ -70,14 +126,26 @@ def generate_main_content(consolidated_products: Dict[str, str]) -> str:
     Ensure that you incorporate relevant information from all analyses in a cohesive manner.
     """
 
+    save_prompt(prompt, "prompt_main_content.txt")
+
     response = model.generate_content(prompt)
-    return response.text
+    main_content = response.text
+    print(f"Debug: Generated main content length: {len(main_content)}")
+
+    # Save the main content
+    output_file = os.path.join(OUTPUT_DIR, "main_content.txt")
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(main_content)
+    print(f"Debug: Saved main content to {output_file}")
+
+    return main_content
 
 
 def generate_structured_elements_appendix(video_analysis: str) -> str:
     """
     Generate the appendix for structured elements from video analysis.
     """
+    print("Debug: Generating structured elements appendix")
     model = get_final_report_model_text()
     prompt = f"""
     Extract and format all structured elements (such as slides, charts, or diagrams) mentioned in the following video analysis:
@@ -88,14 +156,26 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
+    save_prompt(prompt, "prompt_structured_elements_appendix.txt")
+
     response = model.generate_content(prompt)
-    return response.text
+    appendix = response.text
+    print(f"Debug: Generated structured elements appendix length: {len(appendix)}")
+
+    # Save the structured elements appendix
+    output_file = os.path.join(OUTPUT_DIR, "structured_elements_appendix.txt")
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(appendix)
+    print(f"Debug: Saved structured elements appendix to {output_file}")
+
+    return appendix
 
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     """
     Generate the appendix for intertextual analysis.
     """
+    print("Debug: Generating intertextual analysis appendix")
     model = get_final_report_model_text()
     prompt = f"""
     Organize and present the following intertextual analysis in a clear, structured format suitable for an appendix:
@@ -106,22 +186,34 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
+    save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
+
     response = model.generate_content(prompt)
-    return response.text
+    appendix = response.text
+    print(f"Debug: Generated intertextual analysis appendix length: {len(appendix)}")
+
+    # Save the intertextual analysis appendix
+    output_file = os.path.join(OUTPUT_DIR, "intertextual_analysis_appendix.txt")
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(appendix)
+    print(f"Debug: Saved intertextual analysis appendix to {output_file}")
+
+    return appendix
 
 
 def generate_final_report(video_title: str):
     """
     Main function to generate the final report.
     """
+    print(f"Debug: Starting final report generation for '{video_title}'")
+
     # Load work products
-    work_products = load_work_products(OUTPUT_DIR)
+    work_products = load_work_products(INTERIM_DIR)
 
     # Consolidate chunks for each work product type
-    consolidated_products = {
-        wp_type: consolidate_chunks(chunks, wp_type)
-        for wp_type, chunks in work_products.items()
-    }
+    consolidated_products = {}
+    for wp_type, chunks in work_products.items():
+        consolidated_products[wp_type] = consolidate_chunks(chunks, wp_type)
 
     # Generate main content
     main_content = generate_main_content(consolidated_products)
@@ -157,8 +249,9 @@ def generate_final_report(video_title: str):
         f.write(final_report)
 
     print(f"Final report generated: {output_file}")
+    print(f"Debug: Final report length: {len(final_report)}")
 
 
 if __name__ == "__main__":
-    video_title = "Sample Video Title"  # This should be dynamically set based on the processed video
+    video_title = "Forcing Functions - Constraints, Affordances, Bounds, and Systems Behavior  [SYSTEMS THINKING]"
     generate_final_report(video_title)

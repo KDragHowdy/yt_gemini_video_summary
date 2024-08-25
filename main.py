@@ -1,13 +1,13 @@
 import os
 import sys
 import json
+import shutil
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
-from generate_and_save_reports import generate_and_save_reports
+from final_report_generator import generate_final_report
 from utils import setup_directories
 from error_handling import VideoProcessingError
-from final_report_generator import generate_final_report  # New import
 
 # Add the project root directory to Python path
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -23,9 +23,24 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 
 
+def clear_interim_directory():
+    print("Clearing interim directory...")
+    for filename in os.listdir(INTERIM_DIR):
+        file_path = os.path.join(INTERIM_DIR, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f"Failed to delete {file_path}. Reason: {e}")
+    print("Interim directory cleared.")
+
+
 def main():
     try:
         setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
+        clear_interim_directory()  # Clear interim directory at the start
 
         video_id = input("Enter the YouTube video ID: ")
         video_title, duration = get_video_info(video_id)
@@ -52,15 +67,6 @@ def main():
 
         summary_chunks, intertextual_chunks, video_analyses = process_video(
             video_chunks, video_id, video_title, duration_minutes
-        )
-
-        generate_and_save_reports(
-            video_id,
-            video_title,
-            summary_chunks,
-            intertextual_chunks,
-            video_analyses,
-            OUTPUT_DIR,
         )
 
         # Generate the final report

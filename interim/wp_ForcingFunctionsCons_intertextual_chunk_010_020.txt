@@ -1,0 +1,18 @@
+{
+  "references": [
+    {
+      "type": "scientific",
+      "reference": "Evolutionary Theory",
+      "context": "Death is presented as a critical forcing function from an evolutionary perspective, ensuring resource availability and clearing the path for new individuals and ideas.",
+      "explanation": "Evolutionary theory suggests that natural selection drives the survival of the fittest. Death plays a key role in this process by removing individuals, reducing resource contention, and allowing for new genetic variations to emerge.",
+      "significance": "The speaker emphasizes how death is not just an inevitable biological event but also a crucial factor in the advancement of species through evolution."
+    },
+    {
+      "type": "historical",
+      "reference": "AK-47",
+      "context": "The example of the AK-47's loose tolerances for sand and broken cartridges is presented as an affordance in design.",
+      "explanation": "The AK-47 is a famous assault rifle designed by Mikhail Kalashnikov. It is renowned for its reliability and durability, even in harsh environments. Its loose tolerances contribute to this characteristic.",
+      "significance": "The AK-47 serves as a real-world illustration of how design considerations can influence behavior and performance, making it easier for users to operate effectively in challenging situations."
+    }
+  ]
+}
