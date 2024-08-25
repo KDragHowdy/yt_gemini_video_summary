@@ -28,6 +28,7 @@ class RateLimiter:
 
 
 GEMINI_FLASH_LIMITER = RateLimiter(max_calls=60, period=60)
+GEMINI_PRO_LIMITER = RateLimiter(max_calls=2, period=60)
 
 # Safety settings to allow all content
 SAFETY_SETTINGS = {
@@ -44,8 +45,8 @@ def get_gemini_flash_model_json():
         "gemini-1.5-flash",
         generation_config={
             "response_mime_type": "application/json",
-            "temperature": 1.0,
-            "top_p": 1.0,
+            "temperature": 0.5,
+            "top_p": 0.9,  # Updated to 0.9
             "top_k": 40,
         },
         safety_settings=SAFETY_SETTINGS,
@@ -57,8 +58,21 @@ def get_gemini_flash_model_text():
     return genai.GenerativeModel(
         "gemini-1.5-flash",
         generation_config={
-            "temperature": 1.0,
-            "top_p": 1.0,
+            "temperature": 0.5,
+            "top_p": 0.9,  # Updated to 0.9
+            "top_k": 40,
+        },
+        safety_settings=SAFETY_SETTINGS,
+    )
+
+
+def get_final_report_model_text():
+    GEMINI_PRO_LIMITER.wait()
+    return genai.GenerativeModel(
+        "gemini-1.5-pro-exp-0801",
+        generation_config={
+            "temperature": 0.5,
+            "top_p": 0.9,  # Updated to 0.9
             "top_k": 40,
         },
         safety_settings=SAFETY_SETTINGS,
