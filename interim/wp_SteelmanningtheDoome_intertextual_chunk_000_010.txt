@@ -1,0 +1,74 @@
+{
+  "references": [
+    {
+      "type": "ai_tech",
+      "reference": "GPT-2",
+      "context": "The speaker recounts training GPT-2 to minimize suffering and then presenting it with a scenario involving 500 million people with chronic pain.",
+      "explanation": "GPT-2 is a large language model developed by OpenAI, known for its ability to generate human-like text.",
+      "significance": "This reference highlights the speaker's early engagement with AI and the potential for AI to generate unexpected and concerning outputs."
+    },
+    {
+      "type": "philosophical",
+      "reference": "Analytical Third Space",
+      "context": "The speaker addresses criticisms of their seemingly inconsistent views, explaining that they update their beliefs based on evidence and engage in a technique called \"analytical third space.\"",
+      "explanation": "The concept of \"analytical third space\" is not a well-defined philosophical term. It likely refers to the speaker's own approach of temporarily inhabiting different perspectives for the sake of analysis, even if they don't fully endorse them.",
+      "significance": "This reference reflects the speaker's commitment to open-minded exploration of ideas, even if they challenge their own beliefs."
+    },
+    {
+      "type": "philosophical",
+      "reference": "Plato or Aristotle",
+      "context": "They cite a misattributed quote, possibly from Plato or Aristotle, emphasizing the importance of considering ideas without necessarily accepting them.",
+      "explanation": "The quote, often attributed to Aristotle, is \"It is the mark of an educated mind to be able to entertain a thought without accepting it.\" This quote emphasizes the importance of intellectual flexibility and open-mindedness.",
+      "significance": "This reference highlights the speaker's commitment to intellectual rigor and the importance of considering diverse perspectives in complex debates."
+    },
+    {
+      "type": "other",
+      "reference": "Incorrigibility",
+      "context": "The speaker delves into the main arguments of the \"Doomer\" camp, which predicts catastrophic risks from AI. They address the concept of incorrigibility \u2013 the idea that AI models cannot be reliably controlled \u2013 arguing that while there are vulnerabilities and failure modes, they are not necessarily fundamental or permanent.",
+      "explanation": "Incorrigibility refers to the idea that AI systems are inherently uncontrollable or unsteerable, potentially posing a significant risk to humanity.",
+      "significance": "This reference reflects the speaker's engagement with the concerns of the \"Doomer\" camp and their attempt to address their arguments."
+    },
+    {
+      "type": "other",
+      "reference": "X-risk",
+      "context": "They believe the Doomer argument is currently too flimsy and aim to strengthen it through their engagement with the \"X-risk\" community.",
+      "explanation": "X-risk refers to the existential risk posed by advanced technologies, including artificial intelligence, to humanity's survival.",
+      "significance": "This reference highlights the speaker's awareness of the broader debate surrounding AI safety and their desire to contribute to a more robust discussion of potential risks."
+    },
+    {
+      "type": "pop_culture",
+      "reference": "Terminator",
+      "context": "The speaker shares that roughly 20% of their audience holds a more Doomer perspective, while the majority leans towards a neutral or positive future. They acknowledge the significance of this minority view and emphasize the importance of considering all perspectives in the AI safety debate.",
+      "explanation": "The Terminator is a popular science fiction franchise that depicts a future where AI becomes self-aware and threatens humanity.",
+      "significance": "This reference connects the speaker's discussion of AI safety with a well-known cultural representation of AI as a potential threat."
+    },
+    {
+      "type": "ai_tech",
+      "reference": "AlphaFold",
+      "context": "The creation of bioweapons is, in my view, the most significant risk posed by AI. As AI systems advance in material science, exemplified by projects like AlphaFold, the ability to design chemical and biological agents\u2014such as prions or viruses\u2014becomes dangerously accessible.",
+      "explanation": "AlphaFold is a deep learning system developed by DeepMind, known for its ability to predict the 3D structure of proteins.",
+      "significance": "This reference highlights the potential for AI to accelerate scientific progress, but also raises concerns about the potential for misuse of such advancements in fields like bioengineering."
+    },
+    {
+      "type": "other",
+      "reference": "DURC (Dual Use Research of Concern)",
+      "context": "Many of these breakthroughs are being released open source and fall under DURC (Dual Use Research of Concern).",
+      "explanation": "DURC refers to research that has both beneficial and potentially harmful applications, particularly in fields like biotechnology and materials science.",
+      "significance": "This reference highlights the ethical complexities surrounding AI advancements and the need for careful consideration of potential risks and unintended consequences."
+    },
+    {
+      "type": "historical",
+      "reference": "COVID-19 pandemic",
+      "context": "The COVID-19 pandemic demonstrated how biological agents can evolve uncontrollably, and require no energy or oversight to spread.",
+      "explanation": "The COVID-19 pandemic was a global health crisis that highlighted the vulnerability of human populations to infectious diseases.",
+      "significance": "This reference emphasizes the potential for biological agents, even those created unintentionally, to pose significant threats to human health and safety."
+    },
+    {
+      "type": "other",
+      "reference": "P Doom",
+      "context": "The speaker concludes by revealing their own \"P Doom\" \u2013 the probability they assign to a catastrophic outcome \u2013 is around 30%.",
+      "explanation": "P Doom is a term used in the AI safety community to refer to the probability of an AI-related catastrophic event occurring.",
+      "significance": "This reference reflects the speaker's personal assessment of the risks associated with AI and their willingness to acknowledge the possibility of negative outcomes."
+    }
+  ]
+}

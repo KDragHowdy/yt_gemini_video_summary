@@ -1,13 +1,17 @@
 import os
 import sys
 import json
+import shutil
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
 from final_report_generator import generate_final_report
 from utils import setup_directories
 from error_handling import VideoProcessingError
-from model_statistics import model_stats
+
+# Add the project root directory to Python path
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(project_root)
 
 # Load environment variables
 load_dotenv()
@@ -36,9 +40,9 @@ def clear_directory(directory):
 def main():
     try:
         setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
-        clear_directory(INTERIM_DIR)
-        clear_directory(INPUT_DIR)
-        clear_directory(OUTPUT_DIR)
+        clear_directory(INTERIM_DIR)  # Clear interim directory at the start
+        clear_directory(INPUT_DIR)  # Clear input directory at the start
+        clear_directory(OUTPUT_DIR)  # Clear output directory at the start
 
         video_id = input("Enter the YouTube video ID: ")
         video_title, duration = get_video_info(video_id)
@@ -58,9 +62,8 @@ def main():
                 return
 
         print(f"Processing video: {video_title}")
-        video_chunks, video_title, video_date, channel_name, speaker_name = (
-            download_youtube_video(video_id, INPUT_DIR)
-        )
+        chunk_duration = 10 * 60  # 10 minutes in seconds
+        video_chunks = download_youtube_video(video_id, INPUT_DIR, chunk_duration)
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
 
@@ -69,12 +72,7 @@ def main():
         )
 
         # Generate the final report
-        generate_final_report(
-            video_title=video_title,
-            video_date=video_date,
-            channel_name=channel_name,
-            speaker_name=speaker_name,
-        )
+        generate_final_report(video_title)
 
         print("Video processing and final report generation completed successfully.")
 
@@ -90,9 +88,7 @@ def main():
         import traceback
 
         traceback.print_exc()
-
-    # Print model statistics report
-    print("\n" + model_stats.generate_report())
+    sys.exit(1)
 
 
 if __name__ == "__main__":

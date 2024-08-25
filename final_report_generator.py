@@ -77,34 +77,19 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     else:
         model = get_gemini_flash_model_text()
 
-    if work_product_type == "intertextual_analysis":
-        chunks_text = "\n\n".join(chunks)
-        prompt = (
-            f"Consolidate the following {work_product_type} chunks into a single coherent JSON document:\n\n"
-            f"{chunks_text}\n\n"
-            "Instructions:\n"
-            "1. Combine all references from all chunks into a single JSON array.\n"
-            "2. Maintain the original structure of each reference object.\n"
-            "3. Ensure all unique references from each chunk are retained.\n"
-            "4. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
-            "Format the output as a valid JSON array of reference objects."
-            "Do not include any text before or after the consolidated content."
-        )
-    else:
-        chunks_text = "\n\n".join(chunks)
-        prompt = (
-            f"Consolidate the following {work_product_type} chunks into a single coherent document:\n\n"
-            f"{chunks_text}\n\n"
-            "Instructions:\n"
-            "1. Identify the common headers across all chunks.\n"
-            "2. For each header, combine the relevant content from all chunks, maintaining the original sequence.\n"
-            "3. Present the consolidated information under a single set of headers.\n"
-            "4. Ensure all unique information from each chunk is retained.\n"
-            "5. Maintain the chronological order of information where applicable.\n"
-            "6. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
-            "Format the output as a well-structured Markdown document."
-            "Do not include any text before or after the consolidated content."
-        )
+    chunks_text = "\n\n".join(chunks)
+    prompt = (
+        f"Consolidate the following {work_product_type} chunks into a single coherent document:\n\n"
+        f"{chunks_text}\n\n"
+        "Instructions:\n"
+        "1. Identify the common headers across all chunks.\n"
+        "2. For each header, combine the relevant content from all chunks, maintaining the original sequence.\n"
+        "3. Present the consolidated information under a single set of headers.\n"
+        "4. Ensure all unique information from each chunk is retained.\n"
+        "5. Maintain the chronological order of information where applicable.\n"
+        "6. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
+        "Format the output as a well-structured Markdown document."
+    )
 
     save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
@@ -120,43 +105,45 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     return consolidated
 
 
-def generate_main_content(consolidated_products: Dict[str, str]) -> str:
-    print("Debug: Generating main content")
+def generate_integrated_report(
+    consolidated_products: Dict[str, str],
+    video_title: str,
+    video_date: str,
+    channel_name: str,
+    speaker_name: str,
+) -> str:
     model = get_gemini_flash_model_text()
+    # Create the report title
+    report_title = f"Understanding the Implications of AI: A Holistic Examination\n{video_title} ({video_date}) - {channel_name} by {speaker_name}"
+
+    # Create the prompt
     prompt = f"""
-    Generate a comprehensive report based on the following consolidated analyses:
+    Title: {report_title}
 
-    Transcript Analysis:
-    {consolidated_products['transcript_analysis']}
+    Write a comprehensive report on the topic discussed in the video, using the provided analyses as a knowledge base. The report should:
+    - Maintain a formal structure with sections and headings while allowing for the expressive style of an essay where necessary.
+    - Integrate facts, quotes, and key arguments from the transcript analysis into a cohesive narrative that reflects a deep understanding of the topic.
+    - Incorporate insights from the video analysis (slides, graphs, etc.) into the report, using them to enrich the discussion while keeping the detailed slides and structured elements in the appendix.
+    - Use context from the intertextual analysis to clarify references, jargon, or concepts that the speaker assumes the audience understands, helping to explain these elements within the report.
+    - Reference quotes and facts from the video directly within the text, using them to add depth and credibility to the analysis, ensuring they feel naturally embedded in the narrative.
+    - Ensure the report flows logically, capturing the progression of ideas without resorting to a simple chronological retelling. Instead, focus on how the speaker’s arguments build upon each other, structured thematically or by major argument points.
+    - Avoid empty summarization or disconnected recounting of events. The report should present a concentrated, analytical discussion that conveys expertise and insight, using the provided materials to inform a nuanced exploration of the topic.
 
-    Video Structured Element Analysis:
-    {consolidated_products['video_analysis']}   
-    
-    Intertextual Analysis:
-    {consolidated_products['intertextual_analysis']}
-
-    
-    Describe in a narrator style as if you were relay the content to someone else. Avoid repeating phrases like "the speaker said" or "the video mentions."
-
-    
-    Please structure the report to work best with the context you have analysed.  The report will have an appendix with the recreated structured video elements and the intertextual references that you may refer to and incorporate in the main content to add more depth to the analysis.
-
-    Use Markdown formatting for better readability.
-    Don't include any text before or after the analyses.
+    The report should be formatted in Markdown with appropriate sections and headings, ensuring that the narrative is clear, authoritative, and compelling.
     """
 
-    save_prompt(prompt, "prompt_main_content.txt")
+    save_prompt(prompt, "prompt_integrated_report.txt")
 
     response = model.generate_content(prompt)
-    main_content = response.text
-    print(f"Debug: Generated main content length: {len(main_content)}")
+    integrated_report = response.text
+    print(f"Generated integrated report length: {len(integrated_report)}")
 
-    output_file = os.path.join(OUTPUT_DIR, "main_content.txt")
+    output_file = os.path.join(OUTPUT_DIR, "integrated_report.txt")
     with open(output_file, "w", encoding="utf-8") as f:
-        f.write(main_content)
-    print(f"Debug: Saved main content to {output_file}")
+        f.write(integrated_report)
+    print(f"Saved integrated report to {output_file}")
 
-    return main_content
+    return integrated_report
 
 
 def generate_structured_elements_appendix(video_analysis: str) -> str:
@@ -176,19 +163,18 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     For each structured element, include the timestamp, a brief description, and any relevant details.
 
     Use Markdown formatting for better readability.
-    Don't include any text before or after the structured elements.
     """
 
     save_prompt(prompt, "prompt_structured_elements_appendix.txt")
 
     response = model.generate_content(prompt)
     appendix = response.text
-    print(f"Debug: Generated structured elements appendix length: {len(appendix)}")
+    print(f"Generated structured elements appendix length: {len(appendix)}")
 
     output_file = os.path.join(OUTPUT_DIR, "structured_elements_appendix.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(appendix)
-    print(f"Debug: Saved structured elements appendix to {output_file}")
+    print(f"Saved structured elements appendix to {output_file}")
 
     return appendix
 
@@ -202,33 +188,33 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     {intertextual_analysis}
 
     Please structure the appendix with the following sections:
-    1. AI References
-    2. Other Technology
-    3. Cultural References
-    4. Literary References
-    5. Other Intertextual References
+    1. Philosophical References
+    2. Literary References
+    3. AI and Technology References
+    4. Other Intertextual References
 
-    For each reference, include the original context, and an explanation of its significance in the video.
+    For each reference, include the type, the original context, and an explanation of its significance in the video.
 
-    Use Markdown formatting for better readability. Don't use bullet points. Leave a line space between each reference.
-    Dont include any text before or after the references.
+    Use Markdown formatting for better readability.
     """
 
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
 
     response = model.generate_content(prompt)
     appendix = response.text
-    print(f"Debug: Generated intertextual analysis appendix length: {len(appendix)}")
+    print(f"Generated intertextual analysis appendix length: {len(appendix)}")
 
     output_file = os.path.join(OUTPUT_DIR, "intertextual_analysis_appendix.txt")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(appendix)
-    print(f"Debug: Saved intertextual analysis appendix to {output_file}")
+    print(f"Saved intertextual analysis appendix to {output_file}")
 
     return appendix
 
 
-def generate_final_report(video_title: str):
+def generate_final_report(
+    video_title: str, video_date: str, channel_name: str, speaker_name: str
+):
     print(f"Debug: Starting final report generation for '{video_title}'")
 
     work_products = load_work_products(INTERIM_DIR)
@@ -237,7 +223,9 @@ def generate_final_report(video_title: str):
     for wp_type, chunks in work_products.items():
         consolidated_products[wp_type] = consolidate_chunks(chunks, wp_type)
 
-    main_content = generate_main_content(consolidated_products)
+    integrated_report = generate_integrated_report(
+        consolidated_products, video_title, video_date, channel_name, speaker_name
+    )
 
     structured_elements_appendix = generate_structured_elements_appendix(
         consolidated_products["video_analysis"]
@@ -246,14 +234,13 @@ def generate_final_report(video_title: str):
         consolidated_products["intertextual_analysis"]
     )
 
-    # Simplified filename
     short_title = "".join(e for e in video_title if e.isalnum())[:12]
     output_file = os.path.join(OUTPUT_DIR, f"{short_title}_final_report.md")
 
     final_report = f"""
-    # {video_title} - Analysis Report
+    # {video_title} - Comprehensive Analysis
 
-    {main_content}
+    {integrated_report}
 
     ## Appendix A: Structured Elements from Video Analysis
 
@@ -269,7 +256,3 @@ def generate_final_report(video_title: str):
 
     print(f"Final report generated: {output_file}")
     print(f"Debug: Final report length: {len(final_report)}")
-
-
-if __name__ == "__main__":
-    pass
