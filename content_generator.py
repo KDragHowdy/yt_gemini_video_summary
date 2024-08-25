@@ -1,21 +1,10 @@
-import google.generativeai as genai
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import time
 import os
 from datetime import datetime
-
-model = genai.GenerativeModel(
-    "gemini-1.5-flash",
-    generation_config={
-        "response_mime_type": "application/json",
-        "temperature": 1.0,
-        "top_p": 1.0,
-        "top_k": 40,
-    },
-)
+from models import get_gemini_flash_model_json, get_gemini_flash_model_text
 
 
-def generate_content(prompt, video_file=None):
+def generate_content(prompt, video_file=None, use_json=False):
     max_retries = 3
     for attempt in range(max_retries):
         try:
@@ -24,25 +13,16 @@ def generate_content(prompt, video_file=None):
                 estimated_tokens += 1000  # Placeholder estimate for video file
             print(f"Estimated tokens for this call: {estimated_tokens}")
 
-            safety_settings = {
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-            }
+            model = (
+                get_gemini_flash_model_json()
+                if use_json
+                else get_gemini_flash_model_text()
+            )
 
             if video_file:
-                response = model.generate_content(
-                    [video_file, prompt],
-                    safety_settings=safety_settings,
-                    generation_config={"response_mime_type": "application/json"},
-                )
+                response = model.generate_content([video_file, prompt])
             else:
-                response = model.generate_content(
-                    prompt,
-                    safety_settings=safety_settings,
-                    generation_config={"response_mime_type": "application/json"},
-                )
+                response = model.generate_content(prompt)
 
             if response.prompt_feedback:
                 print(f"Prompt feedback: {response.prompt_feedback}")
@@ -74,7 +54,7 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
     Format your response in Markdown, using appropriate headings, subheadings, and formatting to recreate the structured elements as closely as possible.
     """
-    return generate_content(prompt, video_file)
+    return generate_content(prompt, video_file, use_json=False)
 
 
 def analyze_transcript(transcript, chunk_start, chunk_end):
@@ -91,7 +71,10 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
 
     Format your response in Markdown, using appropriate headings, subheadings, and bullet points.
     """
-    return generate_content(prompt)
+    return generate_content(prompt, use_json=False)
+
+
+# ... (rest of the file remains unchanged)
 
 
 def analyze_combined_video_and_transcript_wp(

@@ -23,10 +23,10 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 
 
-def clear_interim_directory():
-    print("Clearing interim directory...")
-    for filename in os.listdir(INTERIM_DIR):
-        file_path = os.path.join(INTERIM_DIR, filename)
+def clear_directory(directory):
+    print(f"Clearing {directory} directory...")
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
         try:
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 os.unlink(file_path)
@@ -34,13 +34,15 @@ def clear_interim_directory():
                 shutil.rmtree(file_path)
         except Exception as e:
             print(f"Failed to delete {file_path}. Reason: {e}")
-    print("Interim directory cleared.")
+    print(f"{directory} directory cleared.")
 
 
 def main():
     try:
         setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
-        clear_interim_directory()  # Clear interim directory at the start
+        clear_directory(INTERIM_DIR)  # Clear interim directory at the start
+        clear_directory(INPUT_DIR)  # Clear input directory at the start
+        clear_directory(OUTPUT_DIR)  # Clear output directory at the start
 
         video_id = input("Enter the YouTube video ID: ")
         video_title, duration = get_video_info(video_id)

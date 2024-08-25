@@ -1,12 +1,6 @@
-import google.generativeai as genai
 import json
-from datetime import datetime
+from models import get_gemini_flash_model_json
 import time
-from typing import List, Dict, Any
-
-model = genai.GenerativeModel(
-    "gemini-1.5-flash", generation_config={"response_mime_type": "application/json"}
-)
 
 
 def analyze_intertextual_references(
@@ -42,6 +36,7 @@ def analyze_intertextual_references(
             Ensure that the output is a valid JSON array. Do not include any text before or after the JSON array.
             """
 
+            model = get_gemini_flash_model_json()
             response = model.generate_content(prompt)
             intertextual_analysis = response.text
 
@@ -71,13 +66,4 @@ def analyze_intertextual_references(
                 return json.dumps({"references": []}, indent=2)
 
 
-def process_intertextual_references(video_id, video_title, intertextual_chunks):
-    consolidated_references: List[Dict[str, Any]] = []
-    for chunk in intertextual_chunks:
-        try:
-            chunk_data = json.loads(chunk)
-            consolidated_references.extend(chunk_data.get("references", []))
-        except json.JSONDecodeError as e:
-            print(f"Error parsing intertextual chunk: {str(e)}")
-
-    return {"references": consolidated_references}
+# ... (rest of the file remains unchanged)

@@ -1,4 +1,5 @@
 import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import os
 import time
 from dotenv import load_dotenv
@@ -26,37 +27,39 @@ class RateLimiter:
         self.calls.append(time.time())
 
 
-GEMINI_PRO_LIMITER = RateLimiter(max_calls=2, period=60)
 GEMINI_FLASH_LIMITER = RateLimiter(max_calls=60, period=60)
 
+# Safety settings to allow all content
+SAFETY_SETTINGS = {
+    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+}
 
-def get_gemini_pro_model():
-    GEMINI_PRO_LIMITER.wait()
-    return genai.GenerativeModel(
-        "gemini-1.5-pro-exp-0801",
-        generation_config={"response_mime_type": "application/json"},
-    )
 
-
-def get_gemini_flash_model():
+def get_gemini_flash_model_json():
     GEMINI_FLASH_LIMITER.wait()
     return genai.GenerativeModel(
-        "gemini-1.5-flash", generation_config={"response_mime_type": "application/json"}
+        "gemini-1.5-flash",
+        generation_config={
+            "response_mime_type": "application/json",
+            "temperature": 1.0,
+            "top_p": 1.0,
+            "top_k": 40,
+        },
+        safety_settings=SAFETY_SETTINGS,
     )
 
 
-# New section for final report generation models
-def get_final_report_model_json():
-    GEMINI_PRO_LIMITER.wait()
+def get_gemini_flash_model_text():
+    GEMINI_FLASH_LIMITER.wait()
     return genai.GenerativeModel(
-        "gemini-1.5-pro-exp-0801",
-        generation_config={"response_mime_type": "application/json"},
-    )
-
-
-def get_final_report_model_text():
-    GEMINI_PRO_LIMITER.wait()
-    return genai.GenerativeModel(
-        "gemini-1.5-pro-exp-0801",
-        generation_config={"response_mime_type": "text/plain"},
+        "gemini-1.5-flash",
+        generation_config={
+            "temperature": 1.0,
+            "top_p": 1.0,
+            "top_k": 40,
+        },
+        safety_settings=SAFETY_SETTINGS,
     )
