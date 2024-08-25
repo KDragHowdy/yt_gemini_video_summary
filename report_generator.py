@@ -1,5 +1,7 @@
 import json
+import time
 from models import get_gemini_pro_model
+from api_statistics import api_stats
 
 
 def extract_visual_elements(video_analyses):
@@ -85,8 +87,16 @@ def generate_markdown_report(
     - Format the output as a properly structured Markdown document, not as JSON.
     """
 
+    start_time = time.time()
     model = get_gemini_pro_model()
     response = model.generate_content(prompt)
+
+    api_stats.record_call(
+        module="report_generator",
+        function="generate_markdown_report",
+        start_time=start_time,
+        response=response,
+    )
 
     try:
         report_data = json.loads(response.text)
@@ -146,7 +156,7 @@ def generate_structured_slides_appendix(video_id, video_title, video_analyses):
                     )
                     slide_number += 1
         except json.JSONDecodeError:
-            print(f"Error parsing JSON in video analysis. Skipping this chunk.")
+            print("Error parsing JSON in video analysis. Skipping this chunk.")
             continue
         except KeyError as e:
             print(f"KeyError in video analysis: {str(e)}. Skipping this element.")

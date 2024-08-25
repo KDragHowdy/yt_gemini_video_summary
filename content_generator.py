@@ -1,42 +1,42 @@
 import time
-import os
-
+from api_statistics import api_stats
 from models import get_gemini_flash_model_json, get_gemini_flash_model_text
 
 
 def generate_content(prompt, video_file=None, use_json=False):
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            estimated_tokens = len(prompt) // 4
-            if video_file:
-                estimated_tokens += 1000  # Placeholder estimate for video file
-            print(f"Estimated tokens for this call: {estimated_tokens}")
+    start_time = time.time()
 
-            model = (
-                get_gemini_flash_model_json()
-                if use_json
-                else get_gemini_flash_model_text()
-            )
+    try:
+        model = (
+            get_gemini_flash_model_json() if use_json else get_gemini_flash_model_text()
+        )
+        response = (
+            model.generate_content(prompt)
+            if not video_file
+            else model.generate_content([video_file, prompt])
+        )
 
-            if video_file:
-                response = model.generate_content([video_file, prompt])
-            else:
-                response = model.generate_content(prompt)
+        api_stats.record_call(
+            module="content_generator",
+            function="generate_content",
+            start_time=start_time,
+            response=response,
+        )
 
-            if response.prompt_feedback:
-                print(f"Prompt feedback: {response.prompt_feedback}")
+        if response.prompt_feedback:
+            print(f"Prompt feedback: {response.prompt_feedback}")
 
-            if not response.text:
-                raise ValueError("Response was blocked or empty. Check safety ratings.")
+        return response.text
 
-            return response.text
-
-        except Exception as e:
-            print(f"Error generating content (attempt {attempt + 1}): {str(e)}")
-            if attempt == max_retries - 1:
-                return f"Error in analysis: {str(e)}"
-            time.sleep(2**attempt)  # Exponential backoff
+    except Exception as e:
+        api_stats.record_call(
+            module="content_generator",
+            function="generate_content",
+            start_time=start_time,
+            response=None,  # This will trigger the error handling in APIStatistics
+        )
+        print(f"Error generating content: {str(e)}")
+        return f"Error in analysis: {str(e)}"
 
 
 def analyze_video_content(video_file, chunk_start, chunk_end):

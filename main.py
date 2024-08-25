@@ -91,9 +91,6 @@ def main():
 
         traceback.print_exc()
 
-    # Print model statistics report
-    print("\n" + model_stats.generate_report())
-
 
 if __name__ == "__main__":
     main()

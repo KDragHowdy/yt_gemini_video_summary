@@ -1,7 +1,6 @@
-import os
-import json
-from typing import List, Dict
+import time
 from models import get_gemini_flash_model_text, get_gemini_flash_model_json
+from api_statistics import api_stats
 
 BASE_DIR = r"C:\\Users\\kevin\\repos\\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
@@ -63,7 +62,7 @@ def save_prompt(prompt: str, filename: str):
     print(f"Debug: Saved prompt to {filename}")
 
 
-def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
+def consolidate_chunks(chunks, work_product_type):
     print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
 
     if work_product_type == "intertextual_analysis":
@@ -72,45 +71,44 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
         model = get_gemini_flash_model_text()
 
     chunks_text = "\n\n".join(chunks)
-    prompt = (
-        f"Consolidate the following {work_product_type} chunks into a single coherent document:\n\n"
-        f"{chunks_text}\n\n"
-        "Instructions:\n"
-        "1. Identify the common headers across all chunks.\n"
-        "2. For each header, combine the relevant content from all chunks, maintaining the original sequence.\n"
-        "3. Present the consolidated information under a single set of headers.\n"
-        "4. Ensure all unique information from each chunk is retained.\n"
-        "5. Maintain the chronological order of information where applicable.\n"
-        "6. Do not summarize or paraphrase the content; instead, reorganize it.\n\n"
-        "Format the output as a well-structured Markdown document."
+    prompt = f"""
+    Consolidate the following {work_product_type} chunks into a single coherent document:
+
+    {chunks_text}
+
+    Instructions:
+    1. Identify the common headers across all chunks.
+    2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
+    3. Present the consolidated information under a single set of headers.
+    4. Ensure all unique information from each chunk is retained.
+    5. Maintain the chronological order of information where applicable.
+    6. Do not summarize or paraphrase the content; instead, reorganize it.
+
+    Format the output as a well-structured Markdown document.
+    """
+
+    start_time = time.time()
+    response = model.generate_content(prompt)
+
+    api_stats.record_call(
+        module="final_report_generator",
+        function="consolidate_chunks",
+        start_time=start_time,
+        response=response,
     )
 
-    save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
-
-    response = model.generate_content(prompt)
     consolidated = response.text
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
-
-    output_file = os.path.join(OUTPUT_DIR, f"consolidated_{work_product_type}.txt")
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(consolidated)
-    print(f"Debug: Saved consolidated {work_product_type} to {output_file}")
 
     return consolidated
 
 
 def generate_integrated_report(
-    consolidated_products: Dict[str, str],
-    video_title: str,
-    video_date: str,
-    channel_name: str,
-    speaker_name: str,
-) -> str:
+    consolidated_products, video_title, video_date, channel_name, speaker_name
+):
     model = get_gemini_flash_model_text()
-    # Create the report title
     report_title = f"Understanding the Implications of AI: A Holistic Examination\n{video_title} ({video_date}) - {channel_name} by {speaker_name}"
 
-    # Create the prompt
     prompt = f"""
     Title: {report_title}
 
@@ -120,22 +118,24 @@ def generate_integrated_report(
     - Incorporate insights from the video analysis (slides, graphs, etc.) into the report, using them to enrich the discussion while keeping the detailed slides and structured elements in the appendix.
     - Use context from the intertextual analysis to clarify references, jargon, or concepts that the speaker assumes the audience understands, helping to explain these elements within the report.
     - Reference quotes and facts from the video directly within the text, using them to add depth and credibility to the analysis, ensuring they feel naturally embedded in the narrative.
-    - Ensure the report flows logically, capturing the progression of ideas without resorting to a simple chronological retelling. Instead, focus on how the speaker’s arguments build upon each other, structured thematically or by major argument points.
+    - Ensure the report flows logically, capturing the progression of ideas without resorting to a simple chronological retelling. Instead, focus on how the speaker's arguments build upon each other, structured thematically or by major argument points.
     - Avoid empty summarization or disconnected recounting of events. The report should present a concentrated, analytical discussion that conveys expertise and insight, using the provided materials to inform a nuanced exploration of the topic.
 
     The report should be formatted in Markdown with appropriate sections and headings, ensuring that the narrative is clear, authoritative, and compelling.
     """
 
-    save_prompt(prompt, "prompt_integrated_report.txt")
-
+    start_time = time.time()
     response = model.generate_content(prompt)
+
+    api_stats.record_call(
+        module="final_report_generator",
+        function="generate_integrated_report",
+        start_time=start_time,
+        response=response,
+    )
+
     integrated_report = response.text
     print(f"Generated integrated report length: {len(integrated_report)}")
-
-    output_file = os.path.join(OUTPUT_DIR, "integrated_report.txt")
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(integrated_report)
-    print(f"Saved integrated report to {output_file}")
 
     return integrated_report
 
@@ -159,18 +159,26 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
-    save_prompt(prompt, "prompt_structured_elements_appendix.txt")
-
+    start_time = time.time()
     response = model.generate_content(prompt)
+
+    api_stats.record_call(
+        module="final_report_generator",
+        function="generate_structured_elements_appendix",
+        start_time=start_time,
+        response=response,
+    )
+
     appendix = response.text
     print(f"Generated structured elements appendix length: {len(appendix)}")
 
-    output_file = os.path.join(OUTPUT_DIR, "structured_elements_appendix.txt")
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(appendix)
-    print(f"Saved structured elements appendix to {output_file}")
-
     return appendix
+
+
+# Example usage:
+# video_analysis = "... your video analysis content ..."
+# structured_elements_appendix = generate_structured_elements_appendix(video_analysis)
+# print(structured_elements_appendix)
 
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
@@ -192,18 +200,26 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     Use Markdown formatting for better readability.
     """
 
-    save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
-
+    start_time = time.time()
     response = model.generate_content(prompt)
+
+    api_stats.record_call(
+        module="final_report_generator",
+        function="generate_intertextual_analysis_appendix",
+        start_time=start_time,
+        response=response,
+    )
+
     appendix = response.text
     print(f"Generated intertextual analysis appendix length: {len(appendix)}")
 
-    output_file = os.path.join(OUTPUT_DIR, "intertextual_analysis_appendix.txt")
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(appendix)
-    print(f"Saved intertextual analysis appendix to {output_file}")
-
     return appendix
+
+
+# Example usage:
+# intertextual_analysis = "... your intertextual analysis content ..."
+# intertextual_appendix = generate_intertextual_analysis_appendix(intertextual_analysis)
+# print(intertextual_appendix)
 
 
 def generate_final_report(

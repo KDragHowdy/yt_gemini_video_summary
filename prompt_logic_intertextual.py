@@ -1,13 +1,14 @@
 import json
-from models import get_gemini_flash_model_json
 import time
+from models import get_gemini_flash_model_json
+from api_statistics import api_stats
 
 
 def analyze_intertextual_references(
     video_analysis, transcript_analysis, chunk_start, chunk_end
 ):
     max_retries = 3
-    retry_delay = 1  # Start with 1 second delay
+    retry_delay = 1
 
     for attempt in range(max_retries):
         try:
@@ -36,13 +37,18 @@ def analyze_intertextual_references(
             Ensure that the output is a valid JSON array. Do not include any text before or after the JSON array.
             """
 
+            start_time = time.time()
             model = get_gemini_flash_model_json()
             response = model.generate_content(prompt)
-            intertextual_analysis = response.text
 
-            print(
-                f"Debug: Raw intertextual analysis content for chunk {chunk_start}-{chunk_end}:\n{intertextual_analysis[:500]}..."
+            api_stats.record_call(
+                module="prompt_logic_intertextual",
+                function="analyze_intertextual_references",
+                start_time=start_time,
+                response=response,
             )
+
+            intertextual_analysis = response.text
 
             # Attempt to parse the JSON
             parsed_analysis = json.loads(intertextual_analysis)
@@ -63,7 +69,10 @@ def analyze_intertextual_references(
                 retry_delay *= 2  # Exponential backoff
             else:
                 print("Debug: Falling back to a default structure.")
+                api_stats.record_call(
+                    module="prompt_logic_intertextual",
+                    function="analyze_intertextual_references",
+                    start_time=start_time,
+                    response=None,  # Indicate an error occurred
+                )
                 return json.dumps({"references": []}, indent=2)
-
-
-# ... (rest of the file remains unchanged)
