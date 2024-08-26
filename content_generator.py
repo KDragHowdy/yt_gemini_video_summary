@@ -45,18 +45,24 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
     Analyze the visual content of the video for the chunk from {chunk_start} to {chunk_end} minutes, focusing on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
     For each structured element you identify:
-    1. Determine the type of element for use in the start of the title (e.g., "Slide:", "Graph:", "Chart:", "Code Snippet:").
+    1. Determine the type of element (e.g., Slide, Graph, Chart, Code Snippet, Demonstration).
     2. Provide the timestamp or time range when it appears.
-    3. Recreate the content of the element as accurately as possible, including:
-       - For slides: Reproduce the text, bullet points, and describe any images.
-       - For graphs/charts: Describe the type of graph, axes labels, data points, and trends.
-       - For code snippets: Reproduce the code as exactly as possible.
-       - For other structured elements: Provide a detailed description or reproduction.
+    3. Describe the element in detail, including:
+       - For slides: Title, main points, and any imagery or diagrams.
+       - For graphs/charts: Type of graph, axes labels, data representation, and key trends or insights.
+       - For code snippets: Language used, purpose of the code, and key functions or concepts demonstrated.
+       - For demonstrations: Step-by-step breakdown of what's being shown.
+    4. Explain how this element relates to the overall content of the video.
+    5. Note any emphasis or particular focus the presenter places on this element.
+
+    Additionally:
+    - Describe any recurring visual themes or motifs.
+    - Mention any notable transitions or visual effects used.
+    - Comment on the overall visual style and how it contributes to the video's message.
 
     Format your response in Markdown using appropriate headings, subheadings and formatting to recreate the structured elements as closely as possible.
-    Ensure that each element is clearly presented sequentially, with a one line title based on materials presented.  For any elements that are not easily categorized, use a generic title like "Structured Element 1," "Structured Element 2,".  Do not output descriptions for any segments that are considered unstructured.
-    Seperate each structured element with a blank line.
-    Don't add text before or after the structured elemennts
+    Ensure that each element is clearly presented sequentially, with a descriptive title.
+    Separate each structured element with a blank line.
     """
     return generate_content(prompt, video_file, use_json=False)
 
@@ -68,16 +74,37 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
     Transcript: {transcript}
 
     Provide a detailed analysis that captures the essence of the spoken content, including:
-    1. The sequential development of the arguments
-    2. The key points and information presented
-    3. Notable quotes or statements made by the speaker
-    3. Names of speakers or people mentioned (if identifiable)
-    4. Any significant topics or themes discussed
-    5. Try to exclude extraneous commentary unrelated to the topic being presented.
-    6. Present in a narrator style as if you were relay the content to someone else, maintaining the context of the original transcript. Try to avoid phrases like "the speaker said" or "the transcript mentions.", jsut present the content as if you were telling someone about it.
-    7. Dont include any text before or after the transcript content.
+    1. Main Topics and Themes:
+       - Identify and list the primary topics discussed.
+       - Highlight any recurring themes or motifs in the speaker's discourse.
 
-    Format your response in Markdown, using appropriate headings, subheadings, and bullet points.
+    2. Key Arguments and Points:
+       - Outline the main arguments or points made by the speaker.
+       - Explain how these points are developed or supported throughout the segment.
+
+    3. Notable Quotes:
+       - Identify and transcribe verbatim at least 3-5 significant quotes.
+       - For each quote, provide:
+         a) The approximate timestamp.
+         b) A brief explanation of its significance or context.
+
+    4. Rhetorical Devices and Speaking Style:
+       - Note any rhetorical devices or unique speaking styles employed.
+       - Comment on the tone and how it shifts throughout the segment, if applicable.
+
+    5. Technical or Specialized Language:
+       - Highlight any technical terms or jargon used.
+       - Briefly explain these terms if they're crucial to understanding the content.
+
+    6. Narrative Structure:
+       - Describe how the speaker structures their argument or presentation.
+       - Note any significant transitions or shifts in the discourse.
+
+    7. Audience Engagement:
+       - Identify any direct addresses to the audience or calls to action.
+       - Note any hypothetical scenarios or examples used to illustrate points.
+
+    Format your response in Markdown, using appropriate headings, subheadings, and bullet points. Ensure that your analysis flows logically and captures the progression of ideas in the transcript.
     """
     return generate_content(prompt, use_json=False)
 

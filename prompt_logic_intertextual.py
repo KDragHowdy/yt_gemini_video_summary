@@ -9,36 +9,35 @@ from api_statistics import api_stats
 def analyze_intertextual_references(
     video_analysis, transcript_analysis, chunk_start, chunk_end
 ):
+    prompt = f"""
+    Analyze the following video content description and transcript for intertextual references:
+
+    Video Content Description:
+    {video_analysis}
+
+    Transcript:
+    {transcript_analysis}
+
+    Identify and explain any references to literary works, philosophical concepts, historical events, scientific theories, pop culture, AI technology, research papers, internet culture, or other notable ideas.
+
+    For each reference, provide the following information in a JSON object:
+    {{
+        "type": "literary/philosophical/historical/scientific/pop_culture/ai_tech/research/internet_culture/other",
+        "reference": "The actual reference",
+        "context": "How it was used in the video, including the approximate timestamp if possible",
+        "explanation": "Detailed explanation of the reference, including its origin and broader significance",
+        "relevance": "How this reference relates to the main topic of the video",
+        "connections": "Any connections to other references or themes in the video"
+    }}
+
+    Ensure that the output is a valid JSON array of these objects. Do not include any text before or after the JSON array.
+    """
+
     max_retries = 3
     retry_delay = 1
 
     for attempt in range(max_retries):
         try:
-            prompt = f"""
-            Analyze the following video content description and transcript for intertextual references:
-
-            Video Content Description:
-            {video_analysis}
-
-            Transcript:
-            {transcript_analysis}
-
-            Identify and explain any references to literary works, philosophical concepts, historical events, scientific theories, pop culture, AI technology, research papers, internet culture, or other notable ideas.
-
-            Format the output as a JSON array of objects with the following structure:
-            [
-                {{
-                    "type": "literary/philosophical/historical/scientific/pop_culture/ai_tech/research/internet_culture/other",
-                    "reference": "The actual reference",
-                    "context": "How it was used in the video",
-                    "explanation": "Brief explanation of the reference",
-                    "significance": "Why it's important in this context"
-                }}
-            ]
-
-            Ensure that the output is a valid JSON array. Do not include any text before or after the JSON array.
-            """
-
             start_time = time.time()
             model = get_gemini_flash_model_json()
             response = model.generate_content(prompt)
@@ -53,11 +52,13 @@ def analyze_intertextual_references(
 
             try:
                 intertextual_analysis = json.loads(response.text)
-            except json.JSONDecodeError:
+                if not isinstance(intertextual_analysis, list):
+                    raise ValueError("Response is not a JSON array")
+            except (json.JSONDecodeError, ValueError) as e:
                 print(
-                    f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}. Storing as raw text."
+                    f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
                 )
-                intertextual_analysis = {"raw_text": response.text}
+                intertextual_analysis = [{"error": str(e), "raw_text": response.text}]
 
             return json.dumps(intertextual_analysis, indent=2)
 
@@ -72,12 +73,11 @@ def analyze_intertextual_references(
             else:
                 print("Debug: Falling back to a default structure.")
                 return json.dumps(
-                    {
-                        "error": str(e),
-                        "raw_text": response.text if "response" in locals() else "",
-                    },
+                    [
+                        {
+                            "error": str(e),
+                            "raw_text": response.text if "response" in locals() else "",
+                        }
+                    ],
                     indent=2,
                 )
-
-
-# If there are any other functions in this file, keep them as is

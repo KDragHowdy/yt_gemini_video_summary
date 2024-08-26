@@ -106,14 +106,14 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
         {chunks_text}
 
         Instructions:
-        1. Identify the common headers across all chunks.
-        2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
-        3. Present the consolidated information under a single set of headers.
+        1. Maintain the original chronological order of the content.
+        2. Preserve the structure and headings from the original chunks.
+        3. Combine similar or repeated information under unified headings.
         4. Ensure all unique information from each chunk is retained.
-        5. Maintain the chronological order of information where applicable.
-        6. Do not summarize or paraphrase the content; instead, reorganize it.
+        5. Use clear transitions between different sections to maintain flow.
+        6. If there are time stamps or segment markers, include them to indicate progression.
 
-        Format the output as a well-structured Markdown document.
+        Format the output as a well-structured Markdown document, using appropriate headings (##, ###, etc.) to reflect the content hierarchy.
         """
 
         save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
@@ -144,22 +144,34 @@ def generate_integrated_report(
     channel_name: str,
     speaker_name: str,
 ) -> str:
-    model = get_gemini_flash_model_text()
-    report_title = f"Understanding the Implications of AI: A Holistic Examination\n{video_title} ({video_date}) - {channel_name} by {speaker_name}"
-
     prompt = f"""
-    Title: {report_title}
+    Create a comprehensive report on "{video_title}" by {speaker_name}, aired on {video_date} on {channel_name}. 
+    
+    Structure the report as follows:
+    1. Executive Summary
+    2. Introduction
+    3. Main Content Analysis (use headings that reflect the video's main topics)
+    4. Key Insights and Implications
+    5. Conclusion
 
-    Write a comprehensive report on the topic discussed in the video, using the provided analyses as a knowledge base. The report should:
-    - Maintain a formal structure with sections and headings while allowing for the expressive style of an essay where necessary.
-    - Integrate facts, quotes, and key arguments from the transcript analysis into a cohesive narrative that reflects a deep understanding of the topic.
-    - Incorporate insights from the video analysis (slides, graphs, etc.) into the report, using them to enrich the discussion while keeping the detailed slides and structured elements in the appendix.
-    - Use context from the intertextual analysis to clarify references, jargon, or concepts that the speaker assumes the audience understands, helping to explain these elements within the report.
-    - Reference quotes and facts from the video directly within the text, using them to add depth and credibility to the analysis, ensuring they feel naturally embedded in the narrative.
-    - Ensure the report flows logically, capturing the progression of ideas without resorting to a simple chronological retelling. Instead, focus on how the speaker's arguments build upon each other, structured thematically or by major argument points.
-    - Avoid empty summarization or disconnected recounting of events. The report should present a concentrated, analytical discussion that conveys expertise and insight, using the provided materials to inform a nuanced exploration of the topic.
+    For each section:
+    - Integrate relevant visual elements from the video analysis.
+    - Incorporate direct quotes from the transcript, citing the timestamp.
+    - Weave in intertextual references to provide context and depth.
+    - Ensure a coherent narrative flow that builds on the speaker's arguments.
 
-    The report should be formatted in Markdown with appropriate sections and headings, ensuring that the narrative is clear, authoritative, and compelling.
+    Use the following consolidated analyses:
+    Video Analysis: {consolidated_products['video_analysis']}
+    Transcript Analysis: {consolidated_products['transcript_analysis']}
+    Intertextual Analysis: {consolidated_products['intertextual_analysis']}
+
+    Formatting:
+    - Use Markdown for structuring.
+    - Use blockquotes (>) for direct quotes from the video.
+    - Use bold for emphasizing key points.
+    - Use italics for introducing intertextual references.
+
+    Aim for a scholarly tone that demonstrates deep understanding and critical analysis of the content.
     """
 
     save_prompt(prompt, "prompt_integrated_report.txt")
@@ -184,22 +196,24 @@ def generate_integrated_report(
 
 
 def generate_structured_elements_appendix(video_analysis: str) -> str:
-    print("Debug: Generating structured elements appendix")
-    model = get_gemini_flash_model_text()
     prompt = f"""
-    Generate an appendix of structured elements based on the following video analysis:
+    Create a detailed appendix of structured elements from the video analysis:
 
     {video_analysis}
 
-    Please structure the appendix with the following sections:
-    1. Slides
+    For each element:
+    1. Provide the timestamp.
+    2. Describe the visual element in detail.
+    3. Explain its relevance to the video's content.
+    4. If applicable, transcribe any text visible in the element.
+
+    Organize the appendix into these categories:
+    1. Slides and Presentations
     2. Graphs and Charts
-    3. Code Snippets
-    4. Other Structured Elements
+    3. Demonstrations or Visual Aids
+    4. Other Notable Visual Elements
 
-    For each structured element, include the timestamp, a brief description, and any relevant details.
-
-    Use Markdown formatting for better readability.
+    Use Markdown formatting for clarity and readability.
     """
 
     save_prompt(prompt, "prompt_structured_elements_appendix.txt")
@@ -224,28 +238,20 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
 
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
-    print("Debug: Generating intertextual analysis appendix")
-    model = get_gemini_flash_model_text()
-
-    # Parse the consolidated intertextual analysis
-    try:
-        parsed_analysis = json.loads(intertextual_analysis)
-    except json.JSONDecodeError:
-        parsed_analysis = [{"unstructured_content": intertextual_analysis}]
-
     prompt = f"""
-    Generate an appendix for intertextual analysis based on the following content:
+    Create a comprehensive appendix of intertextual references based on this analysis:
 
-    {json.dumps(parsed_analysis, indent=2)}
+    {intertextual_analysis}
 
-    For structured content, use the existing categories and information.
-    For unstructured content, analyze the text and categorize it into:
-    1. Philosophical References
-    2. Literary References
-    3. AI and Technology References
-    4. Other Intertextual References
+    For each reference:
+    1. Categorize it (e.g., Philosophical, Literary, Scientific, Technological, etc.).
+    2. Provide the context in which it was mentioned in the video.
+    3. Explain the reference's significance to the video's content.
+    4. If applicable, provide a brief background of the reference for viewers who might be unfamiliar.
 
-    Present the appendix in Markdown format, organizing the information coherently.
+    Organize the appendix by categories, and within each category, list references chronologically as they appear in the video.
+
+    Use Markdown formatting for clarity and readability.
     """
 
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
