@@ -1,0 +1,31 @@
+##  AI Predictions: A Look Ahead to 2030
+
+The speaker begins by acknowledging a perceived inconsistency in their recent pronouncements on AI. While they still anticipate a downturn in the field, they remain optimistic about its long-term potential.  They've been consulting with industry insiders and have a better understanding of the current landscape.
+
+### 2024: The Year of Robotics and Incremental Progress
+
+The speaker expects GPT-5 to be released sometime this year, possibly as early as fall, but more likely in December or early 2025.  Claude 4 is also expected around the same time.  While the cadence of model releases is accelerating, breakthroughs are becoming more expensive and incremental.  The speaker points to the time between GPT-3 and GPT-4 (three years) compared to the expected two to two and a half years between GPT-4 and GPT-5.  
+
+Despite this, they expect to see significant progress in multimodality and the release of more commercial and domestic robots.  They highlight the advanced robotics programs at Disney, expressing disappointment that they are primarily used for entertainment purposes. 
+
+The speaker believes that robotics will be the most exciting development in AI this year.  While video generators will be interesting, achieving Hollywood-quality 4K and 8K video will be challenging.  They draw a parallel with language models, which have mastered language but haven't reached the level of Shakespeare.
+
+### 2025: The Year of Disillusionment
+
+The speaker anticipates a period of disillusionment in 2025.  While GPT-5 and Claude 4 will be smarter and reach PhD-level capabilities, they won't be AGI.  They expect these models to reach the 95th percentile across multiple benchmarks, which, in the old paradigm of machine learning, would be considered a solved problem.  However, achieving those last few percentage points will require algorithmic breakthroughs.
+
+###  People Mentioned
+
+* Leopold Ashen Runner 
+*  Anthropic 
+* Google
+* Microsoft
+* OpenAI
+* Boston Dynamics
+* Disney
+
+### Key Themes
+
+* The pace of AI development is slowing down, with breakthroughs becoming more expensive.
+*  Robotics will be a key area of progress in 2024.
+*  2025 will likely be a year of disillusionment as AI models fall short of AGI expectations. 

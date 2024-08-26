@@ -80,46 +80,58 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
 
     if work_product_type == "intertextual_analysis":
-        model = get_gemini_flash_model_json()
+        consolidated_data = []
+        for chunk in chunks:
+            try:
+                chunk_data = json.loads(chunk)
+                if isinstance(chunk_data, list):
+                    consolidated_data.extend(chunk_data)
+                elif isinstance(chunk_data, dict):
+                    if "raw_text" in chunk_data:
+                        consolidated_data.append(
+                            {"unstructured_content": chunk_data["raw_text"]}
+                        )
+                    else:
+                        consolidated_data.append(chunk_data)
+            except json.JSONDecodeError:
+                consolidated_data.append({"unstructured_content": chunk})
+
+        consolidated = json.dumps(consolidated_data, indent=2)
     else:
         model = get_gemini_flash_model_text()
+        chunks_text = "\n\n".join(chunks)
+        prompt = f"""
+        Consolidate the following {work_product_type} chunks into a single coherent document:
 
-    chunks_text = "\n\n".join(chunks)
-    prompt = f"""
-    Consolidate the following {work_product_type} chunks into a single coherent document:
+        {chunks_text}
 
-    {chunks_text}
+        Instructions:
+        1. Identify the common headers across all chunks.
+        2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
+        3. Present the consolidated information under a single set of headers.
+        4. Ensure all unique information from each chunk is retained.
+        5. Maintain the chronological order of information where applicable.
+        6. Do not summarize or paraphrase the content; instead, reorganize it.
 
-    Instructions:
-    1. Identify the common headers across all chunks.
-    2. For each header, combine the relevant content from all chunks, maintaining the original sequence.
-    3. Present the consolidated information under a single set of headers.
-    4. Ensure all unique information from each chunk is retained.
-    5. Maintain the chronological order of information where applicable.
-    6. Do not summarize or paraphrase the content; instead, reorganize it.
+        Format the output as a well-structured Markdown document.
+        """
 
-    Format the output as a well-structured Markdown document.
-    """
+        save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
-    save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
+        start_time = time.time()
+        response = model.generate_content(prompt)
 
-    start_time = time.time()
-    response = model.generate_content(prompt)
-    end_time = time.time()
+        api_stats.record_call(
+            module="final_report_generator",
+            function="consolidate_chunks",
+            start_time=start_time,
+            response=response,
+            model=model.__class__.__name__,
+        )
 
-    api_stats.record_call(
-        module="final_report_generator",
-        function="consolidate_chunks",
-        model=model.__class__.__name__,
-        start_time=start_time,
-        end_time=end_time,
-        input_tokens=len(prompt),
-        output_tokens=len(response.text),
-    )
+        consolidated = response.text
 
-    consolidated = response.text
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
-
     save_consolidated_work_product(consolidated, work_product_type)
 
     return consolidated
@@ -154,16 +166,13 @@ def generate_integrated_report(
 
     start_time = time.time()
     response = model.generate_content(prompt)
-    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_integrated_report",
-        model=model.__class__.__name__,
         start_time=start_time,
-        end_time=end_time,
-        input_tokens=len(prompt),
-        output_tokens=len(response.text),
+        response=response,
+        model=model.__class__.__name__,
     )
 
     integrated_report = response.text
@@ -197,16 +206,13 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
     start_time = time.time()
     response = model.generate_content(prompt)
-    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_structured_elements_appendix",
-        model=model.__class__.__name__,
         start_time=start_time,
-        end_time=end_time,
-        input_tokens=len(prompt),
-        output_tokens=len(response.text),
+        response=response,
+        model=model.__class__.__name__,
     )
 
     appendix = response.text
@@ -220,36 +226,39 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     print("Debug: Generating intertextual analysis appendix")
     model = get_gemini_flash_model_text()
+
+    # Parse the consolidated intertextual analysis
+    try:
+        parsed_analysis = json.loads(intertextual_analysis)
+    except json.JSONDecodeError:
+        parsed_analysis = [{"unstructured_content": intertextual_analysis}]
+
     prompt = f"""
     Generate an appendix for intertextual analysis based on the following content:
 
-    {intertextual_analysis}
+    {json.dumps(parsed_analysis, indent=2)}
 
-    Please structure the appendix with the following sections:
+    For structured content, use the existing categories and information.
+    For unstructured content, analyze the text and categorize it into:
     1. Philosophical References
     2. Literary References
     3. AI and Technology References
     4. Other Intertextual References
 
-    For each reference, include the type, the original context, and an explanation of its significance in the video.
-
-    Use Markdown formatting for better readability.
+    Present the appendix in Markdown format, organizing the information coherently.
     """
 
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
 
     start_time = time.time()
     response = model.generate_content(prompt)
-    end_time = time.time()
 
     api_stats.record_call(
         module="final_report_generator",
         function="generate_intertextual_analysis_appendix",
-        model=model.__class__.__name__,
         start_time=start_time,
-        end_time=end_time,
-        input_tokens=len(prompt),
-        output_tokens=len(response.text),
+        response=response,
+        model=model.__class__.__name__,
     )
 
     appendix = response.text

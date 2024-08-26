@@ -1,3 +1,5 @@
+# prompt_logic_intertextual.py
+
 import json
 import time
 from models import get_gemini_flash_model_json
@@ -46,22 +48,22 @@ def analyze_intertextual_references(
                 function="analyze_intertextual_references",
                 start_time=start_time,
                 response=response,
+                model=model.__class__.__name__,
             )
 
-            intertextual_analysis = response.text
+            try:
+                intertextual_analysis = json.loads(response.text)
+            except json.JSONDecodeError:
+                print(
+                    f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}. Storing as raw text."
+                )
+                intertextual_analysis = {"raw_text": response.text}
 
-            # Attempt to parse the JSON
-            parsed_analysis = json.loads(intertextual_analysis)
+            return json.dumps(intertextual_analysis, indent=2)
 
-            # Ensure the parsed result is a list
-            if not isinstance(parsed_analysis, list):
-                raise ValueError("Parsed JSON is not a list")
-
-            return json.dumps({"references": parsed_analysis}, indent=2)
-
-        except (json.JSONDecodeError, ValueError) as e:
+        except Exception as e:
             print(
-                f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
+                f"Error in attempt {attempt + 1} for chunk {chunk_start}-{chunk_end}: {str(e)}"
             )
             if attempt < max_retries - 1:
                 print(f"Retrying in {retry_delay} seconds...")
@@ -69,10 +71,13 @@ def analyze_intertextual_references(
                 retry_delay *= 2  # Exponential backoff
             else:
                 print("Debug: Falling back to a default structure.")
-                api_stats.record_call(
-                    module="prompt_logic_intertextual",
-                    function="analyze_intertextual_references",
-                    start_time=start_time,
-                    response=None,  # Indicate an error occurred
+                return json.dumps(
+                    {
+                        "error": str(e),
+                        "raw_text": response.text if "response" in locals() else "",
+                    },
+                    indent=2,
                 )
-                return json.dumps({"references": []}, indent=2)
+
+
+# If there are any other functions in this file, keep them as is

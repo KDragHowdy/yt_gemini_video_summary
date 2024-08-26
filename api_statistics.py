@@ -23,21 +23,32 @@ class APIStatistics:
     def __init__(self):
         self.calls: List[APICallMetadata] = []
 
-    def record_call(self, module: str, function: str, start_time: float, response: Any):
+    def record_call(
+        self,
+        module: str,
+        function: str,
+        start_time: float,
+        response: Any,
+        model: str = None,
+    ):
         end_time = time.time()
         duration = end_time - start_time
 
         try:
             metadata = self._extract_metadata(response)
             call_data = APICallMetadata(
-                module=module, function=function, duration=duration, **metadata
+                module=module,
+                function=function,
+                duration=duration,
+                model=model or metadata.get("model", "Unknown"),
+                **metadata,
             )
         except Exception as e:
             call_data = APICallMetadata(
                 module=module,
                 function=function,
                 duration=duration,
-                model="Unknown",
+                model=model or "Unknown",
                 input_tokens=0,
                 output_tokens=0,
                 total_tokens=0,

@@ -1,3 +1,5 @@
+# main.py
+
 import os
 import sys
 import json
@@ -7,7 +9,7 @@ from video_processor import process_video
 from final_report_generator import generate_final_report
 from utils import setup_directories
 from error_handling import VideoProcessingError
-from model_statistics import model_stats
+from api_statistics import api_stats
 
 # Load environment variables
 load_dotenv()
@@ -75,6 +77,13 @@ def main():
             channel_name=channel_name,
             speaker_name=speaker_name,
         )
+
+        # Generate and save API statistics report
+        stats_report = api_stats.generate_report()
+        stats_file = os.path.join(OUTPUT_DIR, "api_statistics_report.txt")
+        with open(stats_file, "w") as f:
+            f.write(stats_report)
+        print(f"API statistics report saved to: {stats_file}")
 
         print("Video processing and final report generation completed successfully.")
 
