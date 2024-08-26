@@ -143,9 +143,17 @@ def generate_integrated_report(
     video_date: str,
     channel_name: str,
     speaker_name: str,
+    video_duration_minutes: float,
 ) -> str:
+    # Calculate the target word count based on video duration and work product size
+    total_input_chars = sum(len(product) for product in consolidated_products.values())
+    target_word_count = max(
+        1000, int(video_duration_minutes * 50 + total_input_chars / 100)
+    )
+
     prompt = f"""
     Create a comprehensive report on "{video_title}" by {speaker_name}, aired on {video_date} on {channel_name}. 
+    The video is approximately {video_duration_minutes:.0f} minutes long.
     
     Use the following consolidated analyses to create a flowing, essay-like discussion of the topic:
     Video Analysis: {consolidated_products['video_analysis']}
@@ -153,15 +161,17 @@ def generate_integrated_report(
     Intertextual Analysis: {consolidated_products['intertextual_analysis']}
 
     Your report should:
-    1. Present the speaker's views as our own, building a coherent argument or description as developed in the video.
-    2. Integrate visual elements, quotes, and intertextual references seamlessly into the discussion.
-    3. Develop the argument or description progressively, mirroring the structure of the video.
-    4. Use a scholarly tone that demonstrates deep understanding and critical analysis of the content.
-    5. Avoid describing what the speaker did, instead present the ideas directly.
+    1. Identify the overarching storyline or themes that emerge from the video, transcript, and intertextual analyses.
+    2. Present the speaker's views as our own, building a coherent argument or description that follows the linear flow and development of ideas in the video.
+    3. Use the identified overarching themes to expand on this linear flow, providing deeper insights and connections.
+    4. Integrate visual elements, quotes, and intertextual references by explaining their relevance and significance, rather than presenting them as separate exhibits.
+    5. Develop the argument or description progressively, mirroring the structure of the video while expanding on key points.
+    6. Use a scholarly tone that demonstrates deep understanding and critical analysis of the content.
+    7. Aim for a word count of approximately {target_word_count} words for the main body of the report.
 
     Structure the report as follows:
     1. Introduction
-    2. Main Body (use appropriate subheadings based on the video's content)
+    2. Main Body (use appropriate subheadings based on the video's content and identified themes)
     3. Conclusion
 
     Formatting:
@@ -170,7 +180,7 @@ def generate_integrated_report(
     - Use bold for emphasizing key points.
     - Use italics for introducing intertextual references.
 
-    Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content.
+    Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content while providing a deeper analysis guided by the identified themes.
     """
 
     save_prompt(prompt, "prompt_integrated_report.txt")
@@ -274,7 +284,11 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
 
 
 def generate_final_report(
-    video_title: str, video_date: str, channel_name: str, speaker_name: str
+    video_title: str,
+    video_date: str,
+    channel_name: str,
+    speaker_name: str,
+    video_duration_minutes: float,
 ):
     print(f"Debug: Starting final report generation for '{video_title}'")
 
@@ -285,7 +299,12 @@ def generate_final_report(
         consolidated_products[wp_type] = consolidate_chunks(chunks, wp_type)
 
     integrated_report = generate_integrated_report(
-        consolidated_products, video_title, video_date, channel_name, speaker_name
+        consolidated_products,
+        video_title,
+        video_date,
+        channel_name,
+        speaker_name,
+        video_duration_minutes,  # Add this line
     )
 
     structured_elements_appendix = generate_structured_elements_appendix(

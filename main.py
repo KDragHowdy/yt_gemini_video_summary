@@ -105,6 +105,7 @@ def main():
             video_date=video_date,
             channel_name=channel_name,
             speaker_name=speaker_name,
+            video_duration_minutes=duration_minutes,  # Add this line
         )
         report_end = time.time()
         report_time = report_end - report_start

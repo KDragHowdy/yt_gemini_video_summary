@@ -56,9 +56,13 @@ class APIStatistics:
             )
 
         self.calls.append(call_data)
+        print(f"Debug: API call recorded - {call_data}")  # Add this line for debugging
 
     def _extract_metadata(self, response: Any) -> Dict[str, Any]:
         try:
+            print(
+                f"Debug: Full response object: {response}"
+            )  # Add this line for debugging
             usage = response.usage
             return {
                 "model": getattr(response, "model", "Unknown"),
@@ -68,7 +72,10 @@ class APIStatistics:
                 "prompt_feedback": getattr(response, "prompt_feedback", None),
                 "error": None,
             }
-        except AttributeError:
+        except AttributeError as e:
+            print(
+                f"Debug: AttributeError in _extract_metadata - {str(e)}"
+            )  # Add this line for debugging
             return {
                 "model": "Unknown",
                 "input_tokens": 0,
