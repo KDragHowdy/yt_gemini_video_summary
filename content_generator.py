@@ -35,7 +35,7 @@ def generate_content(prompt, video_file=None, use_json=False):
             module="content_generator",
             function="generate_content",
             start_time=start_time,
-            response=None,  # This will trigger the error handling in APIStatistics
+            response=None,
             model="Unknown",
         )
         print(f"Error generating content: {str(e)}")

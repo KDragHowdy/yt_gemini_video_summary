@@ -56,33 +56,55 @@ class APIStatistics:
             )
 
         self.calls.append(call_data)
-        print(f"Debug: API call recorded - {call_data}")  # Add this line for debugging
+        print(f"Debug: API call recorded - {call_data}")
 
     def _extract_metadata(self, response: Any) -> Dict[str, Any]:
         try:
-            print(
-                f"Debug: Full response object: {response}"
-            )  # Add this line for debugging
-            usage = response.usage
-            return {
-                "model": getattr(response, "model", "Unknown"),
-                "input_tokens": getattr(usage, "prompt_tokens", 0),
-                "output_tokens": getattr(usage, "completion_tokens", 0),
-                "total_tokens": getattr(usage, "total_tokens", 0),
-                "prompt_feedback": getattr(response, "prompt_feedback", None),
-                "error": None,
-            }
+            print(f"Debug: Full response object: {response}")
+            print(f"Debug: Response type: {type(response)}")
+
+            # Extract usage metadata using the correct approach for Gemini
+            usage_metadata = response.result.usage_metadata
+            if usage_metadata:
+                print(f"Debug: UsageMetadata found: {usage_metadata}")
+                return {
+                    "model": getattr(response, "model", "Unknown"),
+                    "input_tokens": usage_metadata.prompt_token_count,
+                    "output_tokens": usage_metadata.candidates_token_count,
+                    "total_tokens": usage_metadata.total_token_count,
+                    "prompt_feedback": getattr(response, "prompt_feedback", None),
+                    "error": None,
+                }
+            else:
+                print("Debug: No usage_metadata attribute found")
+                return {
+                    "model": getattr(response, "model", "Unknown"),
+                    "input_tokens": 0,
+                    "output_tokens": 0,
+                    "total_tokens": 0,
+                    "prompt_feedback": getattr(response, "prompt_feedback", None),
+                    "error": "No usage data found",
+                }
+
         except AttributeError as e:
-            print(
-                f"Debug: AttributeError in _extract_metadata - {str(e)}"
-            )  # Add this line for debugging
+            print(f"Debug: AttributeError in _extract_metadata - {str(e)}")
             return {
                 "model": "Unknown",
                 "input_tokens": 0,
                 "output_tokens": 0,
                 "total_tokens": 0,
                 "prompt_feedback": None,
-                "error": str(response),
+                "error": str(e),
+            }
+        except Exception as e:
+            print(f"Debug: Unexpected error in _extract_metadata - {str(e)}")
+            return {
+                "model": "Unknown",
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
+                "prompt_feedback": None,
+                "error": str(e),
             }
 
     def generate_report(self) -> str:
