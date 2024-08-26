@@ -63,6 +63,8 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
     Format your response in Markdown using appropriate headings, subheadings and formatting to recreate the structured elements as closely as possible.
     Ensure that each element is clearly presented sequentially, with a descriptive title.
     Separate each structured element with a blank line.
+
+    Don't add any other text at the beginning or end other than your analysis.
     """
     return generate_content(prompt, video_file, use_json=False)
 
@@ -105,6 +107,8 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
        - Note any hypothetical scenarios or examples used to illustrate points.
 
     Format your response in Markdown, using appropriate headings, subheadings, and bullet points. Ensure that your analysis flows logically and captures the progression of ideas in the transcript.
+
+    Don't add any other text at the beginning or end other than your analysis.
     """
     return generate_content(prompt, use_json=False)
 

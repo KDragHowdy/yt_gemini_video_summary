@@ -4,7 +4,7 @@ import os
 import time
 import json
 from typing import List, Dict
-from models import get_gemini_flash_model_text, get_gemini_flash_model_json
+from models import get_final_report_model_text, get_gemini_flash_model_text
 from api_statistics import api_stats
 
 BASE_DIR = r"C:\\Users\\kevin\\repos\\yt_gemini_video_summary"
@@ -147,23 +147,22 @@ def generate_integrated_report(
     prompt = f"""
     Create a comprehensive report on "{video_title}" by {speaker_name}, aired on {video_date} on {channel_name}. 
     
-    Structure the report as follows:
-    1. Executive Summary
-    2. Introduction
-    3. Main Content Analysis (use headings that reflect the video's main topics)
-    4. Key Insights and Implications
-    5. Conclusion
-
-    For each section:
-    - Integrate relevant visual elements from the video analysis.
-    - Incorporate direct quotes from the transcript, citing the timestamp.
-    - Weave in intertextual references to provide context and depth.
-    - Ensure a coherent narrative flow that builds on the speaker's arguments.
-
-    Use the following consolidated analyses:
+    Use the following consolidated analyses to create a flowing, essay-like discussion of the topic:
     Video Analysis: {consolidated_products['video_analysis']}
     Transcript Analysis: {consolidated_products['transcript_analysis']}
     Intertextual Analysis: {consolidated_products['intertextual_analysis']}
+
+    Your report should:
+    1. Present the speaker's views as our own, building a coherent argument or description as developed in the video.
+    2. Integrate visual elements, quotes, and intertextual references seamlessly into the discussion.
+    3. Develop the argument or description progressively, mirroring the structure of the video.
+    4. Use a scholarly tone that demonstrates deep understanding and critical analysis of the content.
+    5. Avoid describing what the speaker did, instead present the ideas directly.
+
+    Structure the report as follows:
+    1. Introduction
+    2. Main Body (use appropriate subheadings based on the video's content)
+    3. Conclusion
 
     Formatting:
     - Use Markdown for structuring.
@@ -171,12 +170,13 @@ def generate_integrated_report(
     - Use bold for emphasizing key points.
     - Use italics for introducing intertextual references.
 
-    Aim for a scholarly tone that demonstrates deep understanding and critical analysis of the content.
+    Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content.
     """
 
     save_prompt(prompt, "prompt_integrated_report.txt")
 
     start_time = time.time()
+    model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
     api_stats.record_call(
@@ -201,24 +201,21 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
 
     {video_analysis}
 
-    For each element:
-    1. Provide the timestamp.
-    2. Describe the visual element in detail.
+    For each slide or major visual element:
+    1. Create a markdown representation of the slide, including:
+       - A clear title (use ## for the slide title)
+       - A description of the visual elements (use italic text)
+       - The main points or content of the slide (use bullet points)
+    2. Provide the timestamp or time range when it appears.
     3. Explain its relevance to the video's content.
-    4. If applicable, transcribe any text visible in the element.
 
-    Organize the appendix into these categories:
-    1. Slides and Presentations
-    2. Graphs and Charts
-    3. Demonstrations or Visual Aids
-    4. Other Notable Visual Elements
-
-    Use Markdown formatting for clarity and readability.
+    Use markdown formatting for clarity and readability. Aim to recreate the visual structure of the slides as closely as possible using markdown syntax.
     """
 
     save_prompt(prompt, "prompt_structured_elements_appendix.txt")
 
     start_time = time.time()
+    model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
     api_stats.record_call(
@@ -257,6 +254,7 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
 
     start_time = time.time()
+    model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
     api_stats.record_call(
