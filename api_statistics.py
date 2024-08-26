@@ -58,25 +58,25 @@ class APIStatistics:
         self.calls.append(call_data)
 
     def _extract_metadata(self, response: Any) -> Dict[str, Any]:
-    try:
-        usage = response.usage
-        return {
-            "model": getattr(response, "model", "Unknown"),
-            "input_tokens": getattr(usage, "prompt_tokens", 0),
-            "output_tokens": getattr(usage, "completion_tokens", 0),
-            "total_tokens": getattr(usage, "total_tokens", 0),
-            "prompt_feedback": getattr(response, "prompt_feedback", None),
-            "error": None,
-        }
-    except AttributeError:
-        return {
-            "model": "Unknown",
-            "input_tokens": 0,
-            "output_tokens": 0,
-            "total_tokens": 0,
-            "prompt_feedback": None,
-            "error": str(response),
-        }
+        try:
+            usage = response.usage
+            return {
+                "model": getattr(response, "model", "Unknown"),
+                "input_tokens": getattr(usage, "prompt_tokens", 0),
+                "output_tokens": getattr(usage, "completion_tokens", 0),
+                "total_tokens": getattr(usage, "total_tokens", 0),
+                "prompt_feedback": getattr(response, "prompt_feedback", None),
+                "error": None,
+            }
+        except AttributeError:
+            return {
+                "model": "Unknown",
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
+                "prompt_feedback": None,
+                "error": str(response),
+            }
 
     def generate_report(self) -> str:
         report = "API Call Statistics:\n\n"
@@ -85,7 +85,7 @@ class APIStatistics:
 
         for call in self.calls:
             call_dict = asdict(call)
-            report += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['model']:<20} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15} {call_dict['error'][:20] if call_dict['error'] else '':<20}\n"
+            report += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['model']:<20} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15} {call_dict['error'] if call_dict['error'] else 'None':<20}\n"
 
         return report
 
