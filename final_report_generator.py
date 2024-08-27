@@ -304,7 +304,7 @@ def generate_final_report(
         video_date,
         channel_name,
         speaker_name,
-        video_duration_minutes,  # Add this line
+        video_duration_minutes,
     )
 
     structured_elements_appendix = generate_structured_elements_appendix(
@@ -344,4 +344,7 @@ if __name__ == "__main__":
     video_date = "2023-08-25"
     channel_name = "Sample Channel"
     speaker_name = "John Doe"
-    generate_final_report(video_title, video_date, channel_name, speaker_name)
+    video_duration_minutes = 15.0  # Add this line
+    generate_final_report(
+        video_title, video_date, channel_name, speaker_name, video_duration_minutes
+    )
