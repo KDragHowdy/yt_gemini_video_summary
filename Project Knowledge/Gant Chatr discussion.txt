@@ -1,0 +1,108 @@
+Certainly! Visualizing the process flows and timing can greatly enhance our understanding of where time is being spent. Given the nature of your script, a Gantt chart or a timeline visualization would be particularly useful. Since I can't generate images directly, I'll describe how you could create such a visualization, and then suggest a programmatic way to generate the data for it.
+
+1. Visualization Concept:
+   Imagine a horizontal bar chart where:
+   - The y-axis lists all the processes and sub-processes
+   - The x-axis represents time in seconds
+   - Each process is represented by a horizontal bar, with the length proportional to its duration
+   - Sub-processes are indented under their parent processes
+   - Concurrent processes are shown on separate lines but overlap in time
+
+2. Data Generation:
+   To create this visualization, we need to modify our `APIStatistics` class to track parent-child relationships between processes and their exact start and end times. Here's a sketch of how we could modify the class:
+
+```python
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+@dataclass
+class ProcessNode:
+    name: str
+    start_time: float
+    end_time: float
+    duration: float
+    parent: Optional['ProcessNode'] = None
+    children: List['ProcessNode'] = field(default_factory=list)
+
+class APIStatistics:
+    def __init__(self):
+        self.root = ProcessNode("Total Script", 0, 0, 0)
+        self.current_node = self.root
+
+    async def record_process(self, process_name: str, start_time: float, end_time: float, parent: Optional[str] = None):
+        duration = end_time - start_time
+        node = ProcessNode(process_name, start_time, end_time, duration)
+        
+        if parent:
+            parent_node = self._find_node(self.root, parent)
+            if parent_node:
+                parent_node.children.append(node)
+                node.parent = parent_node
+        else:
+            self.root.children.append(node)
+        
+        self.root.end_time = max(self.root.end_time, end_time)
+        self.root.duration = self.root.end_time - self.root.start_time
+
+    def _find_node(self, current_node: ProcessNode, name: str) -> Optional[ProcessNode]:
+        if current_node.name == name:
+            return current_node
+        for child in current_node.children:
+            result = self._find_node(child, name)
+            if result:
+                return result
+        return None
+
+    def generate_timeline_data(self):
+        data = []
+        self._generate_timeline_data_recursive(self.root, data, 0)
+        return data
+
+    def _generate_timeline_data_recursive(self, node: ProcessNode, data: List, level: int):
+        data.append({
+            'name': node.name,
+            'start': node.start_time,
+            'end': node.end_time,
+            'level': level
+        })
+        for child in node.children:
+            self._generate_timeline_data_recursive(child, data, level + 1)
+```
+
+3. Usage in main.py:
+   You would need to modify your `main.py` to use this new structure. For example:
+
+```python
+await api_stats.record_process("Video Processing", processing_start, processing_end, parent="Total Script")
+await api_stats.record_process("Chunk Processing", chunk_start, chunk_end, parent="Video Processing")
+# ... and so on for other processes
+```
+
+4. Generating Visualization Data:
+   After your script runs, you can generate the data for visualization:
+
+```python
+timeline_data = api_stats.generate_timeline_data()
+```
+
+5. Visualization:
+   You could then use this data with a visualization library like Plotly to create an interactive Gantt chart. Here's a basic example:
+
+```python
+import plotly.figure_factory as ff
+import plotly.io as pio
+
+def create_gantt_chart(timeline_data):
+    df = []
+    for item in timeline_data:
+        df.append(dict(Task=item['name'], Start=item['start'], Finish=item['end'], Resource=f"Level {item['level']}"))
+    
+    fig = ff.create_gantt(df, index_col='Resource', show_colorbar=True, group_tasks=True)
+    pio.write_html(fig, file='process_timeline.html', auto_open=True)
+
+create_gantt_chart(timeline_data)
+```
+
+This would create an HTML file with an interactive Gantt chart showing all your processes and sub-processes, their durations, and how they overlap in time.
+
+By visualizing the data this way, you can easily see which processes are taking the most time, which ones are running concurrently, and where there might be opportunities for further optimization. The Final Report Generation process, for example, would be broken down into its constituent parts, making it clear which specific operations within it are the most time-consuming.

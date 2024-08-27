@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
 from final_report_generator import generate_final_report
-from utils import setup_directories, clear_directory
+from utils import setup_directories, clear_directory, get_transcript
 from error_handling import VideoProcessingError
 from api_statistics import api_stats
 
@@ -67,6 +67,9 @@ async def main():
 
         print(f"\nProcessing video: {video_title}")
 
+        # Start transcript retrieval early
+        transcript_task = asyncio.create_task(get_transcript(video_id))
+
         # Timer for video download
         print("Downloading video...")
         download_start = time.time()
@@ -86,11 +89,14 @@ async def main():
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
 
+        # Wait for transcript retrieval to complete
+        transcript = await transcript_task
+
         # Timer for video processing
         print("\nProcessing video chunks...")
         processing_start = time.time()
         intertextual_chunks, video_analyses = await process_video(
-            video_chunks, video_id, video_title, duration_minutes
+            video_chunks, video_id, video_title, duration_minutes, transcript
         )
         processing_end = time.time()
         processing_time = processing_end - processing_start

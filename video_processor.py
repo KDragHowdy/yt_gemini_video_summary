@@ -7,7 +7,6 @@ from content_generator import (
     analyze_transcript,
     save_interim_work_product,
 )
-from utils import get_transcript
 from error_handling import handle_exceptions, VideoProcessingError
 from prompt_logic_intertextual import analyze_intertextual_references
 from api_statistics import api_stats
@@ -15,13 +14,10 @@ import asyncio
 
 
 @handle_exceptions
-async def process_video(video_chunks, video_id, video_title, duration_minutes):
+async def process_video(
+    video_chunks, video_id, video_title, duration_minutes, transcript
+):
     start_time = time.time()
-    transcript = await get_transcript(video_id)
-    if not transcript:
-        raise VideoProcessingError("Unable to retrieve transcript")
-
-    print(f"Successfully retrieved transcript ({len(transcript)} characters).")
 
     chunk_tasks = []
     for i, chunk_path in enumerate(video_chunks):
@@ -84,14 +80,16 @@ async def process_chunk(
             wait_end,
         )
 
-        # Analyze video content
-        video_analysis_start = time.time()
-        video_analysis = await analyze_video_content(video_file, chunk_start, chunk_end)
-        video_analysis_end = time.time()
-        await api_stats.record_process(
-            f"analyze_video_content_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            video_analysis_start,
-            video_analysis_end,
+        # Analyze video content and transcript in parallel
+        video_analysis_task = asyncio.create_task(
+            analyze_video_content(video_file, chunk_start, chunk_end)
+        )
+        transcript_analysis_task = asyncio.create_task(
+            analyze_transcript(chunk_transcript, chunk_start, chunk_end)
+        )
+
+        video_analysis, transcript_analysis = await asyncio.gather(
+            video_analysis_task, transcript_analysis_task
         )
 
         await save_interim_work_product(
@@ -99,18 +97,6 @@ async def process_chunk(
             video_id,
             video_title,
             f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-        )
-
-        # Analyze transcript
-        transcript_analysis_start = time.time()
-        transcript_analysis = await analyze_transcript(
-            chunk_transcript, chunk_start, chunk_end
-        )
-        transcript_analysis_end = time.time()
-        await api_stats.record_process(
-            f"analyze_transcript_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            transcript_analysis_start,
-            transcript_analysis_end,
         )
 
         await save_interim_work_product(
