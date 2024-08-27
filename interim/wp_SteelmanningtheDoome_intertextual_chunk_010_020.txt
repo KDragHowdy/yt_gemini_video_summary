@@ -2,89 +2,57 @@
   {
     "type": "pop_culture",
     "reference": "Star Trek",
-    "context": "The presenter wears a Star Trek uniform throughout the video.",
-    "explanation": "Star Trek is a science fiction franchise that explores themes of the future, space exploration, and humanity's relationship with technology and other intelligent species. The franchise is known for its optimistic view of the future and its emphasis on social justice and ethical considerations.",
-    "relevance": "The Star Trek theme adds a sci-fi element to the video, making the topic of AI more engaging and relatable to a wider audience. It also subtly suggests a connection to the ethical and philosophical questions that Star Trek often explores.",
-    "connections": "The Star Trek theme connects to the overall visual style of the video, which is clean, modern, and futuristic. It also indirectly connects to the themes of AI safety and the potential for both positive and negative outcomes of AI development, which are central to the video's message."
+    "context": "The presenter is dressed in a Star Trek uniform throughout the video.",
+    "explanation": "Star Trek is a science fiction franchise that explores themes of the future, space exploration, and humanity's place in the universe. It is known for its optimistic view of the future and its emphasis on ethical considerations.",
+    "relevance": "The Star Trek uniform helps to establish a futuristic context for the video, emphasizing that the discussed risks are relevant to the future of humanity.",
+    "connections": "The futuristic context of Star Trek connects to the overall theme of the video, which is about potential future risks associated with AI."
   },
   {
-    "type": "ai_tech",
+    "type": "scientific",
+    "reference": "Byzantine Generals Problem",
+    "context": "Mentioned in the Machine Wars slide (around 8:09 - 9:58).",
+    "explanation": "The Byzantine Generals' Problem is a classic problem in distributed computing. It describes the challenge of coordinating multiple independent agents (like computers in a network) in the presence of unreliable communication and potential malicious actors. It highlights the difficulty of achieving consensus and coordination in complex systems.",
+    "relevance": "The Byzantine Generals' Problem is used as an example of how misalignments and uncertainty can lead to conflicts between AI systems, potentially resulting in machine wars.",
+    "connections": "This reference connects to the 'Machine Wars' slide and the broader theme of potential conflicts arising from AI systems."
+  },
+  {
+    "type": "scientific",
     "reference": "AlphaFold",
-    "context": "The speaker mentions AlphaFold 3 and its potential to simulate every molecule in the human body (around 15:00).",
-    "explanation": "AlphaFold is a deep learning system developed by DeepMind that can predict protein structures. It has significant implications for drug discovery, biotechnology, and understanding biological processes.",
-    "relevance": "The speaker uses AlphaFold as an example of how advanced AI can be used to manipulate biological systems, potentially leading to the creation of dangerous bioweapons. This highlights the potential dangers of AI development and the need for caution and regulation.",
-    "connections": "The AlphaFold reference connects to the broader theme of bioweapons as a significant risk associated with AI development. It also connects to the concept of 'incorrigibility' discussed later in the video, as biological agents are inherently difficult to control."
-  },
-  {
-    "type": "ai_tech",
-    "reference": "GPT-4, GPT-40",
-    "context": "The speaker mentions GPT-4 and GPT-40, suggesting future iterations of the model.",
-    "explanation": "GPT-4 and GPT-40 are large language models developed by OpenAI. They are capable of generating human-like text and have a wide range of applications, including chatbots, translation, and content creation.",
-    "relevance": "The mention of GPT-4 and GPT-40 serves to illustrate the rapid pace of AI development and the potential for increasingly powerful AI systems in the future. This reinforces the video's message that AI development needs to be carefully managed to mitigate potential risks.",
-    "connections": "The mention of GPT-4 and GPT-40 connects to the broader theme of AI risks and the need for international cooperation to address them. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly powerful AI systems could lead to unintended consequences."
+    "context": "Mentioned in the transcript around 13:30.",
+    "explanation": "AlphaFold is an AI system developed by DeepMind that can predict the 3D structure of proteins based on their amino acid sequence. It has revolutionized the field of structural biology and has potential applications in drug discovery and other areas.",
+    "relevance": "AlphaFold is used as an example of how advanced AI can be used to design and develop dangerous biological agents, highlighting the potential risks of AI in the wrong hands.",
+    "connections": "This reference connects to the discussion of bioweapons and the potential for AI to be used to create dangerous biological agents, which is a central theme in the video."
   },
   {
     "type": "other",
     "reference": "CERN",
-    "context": "The speaker suggests that an international research organization for AI, similar to CERN, should be established.",
-    "explanation": "CERN is the European Organization for Nuclear Research. It is a model for international scientific collaboration, with scientists from many countries working together on research projects.",
-    "relevance": "The speaker uses CERN as an example of a successful international collaboration in science. He suggests that a similar model could be used to address the risks associated with AI development, highlighting the importance of international cooperation in this field.",
-    "connections": "The CERN reference connects to the broader theme of international cooperation as a key element in mitigating AI risks. It also connects to the speaker's emphasis on the need for a global approach to AI safety."
+    "context": "Mentioned in the transcript around 10:15.",
+    "explanation": "CERN is the European Organization for Nuclear Research, a research facility that houses the Large Hadron Collider. It is a prime example of successful international scientific collaboration.",
+    "relevance": "The speaker uses CERN as an example of a successful international research organization that could be a model for mitigating AI risks.",
+    "connections": "This reference connects to the theme of international cooperation and the need for global governance in AI research and development."
   },
   {
     "type": "other",
-    "reference": "Byzantine Generals Problem",
-    "context": "The speaker mentions the 'Byzantine Generals Problem' in the context of machine wars.",
-    "explanation": "The Byzantine Generals Problem is a classic problem in computer science that explores the challenges of coordinating and ensuring agreement among multiple agents in a distributed system, even in the presence of faulty or malicious actors.",
-    "relevance": "The speaker uses the Byzantine Generals Problem to illustrate the challenges of coordinating and ensuring agreement among multiple AI systems, which could lead to conflict. This highlights the potential for conflict between different AI systems and the need for careful design and oversight.",
-    "connections": "The Byzantine Generals Problem connects to the broader theme of machine wars and the potential for conflict between different AI systems. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly complex AI systems could make coordination and control more challenging."
+    "reference": "AI Doomer",
+    "context": "Mentioned throughout the transcript.",
+    "explanation": "The term 'AI doomer' refers to individuals who believe that AI poses an existential threat to humanity and that it is likely to lead to catastrophic outcomes. They often express pessimism about the future of humanity in the face of AI.",
+    "relevance": "The speaker acknowledges the concerns of AI doomsters but argues for a shift in focus towards more immediate and concrete risks, such as bioweapons and the terminal race condition.",
+    "connections": "This reference connects to the discussion of various AI risks, particularly the terminal race condition and the potential for bioweapons, which are presented as more immediate concerns than the hypothetical scenarios of AI takeover."
   },
   {
-    "type": "other",
-    "reference": "Game Theory",
-    "context": "The speaker refers to the 'terminal race condition' as a 'permanent Game Theory condition'.",
-    "explanation": "Game theory is a mathematical framework used to analyze strategic interactions between individuals or entities. It helps understand how decisions are made in situations where the outcome depends on the actions of others.",
-    "relevance": "The speaker uses Game Theory to frame the 'terminal race condition' as a fundamental aspect of AI development that is unlikely to be easily overcome. This highlights the inherent challenges of managing AI development in a competitive environment.",
-    "connections": "The Game Theory reference connects to the broader theme of the 'terminal race condition' and the potential for escalating competition in AI development. It also connects to the concept of AI safety and the need for careful consideration of the potential consequences of AI development."
-  },
-  {
-    "type": "other",
-    "reference": "Terminal Race Condition",
-    "context": "The speaker introduces the concept of a 'terminal race condition' throughout the video.",
-    "explanation": "The 'terminal race condition' is a hypothetical scenario in which the relentless pursuit of efficiency and speed in AI development leads to a decline in intelligence and controllability, potentially creating further risks.",
-    "relevance": "The 'terminal race condition' is a central concept in the video, highlighting the potential dangers of unchecked competition in AI development. It emphasizes the need for caution and careful consideration of the potential consequences of AI development.",
-    "connections": "The 'terminal race condition' connects to many other themes in the video, including the potential for AI to cause harm, the importance of international cooperation, and the need for careful management of AI development."
-  },
-  {
-    "type": "other",
-    "reference": "AGI",
-    "context": "The speaker discusses the possibility of multiple AGI systems emerging in the future.",
-    "explanation": "Artificial General Intelligence (AGI) refers to a hypothetical AI with human-level intelligence and the ability to perform any intellectual task that a human being can.",
-    "relevance": "The speaker's discussion of AGI highlights the potential for future AI systems to be incredibly powerful and capable. This reinforces the video's message that AI development needs to be carefully managed to mitigate potential risks.",
-    "connections": "The AGI reference connects to the broader theme of AI risks and the need for international cooperation to address them. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly powerful AI systems could lead to unintended consequences."
-  },
-  {
-    "type": "other",
-    "reference": "X-Risk",
-    "context": "The speaker implies that AI development poses X-Risk.",
-    "explanation": "Existential risk (X-Risk) is the risk of human extinction or severe civilizational damage. It can arise from various sources, including natural disasters, pandemics, and technological advancements.",
-    "relevance": "The speaker's discussion of X-Risk highlights the potential for AI development to pose a serious threat to humanity's future. This emphasizes the need for caution and careful consideration of the potential consequences of AI development.",
-    "connections": "The X-Risk reference connects to the broader theme of AI risks and the need for international cooperation to address them. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly powerful AI systems could lead to unintended consequences."
-  },
-  {
-    "type": "other",
-    "reference": "Incorrigibility",
-    "context": "The speaker emphasizes the incorrigibility of biological agents.",
-    "explanation": "Incorrigibility, in the context of AI, refers to the inability to correct or modify an AI system's behavior. In the context of bioweapons, it refers to the difficulty of controlling or containing biological agents once they are released.",
-    "relevance": "The speaker uses the concept of incorrigibility to highlight the potential dangers of bioweapons, particularly when combined with AI. This emphasizes the need for caution and careful consideration of the potential consequences of AI development.",
-    "connections": "The incorrigibility reference connects to the broader theme of bioweapons as a significant risk associated with AI development. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly powerful AI systems could make it more difficult to control or mitigate potential risks."
+    "type": "internet_culture",
+    "reference": "Millions and Billions of Tokens per Second",
+    "context": "Mentioned in the transcript around 17:30.",
+    "explanation": "This phrase is a reference to the increasing speed and scale of AI processing, particularly in the context of large language models. It highlights the rapid pace of development in the field of AI.",
+    "relevance": "This reference emphasizes the rapid acceleration of AI development and the potential for unintended consequences as AI systems make decisions at increasingly faster speeds.",
+    "connections": "This reference connects to the 'Terminal Race Condition' theme, highlighting the dangers of prioritizing speed and efficiency over safety and ethical considerations."
   },
   {
     "type": "other",
     "reference": "COVID-19 Pandemic",
-    "context": "The speaker mentions the COVID-19 pandemic as a possible deterrent for state actors developing bioweapons.",
-    "explanation": "The COVID-19 pandemic is a global health crisis that has had a significant impact on human lives and economies.",
-    "relevance": "The speaker uses the COVID-19 pandemic as an example of how a global health crisis can potentially deter state actors from developing bioweapons. However, he also emphasizes the risk of 'chaos actors' or terrorists exploiting the technology.",
-    "connections": "The COVID-19 reference connects to the broader theme of bioweapons as a significant risk associated with AI development. It also connects to the concept of 'terminal race condition,' as the pursuit of increasingly powerful AI systems could lead to unintended consequences."
+    "context": "Mentioned in the transcript around 13:30.",
+    "explanation": "The COVID-19 pandemic is a recent global health crisis that has had a significant impact on the world. It is a prime example of how a biological agent can cause widespread harm and disruption.",
+    "relevance": "The COVID-19 pandemic is used as an example of the inherent incorrigibility of biological agents and the potential for them to be used as weapons.",
+    "connections": "This reference connects to the discussion of bioweapons and the potential for AI to be used to design and develop dangerous biological agents."
   }
 ]
