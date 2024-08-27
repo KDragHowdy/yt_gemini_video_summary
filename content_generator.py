@@ -1,27 +1,29 @@
+# content_generator.py
+
 import os
 import time
 from api_statistics import api_stats
 from models import get_gemini_flash_model_json, get_gemini_flash_model_text
 
 
-def generate_content(prompt, video_file=None, use_json=False):
+async def generate_content(prompt, video_file=None, use_json=False):
     start_time = time.time()
 
     try:
-        model = (
+        model = await (
             get_gemini_flash_model_json() if use_json else get_gemini_flash_model_text()
         )
         response = (
-            model.generate_content(prompt)
+            await model.generate_content_async(prompt)
             if not video_file
-            else model.generate_content([video_file, prompt])
+            else await model.generate_content_async([video_file, prompt])
         )
 
         print(f"Debug: Response object type: {type(response)}")
         print(f"Debug: Response object attributes: {dir(response)}")
         print(f"Debug: Response object __dict__: {response.__dict__}")
 
-        api_stats.record_call(
+        await api_stats.record_call(
             module="content_generator",
             function="generate_content",
             start_time=start_time,
@@ -38,7 +40,7 @@ def generate_content(prompt, video_file=None, use_json=False):
         return f"Error in analysis: {str(e)}"
 
 
-def analyze_video_content(video_file, chunk_start, chunk_end):
+async def analyze_video_content(video_file, chunk_start, chunk_end):
     prompt = f"""
     Analyze the visual content of the video for the chunk from {chunk_start} to {chunk_end} minutes, focusing on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
@@ -64,10 +66,10 @@ def analyze_video_content(video_file, chunk_start, chunk_end):
 
     Don't add any other text at the beginning or end other than your analysis.
     """
-    return generate_content(prompt, video_file, use_json=False)
+    return await generate_content(prompt, video_file, use_json=False)
 
 
-def analyze_transcript(transcript, chunk_start, chunk_end):
+async def analyze_transcript(transcript, chunk_start, chunk_end):
     prompt = f"""
     Analyze the following transcript content for the chunk from {chunk_start} to {chunk_end} minutes:
 
@@ -108,10 +110,10 @@ def analyze_transcript(transcript, chunk_start, chunk_end):
 
     Don't add any other text at the beginning or end other than your analysis.
     """
-    return generate_content(prompt, use_json=False)
+    return await generate_content(prompt, use_json=False)
 
 
-def save_interim_work_product(content, video_id, video_title, analysis_type):
+async def save_interim_work_product(content, video_id, video_title, analysis_type):
     print("Debug: Entering save_interim_work_product function")
     print(f"Debug: content length = {len(content)}")
     print(f"Debug: video_id = {video_id}")

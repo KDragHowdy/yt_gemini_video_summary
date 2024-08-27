@@ -1,12 +1,15 @@
+# video_downloader.py
+
 import os
 import yt_dlp
 from datetime import datetime
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+import asyncio
 
 
-def get_video_info(video_id):
+async def get_video_info(video_id):
     try:
         yt = YouTube(f"https://www.youtube.com/watch?v={video_id}")
         return yt.title, yt.length
@@ -15,7 +18,7 @@ def get_video_info(video_id):
         return None, None
 
 
-def download_youtube_video(
+async def download_youtube_video(
     video_id: str, output_dir: str, chunk_duration=10 * 60
 ) -> tuple:
     url = f"https://www.youtube.com/watch?v={video_id}"
@@ -26,7 +29,7 @@ def download_youtube_video(
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=True)
+            info_dict = await asyncio.to_thread(ydl.extract_info, url, download=True)
             filename = ydl.prepare_filename(info_dict)
             video_title = info_dict.get("title", "Unknown Title")
             upload_date = info_dict.get("upload_date")
@@ -40,11 +43,11 @@ def download_youtube_video(
             else:
                 video_date = "Unknown Date"
 
-            speaker_name = extract_speaker_name(description, channel_name)
+            speaker_name = await extract_speaker_name(description, channel_name)
 
             print(f"Video successfully downloaded: {filename}")
 
-            chunks = split_video_into_chunks(filename, chunk_duration)
+            chunks = await split_video_into_chunks(filename, chunk_duration)
 
             os.remove(filename)
             print(f"Removed original file: {filename}")
@@ -56,7 +59,7 @@ def download_youtube_video(
         return None, None, None, None, None
 
 
-def extract_speaker_name(description: str, channel_name: str) -> str:
+async def extract_speaker_name(description: str, channel_name: str) -> str:
     import re
 
     patterns = [
@@ -74,7 +77,7 @@ def extract_speaker_name(description: str, channel_name: str) -> str:
     return channel_name
 
 
-def split_video_into_chunks(filename, chunk_duration):
+async def split_video_into_chunks(filename, chunk_duration):
     video = VideoFileClip(filename, audio=False)  # Changed to exclude audio
     duration = video.duration
     chunks = []
@@ -82,7 +85,9 @@ def split_video_into_chunks(filename, chunk_duration):
         start = i
         end = min(i + chunk_duration, duration)
         chunk_filename = f"{os.path.splitext(filename)[0]}_chunk_{int(i//60):03d}-{int(end//60):03d}.mp4"
-        ffmpeg_extract_subclip(filename, start, end, targetname=chunk_filename)
+        await asyncio.to_thread(
+            ffmpeg_extract_subclip, filename, start, end, targetname=chunk_filename
+        )
         chunks.append(chunk_filename)
         print(f"Created chunk: {chunk_filename}")
     video.close()

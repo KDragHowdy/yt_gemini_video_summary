@@ -1,3 +1,5 @@
+# video_processor.py
+
 from file_uploader import upload_video, wait_for_file_active
 from content_generator import (
     analyze_video_content,
@@ -7,12 +9,12 @@ from content_generator import (
 from utils import get_transcript
 from error_handling import handle_exceptions, VideoProcessingError
 from prompt_logic_intertextual import analyze_intertextual_references
-import time
+import asyncio
 
 
 @handle_exceptions
-def process_video(video_chunks, video_id, video_title, duration_minutes):
-    transcript = get_transcript(video_id)
+async def process_video(video_chunks, video_id, video_title, duration_minutes):
+    transcript = await get_transcript(video_id)
     if not transcript:
         raise VideoProcessingError("Unable to retrieve transcript")
 
@@ -21,67 +23,92 @@ def process_video(video_chunks, video_id, video_title, duration_minutes):
     intertextual_chunks = []
     video_analyses = []
 
+    chunk_tasks = []
     for i, chunk_path in enumerate(video_chunks):
-        try:
-            chunk_start = i * 10
-            chunk_end = min((i + 1) * 10, duration_minutes)
-            chunk_transcript = transcript[
-                int(chunk_start * 60 * 10) : int(chunk_end * 60 * 10)
-            ]
+        chunk_start = i * 10
+        chunk_end = min((i + 1) * 10, duration_minutes)
+        chunk_transcript = transcript[
+            int(chunk_start * 60 * 10) : int(chunk_end * 60 * 10)
+        ]
 
-            print(f"Processing chunk {chunk_start:03.0f}-{chunk_end:03.0f} minutes...")
-
-            # Upload and process video chunk
-            video_file = upload_video(chunk_path)
-            video_file = wait_for_file_active(video_file)
-
-            # Analyze video content
-            video_analysis = analyze_video_content(video_file, chunk_start, chunk_end)
-            save_interim_work_product(
-                video_analysis,
+        task = asyncio.create_task(
+            process_chunk(
+                chunk_path,
                 video_id,
                 video_title,
-                f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+                chunk_transcript,
+                chunk_start,
+                chunk_end,
             )
-            video_analyses.append(video_analysis)
+        )
+        chunk_tasks.append(task)
 
-            # Analyze transcript
-            transcript_analysis = analyze_transcript(
-                chunk_transcript, chunk_start, chunk_end
-            )
-            save_interim_work_product(
-                transcript_analysis,
-                video_id,
-                video_title,
-                f"transcript_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            )
+    results = await asyncio.gather(*chunk_tasks)
 
-            # Perform intertextual analysis
-            intertextual_analysis = analyze_intertextual_references(
-                video_analysis, transcript_analysis, chunk_start, chunk_end
-            )
-            save_interim_work_product(
-                intertextual_analysis,
-                video_id,
-                video_title,
-                f"intertextual_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            )
-
-            intertextual_chunks.append(intertextual_analysis)
-
-        except Exception as e:
-            print(f"Error processing chunk {i+1}: {str(e)}")
-            error_content = f"Error in chunk {i+1}: {str(e)}"
-            save_interim_work_product(
-                error_content,
-                video_id,
-                video_title,
-                f"error_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-            )
-            continue  # Move to the next chunk
-
-        time.sleep(
-            2
-        )  # Reduced from 4 to 2 seconds to account for more frequent, smaller chunks
+    for intertextual_analysis, video_analysis in results:
+        intertextual_chunks.append(intertextual_analysis)
+        video_analyses.append(video_analysis)
 
     return intertextual_chunks, video_analyses
+
+
+async def process_chunk(
+    chunk_path, video_id, video_title, chunk_transcript, chunk_start, chunk_end
+):
+    try:
+        print(f"Processing chunk {chunk_start:03.0f}-{chunk_end:03.0f} minutes...")
+
+        # Upload and process video chunk
+        video_file = await upload_video(chunk_path)
+        video_file = await wait_for_file_active(video_file)
+
+        # Analyze video content
+        video_analysis = await analyze_video_content(video_file, chunk_start, chunk_end)
+        await save_interim_work_product(
+            video_analysis,
+            video_id,
+            video_title,
+            f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        )
+
+        # Analyze transcript
+        transcript_analysis = await analyze_transcript(
+            chunk_transcript, chunk_start, chunk_end
+        )
+        await save_interim_work_product(
+            transcript_analysis,
+            video_id,
+            video_title,
+            f"transcript_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        )
+
+        # Perform intertextual analysis
+        intertextual_analysis = await analyze_intertextual_references(
+            video_analysis, transcript_analysis, chunk_start, chunk_end
+        )
+        await save_interim_work_product(
+            intertextual_analysis,
+            video_id,
+            video_title,
+            f"intertextual_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        )
+
+        return intertextual_analysis, video_analysis
+
+    except Exception as e:
+        print(f"Error processing chunk {chunk_start:03.0f}-{chunk_end:03.0f}: {str(e)}")
+        error_content = (
+            f"Error in chunk {chunk_start:03.0f}-{chunk_end:03.0f}: {str(e)}"
+        )
+        await save_interim_work_product(
+            error_content,
+            video_id,
+            video_title,
+            f"error_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        )
+        return None, None
+
+    finally:
+        await asyncio.sleep(
+            2
+        )  # Reduced from 4 to 2 seconds to account for more frequent, smaller chunks

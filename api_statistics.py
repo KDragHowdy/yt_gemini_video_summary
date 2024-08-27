@@ -1,6 +1,9 @@
+# api_statistics.py
+
 import time
 from dataclasses import dataclass, asdict
 import json
+import asyncio
 
 
 @dataclass
@@ -16,8 +19,11 @@ class APICallMetadata:
 class APIStatistics:
     def __init__(self):
         self.calls = []
+        self.lock = asyncio.Lock()
 
-    def record_call(self, module: str, function: str, start_time: float, response):
+    async def record_call(
+        self, module: str, function: str, start_time: float, response
+    ):
         end_time = time.time()
         duration = end_time - start_time
 
@@ -42,7 +48,8 @@ class APIStatistics:
             total_tokens=total_tokens,
         )
 
-        self.calls.append(call_data)
+        async with self.lock:
+            self.calls.append(call_data)
         print(f"Debug: API call recorded - {call_data}")
 
     def generate_report(self) -> str:
@@ -56,9 +63,10 @@ class APIStatistics:
 
         return report
 
-    def save_report(self, filename: str):
-        with open(filename, "w") as f:
-            json.dump([asdict(call) for call in self.calls], f, indent=2)
+    async def save_report(self, filename: str):
+        async with self.lock:
+            with open(filename, "w") as f:
+                json.dump([asdict(call) for call in self.calls], f, indent=2)
 
 
 api_stats = APIStatistics()

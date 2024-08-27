@@ -3,6 +3,8 @@
 import os
 import time
 import json
+import asyncio
+import aiofiles
 from typing import List, Dict
 from models import get_final_report_model_text, get_gemini_flash_model_text
 from api_statistics import api_stats
@@ -12,22 +14,22 @@ INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
 
-def save_prompt(prompt: str, filename: str):
+async def save_prompt(prompt: str, filename: str):
     file_path = os.path.join(OUTPUT_DIR, filename)
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(prompt)
+    async with aiofiles.open(file_path, "w", encoding="utf-8") as f:
+        await f.write(prompt)
     print(f"Debug: Saved prompt to {filename}")
 
 
-def save_consolidated_work_product(content: str, work_product_type: str):
+async def save_consolidated_work_product(content: str, work_product_type: str):
     filename = f"consolidated_{work_product_type}.txt"
     file_path = os.path.join(OUTPUT_DIR, filename)
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(content)
+    async with aiofiles.open(file_path, "w", encoding="utf-8") as f:
+        await f.write(content)
     print(f"Debug: Saved consolidated {work_product_type} to {filename}")
 
 
-def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
+async def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
     work_products = {
         "video_analysis": [],
         "transcript_analysis": [],
@@ -40,8 +42,9 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
         if filename.endswith(".txt"):
             file_path = os.path.join(interim_dir, filename)
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read().strip()
+                async with aiofiles.open(file_path, "r", encoding="utf-8") as f:
+                    content = await f.read()
+                    content = content.strip()
                     if not content:
                         print(f"Warning: File {filename} is empty.")
                         continue
@@ -76,7 +79,7 @@ def load_work_products(interim_dir: str) -> Dict[str, List[str]]:
     return work_products
 
 
-def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
+async def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
     print(f"Debug: Consolidating {work_product_type} chunks (total: {len(chunks)})")
 
     if work_product_type == "intertextual_analysis":
@@ -98,49 +101,54 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
 
         consolidated = json.dumps(consolidated_data, indent=2)
     else:
-        model = get_gemini_flash_model_text()
-        chunks_text = "\n\n".join(chunks)
-        prompt = f"""
-        Consolidate the following {work_product_type} chunks into a single coherent document:
+        try:
+            model = await get_gemini_flash_model_text()
+            chunks_text = "\n\n".join(chunks)
+            prompt = f"""
+            Consolidate the following {work_product_type} chunks into a single coherent document:
 
-        {chunks_text}
+            {chunks_text}
 
-        Instructions:
-        1. Maintain the original chronological order of the content.
-        2. Preserve the structure and headings from the original chunks.
-        3. Combine similar or repeated information under unified headings.
-        4. Ensure all unique information from each chunk is retained.
-        5. Use clear transitions between different sections to maintain flow.
-        6. If there are time stamps or segment markers, include them to indicate progression.
+            Instructions:
+            1. Maintain the original chronological order of the content.
+            2. Preserve the structure and headings from the original chunks.
+            3. Combine similar or repeated information under unified headings.
+            4. Ensure all unique information from each chunk is retained.
+            5. Use clear transitions between different sections to maintain flow.
+            6. If there are time stamps or segment markers, include them to indicate progression.
 
-        Format the output as a well-structured Markdown document, using appropriate headings (##, ###, etc.) to reflect the content hierarchy.
-        """
+            Format the output as a well-structured Markdown document, using appropriate headings (##, ###, etc.) to reflect the content hierarchy.
+            """
 
-        save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
+            await save_prompt(prompt, f"prompt_consolidate_{work_product_type}.txt")
 
-        start_time = time.time()
-        response = model.generate_content(prompt)
+            start_time = time.time()
+            response = await model.generate_content_async(prompt)
 
-        print(f"Debug: Response object type: {type(response)}")
-        print(f"Debug: Response object attributes: {dir(response)}")
-        print(f"Debug: Response object __dict__: {response.__dict__}")
+            print(f"Debug: Response object type: {type(response)}")
+            print(f"Debug: Response object attributes: {dir(response)}")
+            print(f"Debug: Response object __dict__: {response.__dict__}")
 
-        api_stats.record_call(
-            module="final_report_generator",
-            function="consolidate_chunks",
-            start_time=start_time,
-            response=response,
-        )
+            await api_stats.record_call(
+                module="final_report_generator",
+                function="consolidate_chunks",
+                start_time=start_time,
+                response=response,
+            )
 
-        consolidated = response.text
+            consolidated = response.text
+
+        except Exception as e:
+            print(f"Error consolidating chunks: {str(e)}")
+            consolidated = f"Error in consolidation: {str(e)}"
 
     print(f"Debug: Consolidated {work_product_type} length: {len(consolidated)}")
-    save_consolidated_work_product(consolidated, work_product_type)
+    await save_consolidated_work_product(consolidated, work_product_type)
 
     return consolidated
 
 
-def generate_integrated_report(
+async def generate_integrated_report(
     consolidated_products: Dict[str, str],
     video_title: str,
     video_date: str,
@@ -148,7 +156,6 @@ def generate_integrated_report(
     speaker_name: str,
     video_duration_minutes: float,
 ) -> str:
-    # Calculate the target word count based on video duration and work product size
     total_input_chars = sum(len(product) for product in consolidated_products.values())
     target_word_count = max(
         1000, int(video_duration_minutes * 50 + total_input_chars / 100)
@@ -186,32 +193,37 @@ def generate_integrated_report(
     Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content while providing a deeper analysis guided by the identified themes.
     """
 
-    save_prompt(prompt, "prompt_integrated_report.txt")
+    await save_prompt(prompt, "prompt_integrated_report.txt")
 
-    start_time = time.time()
-    model = get_final_report_model_text()
-    response = model.generate_content(prompt)
+    try:
+        model = await get_final_report_model_text()
+        start_time = time.time()
+        response = await model.generate_content_async(prompt)
 
-    print(f"Debug: Response object type: {type(response)}")
-    print(f"Debug: Response object attributes: {dir(response)}")
-    print(f"Debug: Response object __dict__: {response.__dict__}")
+        print(f"Debug: Response object type: {type(response)}")
+        print(f"Debug: Response object attributes: {dir(response)}")
+        print(f"Debug: Response object __dict__: {response.__dict__}")
 
-    api_stats.record_call(
-        module="final_report_generator",
-        function="generate_integrated_report",
-        start_time=start_time,
-        response=response,
-    )
+        await api_stats.record_call(
+            module="final_report_generator",
+            function="generate_integrated_report",
+            start_time=start_time,
+            response=response,
+        )
 
-    integrated_report = response.text
-    print(f"Generated integrated report length: {len(integrated_report)}")
+        integrated_report = response.text
+        print(f"Generated integrated report length: {len(integrated_report)}")
 
-    save_consolidated_work_product(integrated_report, "integrated_report")
+        await save_consolidated_work_product(integrated_report, "integrated_report")
 
-    return integrated_report
+        return integrated_report
+
+    except Exception as e:
+        print(f"Error generating integrated report: {str(e)}")
+        return f"Error in integrated report generation: {str(e)}"
 
 
-def generate_structured_elements_appendix(video_analysis: str) -> str:
+async def generate_structured_elements_appendix(video_analysis: str) -> str:
     prompt = f"""
     Create a detailed appendix of structured elements from the video analysis:
 
@@ -228,32 +240,37 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     Use markdown formatting for clarity and readability. Aim to recreate the visual structure of the slides as closely as possible using markdown syntax.
     """
 
-    save_prompt(prompt, "prompt_structured_elements_appendix.txt")
+    await save_prompt(prompt, "prompt_structured_elements_appendix.txt")
 
-    start_time = time.time()
-    model = get_final_report_model_text()
-    response = model.generate_content(prompt)
+    try:
+        model = await get_final_report_model_text()
+        start_time = time.time()
+        response = await model.generate_content_async(prompt)
 
-    print(f"Debug: Response object type: {type(response)}")
-    print(f"Debug: Response object attributes: {dir(response)}")
-    print(f"Debug: Response object __dict__: {response.__dict__}")
+        print(f"Debug: Response object type: {type(response)}")
+        print(f"Debug: Response object attributes: {dir(response)}")
+        print(f"Debug: Response object __dict__: {response.__dict__}")
 
-    api_stats.record_call(
-        module="final_report_generator",
-        function="generate_structured_elements_appendix",
-        start_time=start_time,
-        response=response,
-    )
+        await api_stats.record_call(
+            module="final_report_generator",
+            function="generate_structured_elements_appendix",
+            start_time=start_time,
+            response=response,
+        )
 
-    appendix = response.text
-    print(f"Generated structured elements appendix length: {len(appendix)}")
+        appendix = response.text
+        print(f"Generated structured elements appendix length: {len(appendix)}")
 
-    save_consolidated_work_product(appendix, "structured_elements_appendix")
+        await save_consolidated_work_product(appendix, "structured_elements_appendix")
 
-    return appendix
+        return appendix
+
+    except Exception as e:
+        print(f"Error generating structured elements appendix: {str(e)}")
+        return f"Error in structured elements appendix generation: {str(e)}"
 
 
-def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
+async def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     prompt = f"""
     Create a comprehensive appendix of intertextual references based on this analysis:
 
@@ -270,32 +287,37 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     Use Markdown formatting for clarity and readability.
     """
 
-    save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
+    await save_prompt(prompt, "prompt_intertextual_analysis_appendix.txt")
 
-    start_time = time.time()
-    model = get_final_report_model_text()
-    response = model.generate_content(prompt)
+    try:
+        model = await get_final_report_model_text()
+        start_time = time.time()
+        response = await model.generate_content_async(prompt)
 
-    print(f"Debug: Response object type: {type(response)}")
-    print(f"Debug: Response object attributes: {dir(response)}")
-    print(f"Debug: Response object __dict__: {response.__dict__}")
+        print(f"Debug: Response object type: {type(response)}")
+        print(f"Debug: Response object attributes: {dir(response)}")
+        print(f"Debug: Response object __dict__: {response.__dict__}")
 
-    api_stats.record_call(
-        module="final_report_generator",
-        function="generate_intertextual_analysis_appendix",
-        start_time=start_time,
-        response=response,
-    )
+        await api_stats.record_call(
+            module="final_report_generator",
+            function="generate_intertextual_analysis_appendix",
+            start_time=start_time,
+            response=response,
+        )
 
-    appendix = response.text
-    print(f"Generated intertextual analysis appendix length: {len(appendix)}")
+        appendix = response.text
+        print(f"Generated intertextual analysis appendix length: {len(appendix)}")
 
-    save_consolidated_work_product(appendix, "intertextual_analysis_appendix")
+        await save_consolidated_work_product(appendix, "intertextual_analysis_appendix")
 
-    return appendix
+        return appendix
+
+    except Exception as e:
+        print(f"Error generating intertextual analysis appendix: {str(e)}")
+        return f"Error in intertextual analysis appendix generation: {str(e)}"
 
 
-def generate_final_report(
+async def generate_final_report(
     video_title: str,
     video_date: str,
     channel_name: str,
@@ -304,13 +326,18 @@ def generate_final_report(
 ):
     print(f"Debug: Starting final report generation for '{video_title}'")
 
-    work_products = load_work_products(INTERIM_DIR)
+    work_products = await load_work_products(INTERIM_DIR)
 
     consolidated_products = {}
+    consolidation_tasks = []
     for wp_type, chunks in work_products.items():
-        consolidated_products[wp_type] = consolidate_chunks(chunks, wp_type)
+        task = asyncio.create_task(consolidate_chunks(chunks, wp_type))
+        consolidation_tasks.append((wp_type, task))
 
-    integrated_report = generate_integrated_report(
+    for wp_type, task in consolidation_tasks:
+        consolidated_products[wp_type] = await task
+
+    integrated_report = await generate_integrated_report(
         consolidated_products,
         video_title,
         video_date,
@@ -319,12 +346,17 @@ def generate_final_report(
         video_duration_minutes,
     )
 
-    structured_elements_appendix = generate_structured_elements_appendix(
-        consolidated_products["video_analysis"]
+    structured_elements_appendix_task = asyncio.create_task(
+        generate_structured_elements_appendix(consolidated_products["video_analysis"])
     )
-    intertextual_appendix = generate_intertextual_analysis_appendix(
-        consolidated_products["intertextual_analysis"]
+    intertextual_appendix_task = asyncio.create_task(
+        generate_intertextual_analysis_appendix(
+            consolidated_products["intertextual_analysis"]
+        )
     )
+
+    structured_elements_appendix = await structured_elements_appendix_task
+    intertextual_appendix = await intertextual_appendix_task
 
     short_title = "".join(e for e in video_title if e.isalnum())[:12]
     output_file = os.path.join(OUTPUT_DIR, f"{short_title}_final_report.md")
@@ -343,8 +375,8 @@ def generate_final_report(
     {intertextual_appendix}
     """
 
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(final_report)
+    async with aiofiles.open(output_file, "w", encoding="utf-8") as f:
+        await f.write(final_report)
 
     print(f"Final report generated: {output_file}")
     print(f"Debug: Final report length: {len(final_report)}")
@@ -357,6 +389,8 @@ if __name__ == "__main__":
     channel_name = "Sample Channel"
     speaker_name = "John Doe"
     video_duration_minutes = 15.0
-    generate_final_report(
-        video_title, video_date, channel_name, speaker_name, video_duration_minutes
+    asyncio.run(
+        generate_final_report(
+            video_title, video_date, channel_name, speaker_name, video_duration_minutes
+        )
     )

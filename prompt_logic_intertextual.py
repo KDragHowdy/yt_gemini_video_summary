@@ -1,10 +1,13 @@
+# prompt_logic_intertextual.py
+
 import json
 import time
+import asyncio
 from models import get_gemini_flash_model_json
 from api_statistics import api_stats
 
 
-def analyze_intertextual_references(
+async def analyze_intertextual_references(
     video_analysis, transcript_analysis, chunk_start, chunk_end
 ):
     prompt = f"""
@@ -37,14 +40,14 @@ def analyze_intertextual_references(
     for attempt in range(max_retries):
         try:
             start_time = time.time()
-            model = get_gemini_flash_model_json()
-            response = model.generate_content(prompt)
+            model = await get_gemini_flash_model_json()
+            response = await model.generate_content_async(prompt)
 
             print(f"Debug: Response object type: {type(response)}")
             print(f"Debug: Response object attributes: {dir(response)}")
             print(f"Debug: Response object __dict__: {response.__dict__}")
 
-            api_stats.record_call(
+            await api_stats.record_call(
                 module="prompt_logic_intertextual",
                 function="analyze_intertextual_references",
                 start_time=start_time,
@@ -69,7 +72,7 @@ def analyze_intertextual_references(
             )
             if attempt < max_retries - 1:
                 print(f"Retrying in {retry_delay} seconds...")
-                time.sleep(retry_delay)
+                await asyncio.sleep(retry_delay)
                 retry_delay *= 2  # Exponential backoff
             else:
                 print("Debug: Falling back to a default structure.")
@@ -82,3 +85,18 @@ def analyze_intertextual_references(
                     ],
                     indent=2,
                 )
+
+
+# You can add more functions here if needed for your intertextual analysis logic
+
+if __name__ == "__main__":
+    # This block is for testing purposes
+    async def test():
+        video_analysis = "Sample video analysis content"
+        transcript_analysis = "Sample transcript analysis content"
+        result = await analyze_intertextual_references(
+            video_analysis, transcript_analysis, 0, 10
+        )
+        print(result)
+
+    asyncio.run(test())
