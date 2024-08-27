@@ -20,9 +20,6 @@ async def process_video(video_chunks, video_id, video_title, duration_minutes):
 
     print(f"Successfully retrieved transcript ({len(transcript)} characters).")
 
-    intertextual_chunks = []
-    video_analyses = []
-
     chunk_tasks = []
     for i, chunk_path in enumerate(video_chunks):
         chunk_start = i * 10
@@ -45,9 +42,13 @@ async def process_video(video_chunks, video_id, video_title, duration_minutes):
 
     results = await asyncio.gather(*chunk_tasks)
 
+    intertextual_chunks = []
+    video_analyses = []
     for intertextual_analysis, video_analysis in results:
-        intertextual_chunks.append(intertextual_analysis)
-        video_analyses.append(video_analysis)
+        if intertextual_analysis:
+            intertextual_chunks.append(intertextual_analysis)
+        if video_analysis:
+            video_analyses.append(video_analysis)
 
     return intertextual_chunks, video_analyses
 
@@ -107,8 +108,3 @@ async def process_chunk(
             f"error_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
         )
         return None, None
-
-    finally:
-        await asyncio.sleep(
-            2
-        )  # Reduced from 4 to 2 seconds to account for more frequent, smaller chunks

@@ -13,11 +13,11 @@ async def generate_content(prompt, video_file=None, use_json=False):
         model = await (
             get_gemini_flash_model_json() if use_json else get_gemini_flash_model_text()
         )
-        response = (
-            await model.generate_content_async(prompt)
-            if not video_file
-            else await model.generate_content_async([video_file, prompt])
-        )
+
+        if video_file:
+            response = await model.generate_content_async([video_file, prompt])
+        else:
+            response = await model.generate_content_async(prompt)
 
         print(f"Debug: Response object type: {type(response)}")
         print(f"Debug: Response object attributes: {dir(response)}")

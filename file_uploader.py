@@ -34,11 +34,12 @@ async def upload_video(video_path):
 
 async def wait_for_file_active(video_file):
     while video_file.state.name == "PROCESSING":
-        print(".", end="")
+        print(".", end="", flush=True)
         await asyncio.sleep(10)
         video_file = await asyncio.to_thread(genai.get_file, video_file.name)
 
     if video_file.state.name == "FAILED":
         raise ValueError(f"File processing failed: {video_file.state.name}")
 
+    print(f"\nFile {video_file.name} is now active.")
     return video_file
