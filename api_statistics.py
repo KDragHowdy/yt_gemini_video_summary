@@ -4,6 +4,8 @@ import time
 from dataclasses import dataclass, asdict
 import json
 import asyncio
+from typing import List, Dict
+import aiofiles
 
 
 @dataclass
@@ -16,9 +18,18 @@ class APICallMetadata:
     total_tokens: int
 
 
+@dataclass
+class ProcessMetadata:
+    process_name: str
+    start_time: float
+    end_time: float
+    duration: float
+
+
 class APIStatistics:
     def __init__(self):
-        self.calls = []
+        self.calls: List[APICallMetadata] = []
+        self.processes: List[ProcessMetadata] = []
         self.lock = asyncio.Lock()
 
     async def record_call(
@@ -26,9 +37,6 @@ class APIStatistics:
     ):
         end_time = time.time()
         duration = end_time - start_time
-
-        print(f"Debug: Full response object: {response}")
-        print(f"Debug: Response type: {type(response)}")
 
         try:
             usage_metadata = response.usage_metadata
@@ -52,6 +60,20 @@ class APIStatistics:
             self.calls.append(call_data)
         print(f"Debug: API call recorded - {call_data}")
 
+    async def record_process(
+        self, process_name: str, start_time: float, end_time: float
+    ):
+        duration = end_time - start_time
+        process_data = ProcessMetadata(
+            process_name=process_name,
+            start_time=start_time,
+            end_time=end_time,
+            duration=duration,
+        )
+        async with self.lock:
+            self.processes.append(process_data)
+        print(f"Debug: Process recorded - {process_data}")
+
     def generate_report(self) -> str:
         report = "API Call Statistics:\n\n"
         report += f"{'Module':<20} {'Function':<25} {'Duration (s)':<15} {'Input Tokens':<15} {'Output Tokens':<15} {'Total Tokens':<15}\n"
@@ -61,12 +83,30 @@ class APIStatistics:
             call_dict = asdict(call)
             report += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15}\n"
 
+        report += "\nProcess Timings:\n\n"
+        report += f"{'Process Name':<30} {'Start Time':<20} {'End Time':<20} {'Duration (s)':<15}\n"
+        report += "-" * 85 + "\n"
+
+        for process in self.processes:
+            process_dict = asdict(process)
+            report += f"{process_dict['process_name']:<30} {process_dict['start_time']:<20.2f} {process_dict['end_time']:<20.2f} {process_dict['duration']:<15.2f}\n"
+
+        total_duration = max(process.end_time for process in self.processes) - min(
+            process.start_time for process in self.processes
+        )
+        report += f"\nTotal Script Duration: {total_duration:.2f} seconds\n"
+
         return report
 
+    async def generate_report_async(self) -> str:
+        return self.generate_report()
+
     async def save_report(self, filename: str):
+        report = self.generate_report()
         async with self.lock:
-            with open(filename, "w") as f:
-                json.dump([asdict(call) for call in self.calls], f, indent=2)
+            async with aiofiles.open(filename, "w", encoding="utf-8") as f:
+                await f.write(report)
+        print(f"API statistics report saved to: {filename}")
 
 
 api_stats = APIStatistics()

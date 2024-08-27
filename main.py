@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import asyncio
+import aiofiles
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
@@ -45,6 +46,9 @@ async def main():
         video_info_end = time.time()
         video_info_time = video_info_end - video_info_start
         timings["Video Info Retrieval"] = video_info_time
+        await api_stats.record_process(
+            "Video Info Retrieval", video_info_start, video_info_end
+        )
         print(f"Video info retrieved in {video_info_time:.2f} seconds")
 
         if not video_title or not duration:
@@ -76,6 +80,7 @@ async def main():
         download_end = time.time()
         download_time = download_end - download_start
         timings["Video Download"] = download_time
+        await api_stats.record_process("Video Download", download_start, download_end)
         print(f"Video downloaded in {download_time:.2f} seconds")
 
         if not video_chunks:
@@ -90,29 +95,45 @@ async def main():
         processing_end = time.time()
         processing_time = processing_end - processing_start
         timings["Video Processing"] = processing_time
+        await api_stats.record_process(
+            "Video Processing", processing_start, processing_end
+        )
         print(f"Video processed in {processing_time:.2f} seconds")
 
-        # Timer for final report generation
-        print("\nGenerating final report...")
+        # Timer for final report generation and API statistics
+        print("\nGenerating final report and API statistics...")
         report_start = time.time()
-        await generate_final_report(
-            video_title=video_title,
-            video_date=video_date,
-            channel_name=channel_name,
-            speaker_name=speaker_name,
-            video_duration_minutes=duration_minutes,
+
+        final_report_task = asyncio.create_task(
+            generate_final_report(
+                video_title=video_title,
+                video_date=video_date,
+                channel_name=channel_name,
+                speaker_name=speaker_name,
+                video_duration_minutes=duration_minutes,
+            )
         )
+
+        stats_report_task = asyncio.create_task(api_stats.generate_report_async())
+
+        # Wait for both tasks to complete
+        final_report, stats_report = await asyncio.gather(
+            final_report_task, stats_report_task
+        )
+
         report_end = time.time()
         report_time = report_end - report_start
         timings["Final Report Generation"] = report_time
-        print(f"Final report generated in {report_time:.2f} seconds")
+        await api_stats.record_process(
+            "Final Report Generation", report_start, report_end
+        )
+        print(f"Final report and API statistics generated in {report_time:.2f} seconds")
 
-        # Generate and save API statistics report
-        print("\nGenerating API statistics report...")
-        stats_report = api_stats.generate_report()
+        # Save the API statistics report
         stats_file = os.path.join(OUTPUT_DIR, "api_statistics_report.txt")
-        async with aiofiles.open(stats_file, "w") as f:
-            await f.write(stats_report)
+        await api_stats.save_report(stats_file)
+
+        print(f"Final report generated: {final_report}")
         print(f"API statistics report saved to: {stats_file}")
 
         # Print API statistics to console
@@ -137,6 +158,7 @@ async def main():
     finally:
         end_time = time.time()
         total_runtime = end_time - start_time
+        await api_stats.record_process("Total Script Runtime", start_time, end_time)
 
         print("\n" + "=" * 50)
         print("PROCESSING SUMMARY")
@@ -145,12 +167,6 @@ async def main():
             print(f"{step}: {duration:.2f} seconds")
         print("-" * 50)
         print(f"Total runtime: {total_runtime:.2f} seconds")
-        print("=" * 50)
-
-        # Add this part to print API call statistics
-        print("\nAPI CALL STATISTICS")
-        print("=" * 50)
-        print(api_stats.generate_report())
         print("=" * 50)
 
 

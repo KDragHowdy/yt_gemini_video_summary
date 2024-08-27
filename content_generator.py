@@ -41,6 +41,7 @@ async def generate_content(prompt, video_file=None, use_json=False):
 
 
 async def analyze_video_content(video_file, chunk_start, chunk_end):
+    start_time = time.time()
     prompt = f"""
     Analyze the visual content of the video for the chunk from {chunk_start} to {chunk_end} minutes, focusing on structured presentation elements such as slides, graphs, charts, code snippets, or any organized text/visual information.
 
@@ -66,10 +67,18 @@ async def analyze_video_content(video_file, chunk_start, chunk_end):
 
     Don't add any other text at the beginning or end other than your analysis.
     """
-    return await generate_content(prompt, video_file, use_json=False)
+    result = await generate_content(prompt, video_file, use_json=False)
+    end_time = time.time()
+    await api_stats.record_process(
+        f"analyze_video_content_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        start_time,
+        end_time,
+    )
+    return result
 
 
 async def analyze_transcript(transcript, chunk_start, chunk_end):
+    start_time = time.time()
     prompt = f"""
     Analyze the following transcript content for the chunk from {chunk_start} to {chunk_end} minutes:
 
@@ -110,10 +119,18 @@ async def analyze_transcript(transcript, chunk_start, chunk_end):
 
     Don't add any other text at the beginning or end other than your analysis.
     """
-    return await generate_content(prompt, use_json=False)
+    result = await generate_content(prompt, use_json=False)
+    end_time = time.time()
+    await api_stats.record_process(
+        f"analyze_transcript_{chunk_start:03.0f}_{chunk_end:03.0f}",
+        start_time,
+        end_time,
+    )
+    return result
 
 
 async def save_interim_work_product(content, video_id, video_title, analysis_type):
+    start_time = time.time()
     print("Debug: Entering save_interim_work_product function")
     print(f"Debug: content length = {len(content)}")
     print(f"Debug: video_id = {video_id}")
@@ -139,6 +156,10 @@ async def save_interim_work_product(content, video_id, video_title, analysis_typ
         f.write(content)
 
     print(f"Saved {analysis_type} interim work product: {filename}")
+    end_time = time.time()
+    await api_stats.record_process(
+        f"save_interim_work_product_{analysis_type}", start_time, end_time
+    )
     return filename
 
 

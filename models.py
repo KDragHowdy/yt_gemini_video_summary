@@ -59,7 +59,7 @@ class AsyncGenerativeModel:
 async def get_gemini_flash_model_json():
     await GEMINI_FLASH_LIMITER.wait()
     return AsyncGenerativeModel(
-        "gemini-1.5-flash",
+        "gemini-1.5-flash-exp-0827",  # Updated to latest experimental version
         generation_config={
             "response_mime_type": "application/json",
             "temperature": 0.5,
@@ -73,7 +73,7 @@ async def get_gemini_flash_model_json():
 async def get_gemini_flash_model_text():
     await GEMINI_FLASH_LIMITER.wait()
     return AsyncGenerativeModel(
-        "gemini-1.5-flash",
+        "gemini-1.5-flash-exp-0827",  # Updated to latest experimental version
         generation_config={
             "temperature": 0.5,
             "top_p": 0.9,
@@ -86,7 +86,7 @@ async def get_gemini_flash_model_text():
 async def get_final_report_model_text():
     await GEMINI_PRO_LIMITER.wait()
     return AsyncGenerativeModel(
-        "gemini-1.5-pro-exp-0801",
+        "gemini-1.5-pro-exp-0827",  # Updated to latest experimental version
         generation_config={
             "temperature": 0.5,
             "top_p": 0.9,
