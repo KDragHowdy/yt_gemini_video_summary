@@ -1,7 +1,4 @@
-# api_statistics.py
-
 import time
-from typing import Dict, List, Any
 from dataclasses import dataclass, asdict
 import json
 
@@ -10,81 +7,52 @@ import json
 class APICallMetadata:
     module: str
     function: str
-    model: str
     duration: float
     input_tokens: int
     output_tokens: int
     total_tokens: int
-    prompt_feedback: Dict[str, Any] = None
-    error: str = None
 
 
 class APIStatistics:
     def __init__(self):
-        self.calls: List[APICallMetadata] = []
+        self.calls = []
 
-    def record_call(
-        self,
-        module: str,
-        function: str,
-        start_time: float,
-        response: Any,
-        model: str = None,
-    ):
+    def record_call(self, module: str, function: str, start_time: float, response):
         end_time = time.time()
         duration = end_time - start_time
 
+        print(f"Debug: Full response object: {response}")
+        print(f"Debug: Response type: {type(response)}")
+
         try:
-            metadata = self._extract_metadata(response)
-            call_data = APICallMetadata(
-                module=module,
-                function=function,
-                duration=duration,
-                model=model or metadata.get("model", "Unknown"),
-                **metadata,
-            )
-        except Exception as e:
-            call_data = APICallMetadata(
-                module=module,
-                function=function,
-                duration=duration,
-                model=model or "Unknown",
-                input_tokens=0,
-                output_tokens=0,
-                total_tokens=0,
-                error=str(e),
-            )
+            usage_metadata = response.usage_metadata
+            input_tokens = usage_metadata.prompt_token_count
+            output_tokens = usage_metadata.candidates_token_count
+            total_tokens = usage_metadata.total_token_count
+        except AttributeError as e:
+            print(f"Debug: Error accessing usage_metadata: {e}")
+            input_tokens = output_tokens = total_tokens = 0
+
+        call_data = APICallMetadata(
+            module=module,
+            function=function,
+            duration=duration,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            total_tokens=total_tokens,
+        )
 
         self.calls.append(call_data)
         print(f"Debug: API call recorded - {call_data}")
 
-    def _extract_metadata(self, response: Any) -> Dict[str, Any]:
-        try:
-            print(f"Debug: Full response object: {response}")
-            print(f"Debug: Response type: {type(response)}")
-
-            usage_metadata = response.result.usage_metadata
-            if usage_metadata:
-                print(f"Debug: UsageMetadata found: {usage_metadata}")
-                return {
-                    "input_tokens": usage_metadata.prompt_token_count,
-                    "output_tokens": usage_metadata.candidates_token_count,
-                    "total_tokens": usage_metadata.total_token_count,
-                }
-            else:
-                print("Debug: No usage_metadata attribute found")
-        except Exception as e:
-            print(f"Debug: Error occurred: {str(e)}")
-            return {}
-
     def generate_report(self) -> str:
         report = "API Call Statistics:\n\n"
-        report += f"{'Module':<20} {'Function':<25} {'Model':<20} {'Duration (s)':<15} {'Input Tokens':<15} {'Output Tokens':<15} {'Total Tokens':<15} {'Error':<20}\n"
-        report += "-" * 145 + "\n"
+        report += f"{'Module':<20} {'Function':<25} {'Duration (s)':<15} {'Input Tokens':<15} {'Output Tokens':<15} {'Total Tokens':<15}\n"
+        report += "-" * 105 + "\n"
 
         for call in self.calls:
             call_dict = asdict(call)
-            report += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15}"
+            report += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15}\n"
 
         return report
 

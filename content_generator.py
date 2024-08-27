@@ -17,27 +17,23 @@ def generate_content(prompt, video_file=None, use_json=False):
             else model.generate_content([video_file, prompt])
         )
 
+        print(f"Debug: Response object type: {type(response)}")
+        print(f"Debug: Response object attributes: {dir(response)}")
+        print(f"Debug: Response object __dict__: {response.__dict__}")
+
         api_stats.record_call(
             module="content_generator",
             function="generate_content",
             start_time=start_time,
             response=response,
-            model=model.__class__.__name__,
         )
 
-        if response.prompt_feedback:
+        if hasattr(response, "prompt_feedback"):
             print(f"Prompt feedback: {response.prompt_feedback}")
 
         return response.text
 
     except Exception as e:
-        api_stats.record_call(
-            module="content_generator",
-            function="generate_content",
-            start_time=start_time,
-            response=None,
-            model="Unknown",
-        )
         print(f"Error generating content: {str(e)}")
         return f"Error in analysis: {str(e)}"
 

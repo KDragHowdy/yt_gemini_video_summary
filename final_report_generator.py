@@ -121,12 +121,15 @@ def consolidate_chunks(chunks: List[str], work_product_type: str) -> str:
         start_time = time.time()
         response = model.generate_content(prompt)
 
+        print(f"Debug: Response object type: {type(response)}")
+        print(f"Debug: Response object attributes: {dir(response)}")
+        print(f"Debug: Response object __dict__: {response.__dict__}")
+
         api_stats.record_call(
             module="final_report_generator",
             function="consolidate_chunks",
             start_time=start_time,
             response=response,
-            model=model.__class__.__name__,
         )
 
         consolidated = response.text
@@ -189,12 +192,15 @@ def generate_integrated_report(
     model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
+    print(f"Debug: Response object type: {type(response)}")
+    print(f"Debug: Response object attributes: {dir(response)}")
+    print(f"Debug: Response object __dict__: {response.__dict__}")
+
     api_stats.record_call(
         module="final_report_generator",
         function="generate_integrated_report",
         start_time=start_time,
         response=response,
-        model=model.__class__.__name__,
     )
 
     integrated_report = response.text
@@ -228,12 +234,15 @@ def generate_structured_elements_appendix(video_analysis: str) -> str:
     model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
+    print(f"Debug: Response object type: {type(response)}")
+    print(f"Debug: Response object attributes: {dir(response)}")
+    print(f"Debug: Response object __dict__: {response.__dict__}")
+
     api_stats.record_call(
         module="final_report_generator",
         function="generate_structured_elements_appendix",
         start_time=start_time,
         response=response,
-        model=model.__class__.__name__,
     )
 
     appendix = response.text
@@ -267,12 +276,15 @@ def generate_intertextual_analysis_appendix(intertextual_analysis: str) -> str:
     model = get_final_report_model_text()
     response = model.generate_content(prompt)
 
+    print(f"Debug: Response object type: {type(response)}")
+    print(f"Debug: Response object attributes: {dir(response)}")
+    print(f"Debug: Response object __dict__: {response.__dict__}")
+
     api_stats.record_call(
         module="final_report_generator",
         function="generate_intertextual_analysis_appendix",
         start_time=start_time,
         response=response,
-        model=model.__class__.__name__,
     )
 
     appendix = response.text
@@ -344,7 +356,7 @@ if __name__ == "__main__":
     video_date = "2023-08-25"
     channel_name = "Sample Channel"
     speaker_name = "John Doe"
-    video_duration_minutes = 15.0  # Add this line
+    video_duration_minutes = 15.0
     generate_final_report(
         video_title, video_date, channel_name, speaker_name, video_duration_minutes
     )

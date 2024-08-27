@@ -1,5 +1,3 @@
-# prompt_logic_intertextual.py
-
 import json
 import time
 from models import get_gemini_flash_model_json
@@ -42,12 +40,15 @@ def analyze_intertextual_references(
             model = get_gemini_flash_model_json()
             response = model.generate_content(prompt)
 
+            print(f"Debug: Response object type: {type(response)}")
+            print(f"Debug: Response object attributes: {dir(response)}")
+            print(f"Debug: Response object __dict__: {response.__dict__}")
+
             api_stats.record_call(
                 module="prompt_logic_intertextual",
                 function="analyze_intertextual_references",
                 start_time=start_time,
                 response=response,
-                model=model.__class__.__name__,
             )
 
             try:
