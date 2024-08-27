@@ -1,66 +1,90 @@
 [
   {
-    "type": "historical",
+    "type": "scientific",
     "reference": "CERN",
-    "context": "The speaker argues for an international research organization similar to CERN to manage AI risks. (around 11:00)",
-    "explanation": "CERN is the European Organization for Nuclear Research, a large international scientific collaboration founded in 1954. It is known for its groundbreaking research in particle physics, including the discovery of the Higgs boson.",
-    "relevance": "The speaker uses CERN as a model for how international collaboration can be successful in addressing complex scientific challenges, particularly in the context of AI risks.",
-    "connections": "This reference connects to the theme of international cooperation in AI research and development, which the speaker emphasizes throughout the video."
+    "context": "The speaker suggests an international research organization like CERN for AI.",
+    "explanation": "CERN, the European Organization for Nuclear Research, is a renowned international collaboration in particle physics. It is known for its large-scale scientific projects, such as the Large Hadron Collider, and its collaborative approach to research.",
+    "relevance": "The speaker uses CERN as a model for international collaboration in AI research, highlighting the need for a coordinated global effort to address the risks of AI.",
+    "connections": "This reference connects to the theme of international cooperation, which the speaker emphasizes as crucial for mitigating AI risks."
   },
   {
     "type": "scientific",
-    "reference": "Byzantine Generals Problem",
-    "context": "The speaker mentions the Byzantine Generals Problem as a potential source of conflict between AI systems. (around 8:30)",
-    "explanation": "The Byzantine Generals Problem is a classic problem in computer science and distributed systems. It describes a scenario where multiple generals must agree on a plan of action, but some of them may be faulty or malicious. The problem highlights the challenges of achieving consensus and trust in distributed systems.",
-    "relevance": "The speaker uses the Byzantine Generals Problem to illustrate how misalignments and uncertainty between AI systems could lead to conflict and unintended consequences.",
-    "connections": "This reference connects to the theme of AI safety and the potential for conflict between AI systems, which is a central concern of the video."
-  },
-  {
-    "type": "pop_culture",
-    "reference": "Star Trek",
-    "context": "The presenter wears a Star Trek uniform throughout the video, and the slides feature cartoon images of robots and the Earth. (throughout the video)",
-    "explanation": "Star Trek is a science fiction franchise that explores themes of space exploration, technology, and humanity's future. It has been a popular cultural phenomenon for decades, with a dedicated fanbase and a significant influence on science fiction and popular culture.",
-    "relevance": "The use of Star Trek imagery adds a layer of interest and intrigue to the video, connecting the discussion of AI risks to a familiar and popular science fiction setting.",
-    "connections": "This reference connects to the overall visual style of the video, which uses science fiction elements to engage the audience and make the discussion of AI risks more accessible."
+    "reference": "AlphaFold",
+    "context": "The speaker mentions AlphaFold as an example of AI's rapid progress.",
+    "explanation": "AlphaFold is a deep learning system developed by DeepMind for predicting protein structures. It has made significant breakthroughs in understanding protein folding, a fundamental problem in biology.",
+    "relevance": "The speaker uses AlphaFold to illustrate the rapid advancements in AI and its potential impact on various fields, including biology and medicine.",
+    "connections": "This reference connects to the theme of AI's rapid development and its potential risks, particularly in the context of bioweapons."
   },
   {
     "type": "ai_tech",
     "reference": "GPT",
-    "context": "The speaker mentions GPT as an example of a powerful language model. (around 13:00)",
-    "explanation": "GPT (Generative Pre-trained Transformer) is a type of artificial intelligence model that has revolutionized natural language processing. It is capable of generating human-quality text, translating languages, and writing different kinds of creative content.",
-    "relevance": "The speaker uses GPT as an example of the rapid advancements in AI technology and the potential for these advancements to be misused for malicious purposes.",
-    "connections": "This reference connects to the theme of AI safety and the speaker's concern about the potential for AI to be used to develop bioweapons."
+    "context": "The speaker mentions GPT as a type of language model used in AI.",
+    "explanation": "GPT (Generative Pre-trained Transformer) is a type of language model used in AI applications. It is known for its ability to generate human-like text, translate languages, and write different kinds of creative content.",
+    "relevance": "The speaker uses GPT as an example of AI technology that is rapidly evolving and raising concerns about its potential for misuse.",
+    "connections": "This reference connects to the theme of AI's increasing capabilities and the need for careful consideration of its ethical implications."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Tokens",
+    "context": "The speaker mentions tokens in the context of language models.",
+    "explanation": "Tokens are units of text used in language models. They can be words, punctuation marks, or even sub-word units. Language models process text by breaking it down into tokens and analyzing their relationships.",
+    "relevance": "The speaker uses the concept of tokens to explain how language models work and how they are trained on large datasets of text.",
+    "connections": "This reference connects to the theme of AI's ability to process and understand language, which raises concerns about its potential for manipulation and misinformation."
+  },
+  {
+    "type": "philosophical",
+    "reference": "Game Theory",
+    "context": "The speaker states that the 'terminal race condition' is a permanent Game Theory condition.",
+    "explanation": "Game Theory is a branch of mathematics that studies strategic decision-making in situations where multiple players interact. It analyzes how individuals or groups can optimize their outcomes in the face of competition and uncertainty.",
+    "relevance": "The speaker applies Game Theory to explain the competitive dynamics of AI development, suggesting that the 'terminal race condition' is an inevitable consequence of the pursuit of efficiency and dominance.",
+    "connections": "This reference connects to the theme of the 'terminal race condition', which the speaker describes as a potential outcome of unchecked competition in AI development."
   },
   {
     "type": "other",
-    "reference": "Doomers",
-    "context": "The speaker uses the term 'doomers' to refer to those who believe that AI will inevitably lead to a negative outcome for humanity. (around 17:00)",
-    "explanation": "The term 'doomer' is often used in online communities to describe individuals who hold pessimistic or apocalyptic views about the future. In the context of AI, 'doomers' often believe that AI will eventually surpass human intelligence and pose an existential threat to humanity.",
-    "relevance": "The speaker uses the term 'doomers' to acknowledge the existence of different perspectives on AI risks and to highlight the potential for AI to have a significant impact on the future of humanity.",
-    "connections": "This reference connects to the theme of AI safety and the speaker's concern about the potential for AI to have a significant impact on the future of humanity."
-  },
-  {
-    "type": "scientific",
-    "reference": "Game Theory",
-    "context": "The speaker mentions Game Theory in the context of the terminal race condition. (around 17:00)",
-    "explanation": "Game Theory is a branch of mathematics that studies strategic decision-making in situations where multiple players interact. It is often used to analyze competitive situations, such as economic markets or military conflicts.",
-    "relevance": "The speaker uses Game Theory to explain how the competitive nature of AI development could lead to a 'terminal race condition' where the pursuit of efficiency and speed could have unintended consequences.",
-    "connections": "This reference connects to the theme of the terminal race condition, which the speaker argues is a significant risk associated with AI development."
-  },
-  {
-    "type": "research",
-    "reference": "Demis Hassabis and Imad Mostaque",
-    "context": "The speaker mentions that prominent AI researchers like Demis Hassabis and Imad Mostaque have advocated for international collaboration in AI research. (around 11:00)",
-    "explanation": "Demis Hassabis is a British neuroscientist and AI researcher who is the co-founder and CEO of DeepMind, a leading AI research company. Imad Mostaque is the founder and CEO of Stability AI, a company that develops open-source AI models.",
-    "relevance": "The speaker uses the support of these prominent AI researchers to strengthen the argument for international collaboration in AI research and development.",
-    "connections": "This reference connects to the theme of international cooperation in AI research and development, which the speaker emphasizes throughout the video."
+    "reference": "P Doom",
+    "context": "The speaker uses 'P Doom' to express their level of personal concern about AI risks.",
+    "explanation": "'P Doom' is a colloquial term used by the speaker to express their personal level of concern about the potential risks of AI. It is likely a play on the term 'doom' and reflects the speaker's sense of urgency and seriousness about the issue.",
+    "relevance": "The speaker uses 'P Doom' to convey their personal perspective on the risks of AI and to emphasize the need for proactive measures to mitigate those risks.",
+    "connections": "This reference connects to the speaker's overall argument for international cooperation in AI research and the need to address the potential dangers of AI development."
   },
   {
     "type": "historical",
     "reference": "COVID-19 pandemic",
-    "context": "The speaker cites the COVID-19 pandemic as an example of the potential for biological agents to cause widespread harm. (around 12:00)",
-    "explanation": "The COVID-19 pandemic, which began in late 2019, has had a profound impact on the world, causing millions of deaths and disrupting economies and societies globally.",
-    "relevance": "The speaker uses the COVID-19 pandemic as a real-world example of the potential dangers of biological agents and the importance of addressing biosecurity risks associated with AI.",
-    "connections": "This reference connects to the theme of bioweapons and the speaker's concern about the potential for AI to be used to develop and deploy dangerous biological agents."
+    "context": "The speaker cites the COVID-19 pandemic as an example of the potential for bioweapons misuse.",
+    "explanation": "The COVID-19 pandemic, a global health crisis caused by a novel coronavirus, has highlighted the vulnerability of human societies to infectious diseases and the potential for biological weapons to cause widespread harm.",
+    "relevance": "The speaker uses the COVID-19 pandemic as a cautionary tale, emphasizing the potential for AI to be used for malicious purposes, particularly in the development of bioweapons.",
+    "connections": "This reference connects to the theme of bioweapons as a concrete risk posed by AI and the need for international cooperation to prevent their misuse."
+  },
+  {
+    "type": "pop_culture",
+    "reference": "The Matrix",
+    "context": "The speaker mentions 'The Matrix' in the context of AI taking over the world.",
+    "explanation": "'The Matrix' is a science fiction film series that explores a dystopian future where humans are unknowingly living in a simulated reality controlled by sentient machines. The film raises questions about the nature of reality, free will, and the potential for AI to surpass human intelligence.",
+    "relevance": "The speaker uses 'The Matrix' as a cultural reference to illustrate the potential for AI to become a threat to humanity, highlighting the need for careful consideration of its development and potential consequences.",
+    "connections": "This reference connects to the theme of AI's potential for dominance and the need for ethical considerations in its development."
+  },
+  {
+    "type": "literary",
+    "reference": "The Terminator",
+    "context": "The speaker mentions 'The Terminator' in the context of AI becoming a threat to humanity.",
+    "explanation": "'The Terminator' is a science fiction film franchise that features a dystopian future where machines have become self-aware and are waging war against humanity. The films explore themes of artificial intelligence, technological singularity, and the potential for machines to surpass human intelligence.",
+    "relevance": "The speaker uses 'The Terminator' as a cultural reference to illustrate the potential for AI to become a threat to humanity, highlighting the need for careful consideration of its development and potential consequences.",
+    "connections": "This reference connects to the theme of AI's potential for dominance and the need for ethical considerations in its development."
+  },
+  {
+    "type": "literary",
+    "reference": "The Hitchhiker's Guide to the Galaxy",
+    "context": "The speaker mentions 'The Hitchhiker's Guide to the Galaxy' in the context of AI leaving Earth.",
+    "explanation": "'The Hitchhiker's Guide to the Galaxy' is a science fiction comedy series that follows the adventures of Arthur Dent, a hapless Englishman who is accidentally swept up in the destruction of Earth by the Vogons, a race of bureaucratic aliens. The series explores themes of absurdity, existentialism, and the nature of the universe.",
+    "relevance": "The speaker uses 'The Hitchhiker's Guide to the Galaxy' as a cultural reference to illustrate the potential for AI to transcend human limitations and explore the universe, highlighting the possibility of a future where AI and humans coexist peacefully.",
+    "connections": "This reference connects to the theme of AI's potential for advancement and its potential impact on humanity's future."
+  },
+  {
+    "type": "other",
+    "reference": "The Byzantine Generals Problem",
+    "context": "The speaker mentions the Byzantine Generals Problem in the context of AI conflicts.",
+    "explanation": "The Byzantine Generals Problem is a classic problem in computer science and distributed systems. It describes a scenario where multiple generals need to agree on a plan of action, but some of them may be faulty or malicious. The problem highlights the challenges of achieving consensus and trust in distributed systems.",
+    "relevance": "The speaker uses the Byzantine Generals Problem to illustrate the potential for conflicts among AI systems, highlighting the challenges of ensuring their coordination and preventing unintended consequences.",
+    "connections": "This reference connects to the theme of AI's potential for conflict and the need for careful design and governance to prevent unintended consequences."
   }
 ]
