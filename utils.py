@@ -3,6 +3,11 @@
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
 import aiofiles
+import time
+import asyncio
+import shutil
+
+start_time = time.time()
 
 
 def setup_directories(directories):
@@ -31,3 +36,9 @@ async def clear_directory(directory):
         except Exception as e:
             print(f"Failed to delete {file_path}. Reason: {e}")
     print(f"{directory} directory cleared.")
+
+
+def debug_print(message):
+    current_time = time.time()
+    elapsed_time = current_time - start_time
+    print(f"[{elapsed_time:.2f}s] {message}")

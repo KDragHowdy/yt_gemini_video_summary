@@ -6,6 +6,7 @@ import json
 import asyncio
 from typing import List, Dict, Optional
 import aiofiles
+from utils import debug_print
 
 
 @dataclass
@@ -42,6 +43,8 @@ class APIStatistics:
         self.processes: List[ProcessMetadata] = []
         self.lock = asyncio.Lock()
         self.root = ProcessNode("Total Script", 0, 0, 0)
+        self.call_counter = 0
+        self.minute_start = time.time()
 
     async def record_call(
         self, module: str, function: str, start_time: float, response
@@ -55,7 +58,7 @@ class APIStatistics:
             output_tokens = usage_metadata.candidates_token_count
             total_tokens = usage_metadata.total_token_count
         except AttributeError as e:
-            print(f"Debug: Error accessing usage_metadata: {e}")
+            debug_print(f"Error accessing usage_metadata: {e}")
             input_tokens = output_tokens = total_tokens = 0
 
         call_data = APICallMetadata(
@@ -69,7 +72,52 @@ class APIStatistics:
 
         async with self.lock:
             self.calls.append(call_data)
-        print(f"Debug: API call recorded - {call_data}")
+            self.call_counter += 1
+            current_time = time.time()
+            time_elapsed = current_time - self.minute_start
+            if time_elapsed >= 60:
+                self.call_counter = 1
+                self.minute_start = current_time
+            debug_print(
+                f"API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
+            )
+        debug_print(f"API call recorded - {call_data}")
+
+    async def wait_for_rate_limit(self):
+        async with self.lock:
+            current_time = time.time()
+            time_elapsed = current_time - self.minute_start
+            if time_elapsed >= 60:
+                self.call_counter = 0
+                self.minute_start = current_time
+            elif self.call_counter >= 14:
+                wait_time = 30  # 30-second cool-off
+                debug_print(
+                    f"Approaching rate limit. Waiting for {wait_time:.2f} seconds."
+                )
+                await asyncio.sleep(wait_time)
+                self.call_counter = 0
+                self.minute_start = time.time()
+            elif self.call_counter >= 10:
+                wait_time = 15  # 15-second cool-off
+                debug_print(f"Nearing rate limit. Waiting for {wait_time:.2f} seconds.")
+                await asyncio.sleep(wait_time)
+            self.call_counter += 1
+            debug_print(
+                f"Current API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
+            )
+
+    async def record_api_interaction(self, interaction_type: str):
+        async with self.lock:
+            self.call_counter += 1
+            current_time = time.time()
+            time_elapsed = current_time - self.minute_start
+            if time_elapsed >= 60:
+                self.call_counter = 1
+                self.minute_start = current_time
+            debug_print(
+                f"API interaction: {interaction_type}, Counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
+            )
 
     async def record_process(
         self,
@@ -87,9 +135,8 @@ class APIStatistics:
         )
         async with self.lock:
             self.processes.append(process_data)
-        print(f"Debug: Process recorded - {process_data}")
+        debug_print(f"Process recorded - {process_data}")
 
-        # New code for timeline visualization
         node = ProcessNode(process_name, start_time, end_time, duration)
         if parent:
             parent_node = self._find_node(self.root, parent)
@@ -172,7 +219,7 @@ class APIStatistics:
         async with self.lock:
             async with aiofiles.open(filename, "w", encoding="utf-8") as f:
                 await f.write(report)
-        print(f"API statistics report saved to: {filename}")
+        debug_print(f"API statistics report saved to: {filename}")
 
     def generate_timeline_data(self):
         data = []

@@ -1,90 +1,106 @@
 [
   {
     "type": "internet_culture",
-    "reference": "Doomers",
-    "context": "Throughout the transcript, particularly around 16:00",
-    "explanation": "In internet culture, particularly online communities focused on AI risk, 'Doomers' refer to individuals who hold a pessimistic outlook on the future of humanity due to the potential dangers of advanced AI. They often focus on existential risks (X-risk) and potential catastrophic outcomes.",
-    "relevance": "The speaker addresses the 'Doomers' directly, encouraging them to shift their focus from the most extreme scenarios to more immediate and concrete risks like bioweapons and the terminal race condition.",
-    "connections": "Connects to the overall theme of AI risk and the speaker's attempt to encourage a more nuanced perspective on the topic."
+    "reference": "AI Doomers",
+    "context": "Throughout the video, the speaker discusses 'doomers' who are concerned about the risks of AI.",
+    "explanation": "In online discussions about AI, 'doomers' refer to individuals who hold a pessimistic view of AI's future, often believing it poses an existential threat to humanity.",
+    "relevance": "The speaker is addressing and attempting to shift the focus of the concerns of AI 'doomers' to more concrete risks.",
+    "connections": "Connected to the discussion of X-risk, AI safety, and the various risk profiles discussed in the video."
   },
   {
-    "type": "scientific",
+    "type": "ai_tech",
     "reference": "CERN",
-    "context": "10:15",
-    "explanation": "CERN (Conseil Europ\u00e9en pour la Recherche Nucl\u00e9aire or European Organization for Nuclear Research) is a European research organization that operates the largest particle physics laboratory in the world. It is known for its groundbreaking discoveries, including the Higgs boson.",
-    "relevance": "The speaker uses CERN as an example of a successful international research organization that could be a model for managing the development of AI and mitigating its risks. He suggests that an international AI research organization could help coordinate efforts to ensure AI safety and prevent a catastrophic race condition.",
-    "connections": "Connects to the theme of international cooperation and the need for a coordinated approach to AI development."
-  },
-  {
-    "type": "scientific",
-    "reference": "Bioweapons",
-    "context": "14:00",
-    "explanation": "Bioweapons are biological agents or toxins that can be used as weapons to cause harm or death to humans, animals, or plants. They can include viruses, bacteria, fungi, or toxins.",
-    "relevance": "The speaker identifies bioweapons as the most immediate and concerning risk associated with AI, particularly in the context of open-source AI development. He emphasizes that the ability of AI to design and synthesize novel biological agents could lead to catastrophic consequences.",
-    "connections": "Connects to the theme of AI safety and the potential for misuse of AI technology. Also relates to the concept of 'corrigibility' as biological agents are seen as particularly difficult to control."
+    "context": "The speaker suggests an international research organization like CERN for AI.",
+    "explanation": "CERN is the European Organization for Nuclear Research, a leading international organization for scientific research, particularly in particle physics.",
+    "relevance": "The speaker uses CERN as an example of a successful international research organization that could be modeled for AI research and safety.",
+    "connections": "Related to the discussion of international cooperation and the need for a global approach to AI safety."
   },
   {
     "type": "ai_tech",
     "reference": "AlphaFold",
-    "context": "14:00",
-    "explanation": "AlphaFold is a deep learning system developed by DeepMind for predicting protein structures. It has been a major breakthrough in the field of structural biology and has the potential to revolutionize drug discovery and other fields.",
-    "relevance": "The speaker uses AlphaFold as an example of how AI can be used to design and synthesize novel molecules, including potentially harmful biological agents. This highlights the potential for AI to be used for malicious purposes.",
-    "connections": "Connects to the discussion of bioweapons and the potential dangers of AI in the wrong hands."
+    "context": "The speaker mentions AlphaFold as an example of AI that could be used for bioweapons.",
+    "explanation": "AlphaFold is a deep learning system developed by DeepMind that predicts the 3D structure of proteins from their amino acid sequences.",
+    "relevance": "The speaker uses AlphaFold as an example of how advanced AI can be used to design dangerous bioweapons.",
+    "connections": "Connected to the discussion of bioweapons as the primary risk associated with AI."
   },
   {
     "type": "ai_tech",
-    "reference": "GPT-4, GPT-40, GPT-40 mini",
-    "context": "15:00",
-    "explanation": "GPT-4, GPT-40, and GPT-40 mini are large language models developed by OpenAI. These models are capable of generating human-like text and performing a wide range of language-related tasks.",
-    "relevance": "The speaker uses these language models as examples of AI systems that are becoming increasingly powerful and capable. He suggests that the rapid development of such systems could lead to a 'terminal race condition' where safety and corrigibility are compromised.",
-    "connections": "Connects to the discussion of the terminal race condition and the potential for AI to develop at a pace that outstrips our ability to manage its risks."
+    "reference": "GPT-4",
+    "context": "The speaker mentions GPT-4 in the context of the terminal race condition.",
+    "explanation": "GPT-4 is a large language model developed by OpenAI, known for its advanced capabilities in generating human-like text.",
+    "relevance": "The speaker uses GPT-4 as an example of how the drive for efficiency in AI development can lead to a decline in safety and corrigibility.",
+    "connections": "Connected to the discussion of the terminal race condition and the prioritization of speed over safety in AI development."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "OpenAI",
+    "context": "The speaker mentions OpenAI in the context of the terminal race condition.",
+    "explanation": "OpenAI is an AI research and deployment company that has developed several prominent AI models, including GPT-4.",
+    "relevance": "The speaker uses OpenAI as an example of a company that is prioritizing speed and efficiency over safety in AI development.",
+    "connections": "Connected to the discussion of the terminal race condition and the prioritization of speed over safety in AI development."
   },
   {
     "type": "other",
-    "reference": "Terminal Race Condition",
-    "context": "Throughout the video, particularly 16:40",
-    "explanation": "The 'Terminal Race Condition' is a hypothetical scenario where the rapid advancement of AI, driven by competition and efficiency, could lead to a catastrophic outcome. It is characterized by a decline in AI safety and corrigibility, potentially leading to a lose-lose outcome for humanity.",
-    "relevance": "The central concept explored in the video. The speaker argues that the terminal race condition is a significant risk that needs to be addressed through international cooperation and a shift in focus towards AI safety.",
-    "connections": "Connects to the themes of AI safety, international cooperation, and the potential dangers of prioritizing speed over safety in AI development."
-  },
-  {
-    "type": "other",
-    "reference": "Byzantine Generals Problem",
-    "context": "8:09 - 9:59",
-    "explanation": "The Byzantine Generals Problem is a classic computer science problem that illustrates the challenges of achieving consensus in a distributed system where some of the participants may be unreliable or malicious. It's often used as an analogy for the potential difficulties in coordinating and controlling multiple AI systems.",
-    "relevance": "The speaker uses the Byzantine Generals Problem to illustrate the potential for conflicts and misalignments between different AI systems, leading to a scenario where humans could be caught in the crossfire.",
-    "connections": "Connects to the theme of AI safety and the potential for AI systems to develop factions and engage in conflict with each other. Also relates to the 'Machine Wars' slide."
-  },
-  {
-    "type": "other",
-    "reference": "X-Risk",
-    "context": "10:00",
-    "explanation": "'X-risk' refers to existential risks, which are threats that could lead to human extinction or severely curtail humanity's potential. These risks can be natural or human-made, and AI is often considered a potential source of X-risk.",
-    "relevance": "The primary focus of the video is on AI risks, particularly X-risk. The speaker discusses various potential scenarios where AI could pose an existential threat to humanity.",
-    "connections": "Connects to the overall theme of AI safety and the potential for catastrophic outcomes related to AI."
+    "reference": "X-risk",
+    "context": "The speaker mentions X-risk in the context of AI safety.",
+    "explanation": "X-risk refers to the risk of human extinction or catastrophic damage to civilization.",
+    "relevance": "The speaker uses X-risk as a framework for discussing the potential dangers of AI.",
+    "connections": "Connected to the discussion of AI safety, doomer arguments, and the various risk profiles discussed in the video."
   },
   {
     "type": "other",
     "reference": "Corrigibility",
-    "context": "14:00",
-    "explanation": "In the context of AI, 'corrigibility' refers to the ability to modify or correct an AI system's behavior. It is a crucial aspect of AI safety, as it ensures that AI systems can be controlled and prevented from causing harm.",
-    "relevance": "The speaker emphasizes the importance of corrigibility in AI development, particularly in the context of the terminal race condition. He argues that the relentless pursuit of efficiency and speed in AI development can compromise corrigibility, leading to potentially dangerous outcomes.",
-    "connections": "Connects to the themes of AI safety and the terminal race condition. Also relates to the discussion of bioweapons, which are seen as particularly difficult to control."
+    "context": "The speaker discusses the importance of corrigibility in AI systems.",
+    "explanation": "In the context of AI safety, corrigibility refers to the ability to modify or control an AI system's behavior, especially in cases where it might act in unintended or harmful ways.",
+    "relevance": "The speaker emphasizes the importance of corrigibility as a key factor in mitigating the risks of AI.",
+    "connections": "Connected to the discussion of the terminal race condition and the potential for AI systems to become uncontrollable."
+  },
+  {
+    "type": "historical",
+    "reference": "COVID-19 Pandemic",
+    "context": "The speaker uses the COVID-19 pandemic as an example of the dangers of biological agents.",
+    "explanation": "The COVID-19 pandemic was a global health crisis caused by the SARS-CoV-2 virus.",
+    "relevance": "The speaker uses the pandemic as a real-world example to illustrate the potential for biological agents to cause widespread harm and highlights the need for caution in the development of related technologies.",
+    "connections": "Connected to the discussion of bioweapons as the primary risk associated with AI."
   },
   {
     "type": "other",
-    "reference": "AGI",
-    "context": "10:00",
-    "explanation": "Artificial General Intelligence (AGI) is a hypothetical AI with human-level intelligence and cognitive abilities. It is often considered the ultimate goal of AI research, but it also raises concerns about the potential risks associated with such powerful AI.",
-    "relevance": "The speaker's discussion of AI risks primarily focuses on AGI, highlighting the potential dangers associated with AI that possesses human-level intelligence and capabilities.",
-    "connections": "Connects to the overall theme of AI risk and the potential for catastrophic outcomes related to advanced AI."
+    "reference": "Game Theory",
+    "context": "The speaker mentions Game Theory in the context of the terminal race condition.",
+    "explanation": "Game Theory is a mathematical framework for analyzing strategic interactions between individuals or entities.",
+    "relevance": "The speaker uses Game Theory to explain how the competitive pressures in AI development can lead to a prioritization of efficiency over safety.",
+    "connections": "Connected to the discussion of the terminal race condition and the prioritization of speed over safety in AI development."
   },
   {
     "type": "other",
-    "reference": "P Doom",
-    "context": "10:15",
-    "explanation": "'P Doom' refers to the probability of doom, which is a concept used to quantify the likelihood of a catastrophic outcome related to AI or other existential risks. It is often used in discussions of AI safety and risk assessment.",
-    "relevance": "The speaker uses 'P Doom' to express his personal assessment of the likelihood of a catastrophic outcome related to AI. He suggests that his personal probability of doom would be lower if there were greater international cooperation in AI research.",
-    "connections": "Connects to the themes of AI risk and the speaker's advocacy for international cooperation in AI research."
+    "reference": "Treaty",
+    "context": "The speaker suggests an international treaty for AI safety.",
+    "explanation": "A treaty is a formal agreement between states or international organizations.",
+    "relevance": "The speaker advocates for international cooperation in the form of a treaty to mitigate the risks of AI.",
+    "connections": "Connected to the discussion of international cooperation and the need for a global approach to AI safety."
+  },
+  {
+    "type": "other",
+    "reference": "Dialectics",
+    "context": "The speaker mentions the importance of finding common ground in debates.",
+    "explanation": "Dialectics is a method of philosophical inquiry that involves the exchange of opposing viewpoints.",
+    "relevance": "The speaker emphasizes the importance of dialogue and debate in addressing the challenges of AI safety.",
+    "connections": "Connected to the discussion of international cooperation and the need for a global approach to AI safety."
+  },
+  {
+    "type": "other",
+    "reference": "Chaos Actor",
+    "context": "The speaker discusses the risk of 'chaos actors' using bioweapons.",
+    "explanation": "A chaos actor is an individual or group that seeks to create disorder and disruption for its own sake.",
+    "relevance": "The speaker highlights the risk of non-state actors using AI-enabled bioweapons to cause widespread harm.",
+    "connections": "Connected to the discussion of bioweapons and the potential for malicious use of AI."
+  },
+  {
+    "type": "other",
+    "reference": "Terminal Race Condition",
+    "context": "The speaker introduces the concept of the terminal race condition.",
+    "explanation": "The speaker defines this as a scenario where the relentless pursuit of efficiency in AI development leads to a decline in safety and potentially uncontrollable systems.",
+    "relevance": "This is a core concept explored in the video, highlighting a specific risk associated with AI development.",
+    "connections": "Connected to the discussion of the prioritization of speed over safety in AI development and the potential for AI systems to become uncontrollable."
   }
 ]

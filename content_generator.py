@@ -4,8 +4,10 @@ import os
 import time
 from api_statistics import api_stats
 from models import get_gemini_flash_model_json, get_gemini_flash_model_text
+from error_handling import handle_exceptions, VideoProcessingError
 
 
+@handle_exceptions
 async def generate_content(prompt, video_file=None, use_json=False):
     start_time = time.time()
 
@@ -18,10 +20,6 @@ async def generate_content(prompt, video_file=None, use_json=False):
             response = await model.generate_content_async([video_file, prompt])
         else:
             response = await model.generate_content_async(prompt)
-
-        print(f"Debug: Response object type: {type(response)}")
-        print(f"Debug: Response object attributes: {dir(response)}")
-        print(f"Debug: Response object __dict__: {response.__dict__}")
 
         await api_stats.record_call(
             module="content_generator",
@@ -40,6 +38,7 @@ async def generate_content(prompt, video_file=None, use_json=False):
         return f"Error in analysis: {str(e)}"
 
 
+@handle_exceptions
 async def analyze_video_content(video_file, chunk_start, chunk_end):
     start_time = time.time()
     prompt = f"""
@@ -77,6 +76,7 @@ async def analyze_video_content(video_file, chunk_start, chunk_end):
     return result
 
 
+@handle_exceptions
 async def analyze_transcript(transcript, chunk_start, chunk_end):
     start_time = time.time()
     prompt = f"""
@@ -129,6 +129,7 @@ async def analyze_transcript(transcript, chunk_start, chunk_end):
     return result
 
 
+@handle_exceptions
 async def save_interim_work_product(content, video_id, video_title, analysis_type):
     start_time = time.time()
     print("Debug: Entering save_interim_work_product function")

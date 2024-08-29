@@ -5,16 +5,13 @@ import time
 import asyncio
 from models import get_gemini_flash_model_json
 from api_statistics import api_stats
+from error_handling import handle_exceptions, VideoProcessingError
 
 
-async def analyze_intertextual_references(
-    video_analysis, transcript_analysis, chunk_start, chunk_end
-):
+@handle_exceptions
+async def analyze_intertextual_references(transcript_analysis, chunk_start, chunk_end):
     prompt = f"""
-    Analyze the following video content description and transcript for intertextual references:
-
-    Video Content Description:
-    {video_analysis}
+    Analyze the following transcript for intertextual references:
 
     Transcript:
     {transcript_analysis}
@@ -42,10 +39,6 @@ async def analyze_intertextual_references(
             start_time = time.time()
             model = await get_gemini_flash_model_json()
             response = await model.generate_content_async(prompt)
-
-            print(f"Debug: Response object type: {type(response)}")
-            print(f"Debug: Response object attributes: {dir(response)}")
-            print(f"Debug: Response object __dict__: {response.__dict__}")
 
             await api_stats.record_call(
                 module="prompt_logic_intertextual",
@@ -85,18 +78,3 @@ async def analyze_intertextual_references(
                     ],
                     indent=2,
                 )
-
-
-# You can add more functions here if needed for your intertextual analysis logic
-
-if __name__ == "__main__":
-    # This block is for testing purposes
-    async def test():
-        video_analysis = "Sample video analysis content"
-        transcript_analysis = "Sample transcript analysis content"
-        result = await analyze_intertextual_references(
-            video_analysis, transcript_analysis, 0, 10
-        )
-        print(result)
-
-    asyncio.run(test())
