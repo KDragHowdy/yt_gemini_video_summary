@@ -6,7 +6,7 @@ import asyncio
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
-from final_report_generator import generate_and_save_final_report
+from new_final_report_generator import main as generate_final_report
 from utils import setup_directories, clear_directory, get_transcript, debug_print
 from error_handling import VideoProcessingError
 from api_statistics import api_stats
@@ -112,15 +112,13 @@ async def main():
         report_start = time.time()
 
         final_report_task = asyncio.create_task(
-            generate_and_save_final_report(
-                video_title=video_title,
-                video_date=video_date,
-                channel_name=channel_name,
-                speaker_name=speaker_name,
-                video_duration_minutes=duration_minutes,
-                consolidated_intertextual=consolidated_intertextual,
-                consolidated_video=consolidated_video,
-                consolidated_transcript=consolidated_transcript,
+            generate_final_report(
+                video_id,
+                video_title,
+                video_date,
+                channel_name,
+                speaker_name,
+                duration_minutes,
             )
         )
 
