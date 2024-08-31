@@ -1,12 +1,13 @@
-# prompt_logic_intertextual.py
-
 import json
 import time
 import logging
 import asyncio
+from typing import List, Dict, Optional
 from models import get_gemini_flash_model_json
 from api_statistics import api_stats
 from error_handling import handle_exceptions, VideoProcessingError
+
+logger = logging.getLogger(__name__)
 
 
 @handle_exceptions
@@ -53,23 +54,23 @@ async def analyze_intertextual_references(transcript_analysis, chunk_start, chun
                 if not isinstance(intertextual_analysis, list):
                     raise ValueError("Response is not a JSON array")
             except (json.JSONDecodeError, ValueError) as e:
-                print(
-                    f"Debug: JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
+                logger.error(
+                    f"JSON parsing error for chunk {chunk_start}-{chunk_end}: {str(e)}"
                 )
                 intertextual_analysis = [{"error": str(e), "raw_text": response.text}]
 
             return json.dumps(intertextual_analysis, indent=2)
 
         except Exception as e:
-            print(
+            logger.error(
                 f"Error in attempt {attempt + 1} for chunk {chunk_start}-{chunk_end}: {str(e)}"
             )
             if attempt < max_retries - 1:
-                print(f"Retrying in {retry_delay} seconds...")
+                logger.info(f"Retrying in {retry_delay} seconds...")
                 await asyncio.sleep(retry_delay)
                 retry_delay *= 2  # Exponential backoff
             else:
-                print("Debug: Falling back to a default structure.")
+                logger.warning("Falling back to a default structure.")
                 return json.dumps(
                     [
                         {

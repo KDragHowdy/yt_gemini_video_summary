@@ -1,5 +1,3 @@
-# new_final_report_generator.py
-
 import os
 import asyncio
 import json
@@ -14,13 +12,15 @@ BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
+logger = logging.getLogger(__name__)
+
 
 async def save_consolidated_work_product(content: str, work_product_type: str):
     filename = f"consolidated_{work_product_type}.txt"
     file_path = os.path.join(OUTPUT_DIR, filename)
     async with aiofiles.open(file_path, "w", encoding="utf-8") as f:
         await f.write(content)
-    print(f"Debug: Saved consolidated {work_product_type} to {filename}")
+    logger.debug(f"Saved consolidated {work_product_type} to {filename}")
 
 
 async def load_work_products(interim_dir: str):
@@ -43,7 +43,7 @@ async def load_work_products(interim_dir: str):
                     elif "intertextual_chunk" in filename:
                         work_products["intertextual_analysis"].append(content)
             except Exception as e:
-                print(f"Error processing file {filename}: {str(e)}")
+                logger.error(f"Error processing file {filename}: {str(e)}")
 
     return work_products
 
@@ -257,7 +257,7 @@ async def generate_final_report(video_info: Dict):
     async with aiofiles.open(output_file, "w", encoding="utf-8") as f:
         await f.write(final_report)
 
-    print(f"Final report generated: {output_file}")
+    logger.info(f"Final report generated: {output_file}")
 
 
 async def main(

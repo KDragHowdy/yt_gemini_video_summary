@@ -1,5 +1,3 @@
-# api_statistics.py
-
 import time
 from dataclasses import dataclass, asdict, field
 import json
@@ -7,7 +5,8 @@ import logging
 import asyncio
 from typing import List, Dict, Optional
 import aiofiles
-from utils import debug_print
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -59,7 +58,7 @@ class APIStatistics:
             output_tokens = usage_metadata.candidates_token_count
             total_tokens = usage_metadata.total_token_count
         except AttributeError as e:
-            debug_print(f"Error accessing usage_metadata: {e}")
+            logger.error(f"Error accessing usage_metadata: {e}")
             input_tokens = output_tokens = total_tokens = 0
 
         call_data = APICallMetadata(
@@ -79,10 +78,10 @@ class APIStatistics:
             if time_elapsed >= 60:
                 self.call_counter = 1
                 self.minute_start = current_time
-            debug_print(
+            logger.debug(
                 f"API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
             )
-        debug_print(f"API call recorded - {call_data}")
+        logger.debug(f"API call recorded - {call_data}")
 
     async def wait_for_rate_limit(self):
         async with self.lock:
@@ -92,19 +91,21 @@ class APIStatistics:
                 self.call_counter = 0
                 self.minute_start = current_time
             elif self.call_counter >= 14:
-                wait_time = 30  # 30-second cool-off
-                debug_print(
+                wait_time = 60 - time_elapsed
+                logger.debug(
                     f"Approaching rate limit. Waiting for {wait_time:.2f} seconds."
                 )
                 await asyncio.sleep(wait_time)
                 self.call_counter = 0
                 self.minute_start = time.time()
             elif self.call_counter >= 10:
-                wait_time = 15  # 15-second cool-off
-                debug_print(f"Nearing rate limit. Waiting for {wait_time:.2f} seconds.")
+                wait_time = 15
+                logger.debug(
+                    f"Nearing rate limit. Waiting for {wait_time:.2f} seconds."
+                )
                 await asyncio.sleep(wait_time)
             self.call_counter += 1
-            debug_print(
+            logger.debug(
                 f"Current API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
             )
 
@@ -139,7 +140,7 @@ class APIStatistics:
         )
         async with self.lock:
             self.processes.append(process_data)
-        debug_print(f"Process recorded - {process_data}")
+        logger.debug(f"Process recorded - {process_data}")
 
         node = ProcessNode(process_name, start_time, end_time, duration)
         if parent:
@@ -223,7 +224,7 @@ class APIStatistics:
         async with self.lock:
             async with aiofiles.open(filename, "w", encoding="utf-8") as f:
                 await f.write(report)
-        debug_print(f"API statistics report saved to: {filename}")
+        logger.debug(f"API statistics report saved to: {filename}")
 
     def generate_timeline_data(self):
         data = []

@@ -6,13 +6,15 @@ from moviepy.editor import VideoFileClip
 import asyncio
 import logging
 
+logger = logging.getLogger(__name__)
+
 
 async def get_video_info(video_id):
     try:
         yt = YouTube(f"https://www.youtube.com/watch?v={video_id}")
         return yt.title, yt.length
     except Exception as e:
-        print(f"Error getting video info: {e}")
+        logger.error(f"Error getting video info: {e}")
         return None, None
 
 
@@ -46,17 +48,17 @@ async def download_youtube_video(
 
             speaker_name = await extract_speaker_name(description, channel_name)
 
-            print(f"Video successfully downloaded: {filename}")
+            logger.info(f"Video successfully downloaded: {filename}")
 
             chunks = await split_video_into_chunks(filename, chunk_duration)
 
             os.remove(filename)
-            print(f"Removed original file: {filename}")
+            logger.info(f"Removed original file: {filename}")
 
             return chunks, video_title, video_date, channel_name, speaker_name
 
     except Exception as e:
-        print(f"Error downloading video: {str(e)}")
+        logger.error(f"Error downloading video: {str(e)}")
         return None, None, None, None, None
 
 
@@ -93,7 +95,7 @@ async def split_video_into_chunks(filename, chunk_duration):
         )
 
         chunks.append(chunk_filename)
-        print(f"Created chunk: {chunk_filename}")
+        logger.info(f"Created chunk: {chunk_filename}")
     video.close()
     return chunks
 
