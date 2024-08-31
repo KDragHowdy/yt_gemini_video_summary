@@ -3,6 +3,7 @@
 import time
 import os
 import asyncio
+import logging
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
@@ -20,13 +21,30 @@ INPUT_DIR = os.path.join(BASE_DIR, "input")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
 
+# Set up logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    filename=os.path.join(BASE_DIR, "video_processing.log"),
+    filemode="w",
+)
+
+# Add console handler to display logs in console as well
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+console_handler.setFormatter(formatter)
+logging.getLogger("").addHandler(console_handler)
+
+logger = logging.getLogger(__name__)
+
 
 async def main():
     start_time = time.time()
     timings = {}
 
     try:
-        debug_print("Starting video processing pipeline...")
+        logger.info("Starting video processing pipeline...")
         setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
         await asyncio.gather(
             clear_directory(INTERIM_DIR),
@@ -37,7 +55,7 @@ async def main():
         video_id = input("Enter the YouTube video ID: ")
 
         # Timer for video info retrieval
-        debug_print("\nRetrieving video information...")
+        logger.info("Retrieving video information...")
         video_info_start = time.time()
         video_title, duration = await get_video_info(video_id)
         video_info_end = time.time()
@@ -46,29 +64,29 @@ async def main():
         await api_stats.record_process(
             "Video Info Retrieval", video_info_start, video_info_end
         )
-        debug_print(f"Video info retrieved in {video_info_time:.2f} seconds")
+        logger.info(f"Video info retrieved in {video_info_time:.2f} seconds")
 
         if not video_title or not duration:
             raise VideoProcessingError("Failed to retrieve video information.")
 
         duration_minutes = duration / 60
-        debug_print(f"Video duration: {duration_minutes:.2f} minutes")
+        logger.info(f"Video duration: {duration_minutes:.2f} minutes")
 
         if duration_minutes > 60:
             proceed = input(
                 f"The video '{video_title}' is longer than an hour. Do you want to continue? (y/n): "
             )
             if proceed.lower() != "y":
-                debug_print("Operation cancelled.")
+                logger.info("Operation cancelled.")
                 return
 
-        debug_print(f"\nProcessing video: {video_title}")
+        logger.info(f"Processing video: {video_title}")
 
         # Start transcript retrieval early
         transcript_task = asyncio.create_task(get_transcript(video_id))
 
         # Timer for video download
-        debug_print("Downloading video...")
+        logger.info("Downloading video...")
         download_start = time.time()
         (
             video_chunks,
@@ -81,7 +99,7 @@ async def main():
         download_time = download_end - download_start
         timings["Video Download"] = download_time
         await api_stats.record_process("Video Download", download_start, download_end)
-        debug_print(f"Video downloaded in {download_time:.2f} seconds")
+        logger.info(f"Video downloaded in {download_time:.2f} seconds")
 
         if not video_chunks:
             raise VideoProcessingError("Failed to download video.")
@@ -90,7 +108,7 @@ async def main():
         transcript = await transcript_task
 
         # Timer for video processing
-        debug_print("\nProcessing video chunks...")
+        logger.info("Processing video chunks...")
         processing_start = time.time()
         (
             consolidated_intertextual,
@@ -105,10 +123,10 @@ async def main():
         await api_stats.record_process(
             "Video Processing", processing_start, processing_end
         )
-        debug_print(f"Video processed in {processing_time:.2f} seconds")
+        logger.info(f"Video processed in {processing_time:.2f} seconds")
 
         # Timer for final report generation and API statistics
-        debug_print("\nGenerating final report and API statistics...")
+        logger.info("Generating final report and API statistics...")
         report_start = time.time()
 
         final_report_task = asyncio.create_task(
@@ -135,7 +153,7 @@ async def main():
         await api_stats.record_process(
             "Final Report Generation", report_start, report_end
         )
-        debug_print(
+        logger.info(
             f"Final report and API statistics generated in {report_time:.2f} seconds"
         )
 
@@ -143,39 +161,39 @@ async def main():
         stats_file = os.path.join(OUTPUT_DIR, "api_statistics_report.txt")
         await api_stats.save_report(stats_file)
 
-        debug_print(f"Final report generated: {final_report}")
-        debug_print(f"API statistics report saved to: {stats_file}")
+        logger.info(f"Final report generated: {final_report}")
+        logger.info(f"API statistics report saved to: {stats_file}")
 
         # Print API statistics to console
-        debug_print("\nAPI Statistics Summary:")
-        debug_print(stats_report)
+        logger.info("API Statistics Summary:")
+        logger.info(stats_report)
 
-        debug_print(
-            "\nVideo processing and final report generation completed successfully."
+        logger.info(
+            "Video processing and final report generation completed successfully."
         )
 
     except VideoProcessingError as e:
-        debug_print(f"VideoProcessingError: {str(e)}")
+        logger.error(f"VideoProcessingError: {str(e)}")
     except Exception as e:
-        debug_print(f"An unexpected error occurred: {str(e)}")
-        debug_print(f"Error type: {type(e).__name__}")
+        logger.error(f"An unexpected error occurred: {str(e)}")
+        logger.error(f"Error type: {type(e).__name__}")
         import traceback
 
-        traceback.print_exc()
+        logger.error(traceback.format_exc())
 
     finally:
         end_time = time.time()
         total_runtime = end_time - start_time
         await api_stats.record_process("Total Script Runtime", start_time, end_time)
 
-        debug_print("\n" + "=" * 50)
-        debug_print("PROCESSING SUMMARY")
-        debug_print("=" * 50)
+        logger.info("\n" + "=" * 50)
+        logger.info("PROCESSING SUMMARY")
+        logger.info("=" * 50)
         for step, duration in timings.items():
-            debug_print(f"{step}: {duration:.2f} seconds")
-        debug_print("-" * 50)
-        debug_print(f"Total runtime: {total_runtime:.2f} seconds")
-        debug_print("=" * 50)
+            logger.info(f"{step}: {duration:.2f} seconds")
+        logger.info("-" * 50)
+        logger.info(f"Total runtime: {total_runtime:.2f} seconds")
+        logger.info("=" * 50)
 
 
 if __name__ == "__main__":

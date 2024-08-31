@@ -1,10 +1,11 @@
-# content_generator.py
-
 import os
 import time
+import logging
 from api_statistics import api_stats
 from models import get_gemini_flash_model_json, get_gemini_flash_model_text
 from error_handling import handle_exceptions, VideoProcessingError
+
+logger = logging.getLogger(__name__)
 
 
 @handle_exceptions
@@ -29,12 +30,12 @@ async def generate_content(prompt, video_file=None, use_json=False):
         )
 
         if hasattr(response, "prompt_feedback"):
-            print(f"Prompt feedback: {response.prompt_feedback}")
+            logger.info(f"Prompt feedback: {response.prompt_feedback}")
 
         return response.text
 
     except Exception as e:
-        print(f"Error generating content: {str(e)}")
+        logger.error(f"Error generating content: {str(e)}")
         return f"Error in analysis: {str(e)}"
 
 
@@ -132,11 +133,11 @@ async def analyze_transcript(transcript, chunk_start, chunk_end):
 @handle_exceptions
 async def save_interim_work_product(content, video_id, video_title, analysis_type):
     start_time = time.time()
-    print("Debug: Entering save_interim_work_product function")
-    print(f"Debug: content length = {len(content)}")
-    print(f"Debug: video_id = {video_id}")
-    print(f"Debug: video_title = {video_title}")
-    print(f"Debug: analysis_type = {analysis_type}")
+    logger.debug("Entering save_interim_work_product function")
+    logger.debug(f"content length = {len(content)}")
+    logger.debug(f"video_id = {video_id}")
+    logger.debug(f"video_title = {video_title}")
+    logger.debug(f"analysis_type = {analysis_type}")
 
     shortened_title = "".join(e for e in video_title if e.isalnum())[:20]
 
@@ -156,7 +157,7 @@ async def save_interim_work_product(content, video_id, video_title, analysis_typ
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"Saved {analysis_type} interim work product: {filename}")
+    logger.info(f"Saved {analysis_type} interim work product: {filename}")
     end_time = time.time()
     await api_stats.record_process(
         f"save_interim_work_product_{analysis_type}", start_time, end_time

@@ -2,6 +2,7 @@
 
 import json
 import time
+import logging
 import asyncio
 from models import get_gemini_flash_model_json
 from api_statistics import api_stats

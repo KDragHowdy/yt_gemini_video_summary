@@ -3,6 +3,7 @@
 import time
 from dataclasses import dataclass, asdict, field
 import json
+import logging
 import asyncio
 from typing import List, Dict, Optional
 import aiofiles
@@ -108,16 +109,19 @@ class APIStatistics:
             )
 
     async def record_api_interaction(self, interaction_type: str):
-        async with self.lock:
-            self.call_counter += 1
-            current_time = time.time()
-            time_elapsed = current_time - self.minute_start
-            if time_elapsed >= 60:
-                self.call_counter = 1
-                self.minute_start = current_time
-            debug_print(
-                f"API interaction: {interaction_type}, Counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
-            )
+        try:
+            async with self.lock:
+                self.call_counter += 1
+                current_time = time.time()
+                time_elapsed = current_time - self.minute_start
+                if time_elapsed >= 60:
+                    self.call_counter = 1
+                    self.minute_start = current_time
+                logger.debug(
+                    f"API interaction: {interaction_type}, Counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
+                )
+        except Exception as e:
+            logger.error(f"Error recording API interaction: {str(e)}")
 
     async def record_process(
         self,

@@ -4,6 +4,7 @@ import os
 import asyncio
 import json
 import time
+import logging
 import aiofiles
 from typing import List, Dict
 from models import get_gemini_flash_model_text, get_final_report_model_text

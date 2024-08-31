@@ -4,6 +4,7 @@ from datetime import datetime
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
 import asyncio
+import logging
 
 
 async def get_video_info(video_id):
