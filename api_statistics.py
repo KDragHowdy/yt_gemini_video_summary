@@ -1,54 +1,56 @@
+from collections import deque
 import time
-from dataclasses import dataclass, asdict, field
-import json
-import logging
 import asyncio
-from typing import List, Dict, Optional
-import aiofiles
+import logging
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class APICallMetadata:
-    module: str
-    function: str
-    duration: float
-    input_tokens: int
-    output_tokens: int
-    total_tokens: int
-
-
-@dataclass
-class ProcessMetadata:
-    process_name: str
-    start_time: float
-    end_time: float
-    duration: float
-
-
-@dataclass
-class ProcessNode:
-    name: str
-    start_time: float
-    end_time: float
-    duration: float
-    parent: Optional["ProcessNode"] = None
-    children: List["ProcessNode"] = field(default_factory=list)
-
-
 class APIStatistics:
     def __init__(self):
-        self.calls: List[APICallMetadata] = []
-        self.processes: List[ProcessMetadata] = []
+        self.flash_call_timestamps = deque(
+            maxlen=60
+        )  # For Gemini Flash (60 calls/minute)
+        self.pro_call_timestamps = deque(maxlen=2)  # For Gemini Pro (2 calls/minute)
         self.lock = asyncio.Lock()
-        self.root = ProcessNode("Total Script", 0, 0, 0)
-        self.call_counter = 0
-        self.minute_start = time.time()
+        self.calls = []
+        self.processes = []
+        self.api_interactions = []
+
+    async def wait_for_rate_limit(self, model_type="flash"):
+        async with self.lock:
+            current_time = time.time()
+
+            if model_type == "flash":
+                call_timestamps = self.flash_call_timestamps
+                max_calls = 60
+            else:  # 'pro'
+                call_timestamps = self.pro_call_timestamps
+                max_calls = 2
+
+            if len(call_timestamps) == max_calls:
+                oldest_call = call_timestamps[0]
+                time_since_oldest = current_time - oldest_call
+
+                if time_since_oldest < 60:
+                    wait_time = 60 - time_since_oldest
+                    logger.debug(
+                        f"{model_type.capitalize()} rate limit reached. Waiting for {wait_time:.2f} seconds."
+                    )
+                    await asyncio.sleep(wait_time)
+                    current_time = time.time()
+
+            call_timestamps.append(current_time)
 
     async def record_call(
-        self, module: str, function: str, start_time: float, response
+        self,
+        module: str,
+        function: str,
+        start_time: float,
+        response,
+        model_type="flash",
     ):
+        await self.wait_for_rate_limit(model_type)
         end_time = time.time()
         duration = end_time - start_time
 
@@ -61,189 +63,66 @@ class APIStatistics:
             logger.error(f"Error accessing usage_metadata: {e}")
             input_tokens = output_tokens = total_tokens = 0
 
-        call_data = APICallMetadata(
-            module=module,
-            function=function,
-            duration=duration,
-            input_tokens=input_tokens,
-            output_tokens=output_tokens,
-            total_tokens=total_tokens,
-        )
+        call_data = {
+            "module": module,
+            "function": function,
+            "duration": duration,
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+            "total_tokens": total_tokens,
+        }
 
         async with self.lock:
             self.calls.append(call_data)
-            self.call_counter += 1
-            current_time = time.time()
-            time_elapsed = current_time - self.minute_start
-            if time_elapsed >= 60:
-                self.call_counter = 1
-                self.minute_start = current_time
-            logger.debug(
-                f"API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
-            )
         logger.debug(f"API call recorded - {call_data}")
 
-    async def wait_for_rate_limit(self):
-        async with self.lock:
-            current_time = time.time()
-            time_elapsed = current_time - self.minute_start
-            if time_elapsed >= 60:
-                self.call_counter = 0
-                self.minute_start = current_time
-            elif self.call_counter >= 14:
-                wait_time = 60 - time_elapsed
-                logger.debug(
-                    f"Approaching rate limit. Waiting for {wait_time:.2f} seconds."
-                )
-                await asyncio.sleep(wait_time)
-                self.call_counter = 0
-                self.minute_start = time.time()
-            elif self.call_counter >= 10:
-                wait_time = 15
-                logger.debug(
-                    f"Nearing rate limit. Waiting for {wait_time:.2f} seconds."
-                )
-                await asyncio.sleep(wait_time)
-            self.call_counter += 1
-            logger.debug(
-                f"Current API call counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
-            )
-
-    async def record_api_interaction(self, interaction_type: str):
-        try:
-            async with self.lock:
-                self.call_counter += 1
-                current_time = time.time()
-                time_elapsed = current_time - self.minute_start
-                if time_elapsed >= 60:
-                    self.call_counter = 1
-                    self.minute_start = current_time
-                logger.debug(
-                    f"API interaction: {interaction_type}, Counter: {self.call_counter}, Time elapsed: {time_elapsed:.2f}s"
-                )
-        except Exception as e:
-            logger.error(f"Error recording API interaction: {str(e)}")
-
     async def record_process(
-        self,
-        process_name: str,
-        start_time: float,
-        end_time: float,
-        parent: Optional[str] = None,
+        self, process_name: str, start_time: float, end_time: float
     ):
         duration = end_time - start_time
-        process_data = ProcessMetadata(
-            process_name=process_name,
-            start_time=start_time,
-            end_time=end_time,
-            duration=duration,
-        )
+        process_data = {
+            "process_name": process_name,
+            "start_time": start_time,
+            "end_time": end_time,
+            "duration": duration,
+        }
         async with self.lock:
             self.processes.append(process_data)
         logger.debug(f"Process recorded - {process_data}")
 
-        node = ProcessNode(process_name, start_time, end_time, duration)
-        if parent:
-            parent_node = self._find_node(self.root, parent)
-            if parent_node:
-                parent_node.children.append(node)
-                node.parent = parent_node
-        else:
-            self.root.children.append(node)
+    async def record_api_interaction(self, interaction_type: str):
+        async with self.lock:
+            self.api_interactions.append(
+                {"type": interaction_type, "timestamp": time.time()}
+            )
+        logger.debug(f"API interaction recorded: {interaction_type}")
 
-        self.root.end_time = max(self.root.end_time, end_time)
-        self.root.duration = self.root.end_time - self.root.start_time
+    async def generate_report_async(self):
+        total_calls = len(self.calls)
+        total_duration = sum(call["duration"] for call in self.calls)
+        total_input_tokens = sum(call["input_tokens"] for call in self.calls)
+        total_output_tokens = sum(call["output_tokens"] for call in self.calls)
 
-    def _find_node(self, current_node: ProcessNode, name: str) -> Optional[ProcessNode]:
-        if current_node.name == name:
-            return current_node
-        for child in current_node.children:
-            result = self._find_node(child, name)
-            if result:
-                return result
-        return None
+        report = f"API Statistics Report\n"
+        report += f"Total API calls: {total_calls}\n"
+        report += f"Total duration: {total_duration:.2f} seconds\n"
+        report += f"Total input tokens: {total_input_tokens}\n"
+        report += f"Total output tokens: {total_output_tokens}\n"
 
-    def generate_report(self) -> str:
-        report = "API Call Statistics:\n\n"
-        report += self._generate_api_call_statistics()
-        report += "\nProcess Timings:\n\n"
-        report += self._generate_process_timings()
-        report += "\nHigh-Level Process Summary:\n\n"
-        report += self._generate_high_level_summary()
-        report += (
-            f"\nTotal Script Duration: {self._calculate_total_duration():.2f} seconds\n"
-        )
+        if self.processes:
+            report += "\nProcess Durations:\n"
+            for process in self.processes:
+                report += (
+                    f"{process['process_name']}: {process['duration']:.2f} seconds\n"
+                )
+
         return report
 
-    def _generate_api_call_statistics(self) -> str:
-        stats = f"{'Module':<20} {'Function':<25} {'Duration (s)':<15} {'Input Tokens':<15} {'Output Tokens':<15} {'Total Tokens':<15}\n"
-        stats += "-" * 105 + "\n"
-
-        for call in self.calls:
-            call_dict = asdict(call)
-            stats += f"{call_dict['module']:<20} {call_dict['function']:<25} {call_dict['duration']:<15.2f} {call_dict['input_tokens']:<15} {call_dict['output_tokens']:<15} {call_dict['total_tokens']:<15}\n"
-
-        return stats
-
-    def _generate_process_timings(self) -> str:
-        timings = f"{'Process Name':<30} {'Start Time':<20} {'End Time':<20} {'Duration (s)':<15}\n"
-        timings += "-" * 85 + "\n"
-
-        for process in self.processes:
-            process_dict = asdict(process)
-            timings += f"{process_dict['process_name']:<30} {process_dict['start_time']:<20.2f} {process_dict['end_time']:<20.2f} {process_dict['duration']:<15.2f}\n"
-
-        return timings
-
-    def _generate_high_level_summary(self) -> str:
-        high_level_processes = [
-            "Video Info Retrieval",
-            "Video Download",
-            "Video Processing",
-            "Final Report Generation",
-        ]
-        summary = f"{'Process Name':<30} {'Duration (s)':<15}\n"
-        summary += "-" * 45 + "\n"
-        for process in high_level_processes:
-            duration = sum(
-                p.duration for p in self.processes if p.process_name == process
-            )
-            summary += f"{process:<30} {duration:<15.2f}\n"
-        return summary
-
-    def _calculate_total_duration(self) -> float:
-        return max(p.end_time for p in self.processes) - min(
-            p.start_time for p in self.processes
-        )
-
-    async def generate_report_async(self) -> str:
-        return self.generate_report()
-
     async def save_report(self, filename: str):
-        report = self.generate_report()
-        async with self.lock:
-            async with aiofiles.open(filename, "w", encoding="utf-8") as f:
-                await f.write(report)
-        logger.debug(f"API statistics report saved to: {filename}")
-
-    def generate_timeline_data(self):
-        data = []
-        self._generate_timeline_data_recursive(self.root, data, 0)
-        return data
-
-    def _generate_timeline_data_recursive(
-        self, node: ProcessNode, data: List, level: int
-    ):
-        data.append(
-            {
-                "name": node.name,
-                "start": node.start_time,
-                "end": node.end_time,
-                "level": level,
-            }
-        )
-        for child in node.children:
-            self._generate_timeline_data_recursive(child, data, level + 1)
+        report = await self.generate_report_async()
+        async with aiofiles.open(filename, "w") as f:
+            await f.write(report)
+        logger.info(f"API statistics report saved to {filename}")
 
 
 api_stats = APIStatistics()

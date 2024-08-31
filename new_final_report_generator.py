@@ -5,7 +5,7 @@ import time
 import logging
 import aiofiles
 from typing import List, Dict
-from models import get_gemini_flash_model_text, get_final_report_model_text
+from models import get_gemini_flash_model_text, get_gemini_pro_model_text
 from api_statistics import api_stats
 
 BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
@@ -96,6 +96,15 @@ async def consolidate_chunks(chunks: List[str], work_product_type: str):
     return consolidated
 
 
+async def consolidate_all_analyses(work_products):
+    consolidation_tasks = []
+    for wp_type, chunks in work_products.items():
+        consolidation_tasks.append(consolidate_chunks(chunks, wp_type))
+
+    consolidated_products = await asyncio.gather(*consolidation_tasks)
+    return dict(zip(work_products.keys(), consolidated_products))
+
+
 async def generate_integrated_report(
     consolidated_products: Dict[str, str], video_info: Dict
 ):
@@ -136,7 +145,7 @@ async def generate_integrated_report(
     Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content while providing a deeper analysis guided by the identified themes.
     """
 
-    model = await get_final_report_model_text()
+    model = await get_gemini_pro_model_text()
     await api_stats.wait_for_rate_limit()
     start_time = time.time()
     response = await model.generate_content_async(prompt)
@@ -167,7 +176,7 @@ async def generate_structured_elements_appendix(video_analysis: str):
     Use markdown formatting for clarity and readability. Aim to recreate the visual structure of the slides as closely as possible using markdown syntax.
     """
 
-    model = await get_final_report_model_text()
+    model = await get_gemini_pro_model_text()
     await api_stats.wait_for_rate_limit()
     start_time = time.time()
     response = await model.generate_content_async(prompt)
@@ -198,7 +207,7 @@ async def generate_intertextual_analysis_appendix(intertextual_analysis: str):
     Use Markdown formatting for clarity and readability.
     """
 
-    model = await get_final_report_model_text()
+    model = await get_gemini_pro_model_text()
     await api_stats.wait_for_rate_limit()
     start_time = time.time()
     response = await model.generate_content_async(prompt)
@@ -215,18 +224,25 @@ async def generate_intertextual_analysis_appendix(intertextual_analysis: str):
 async def generate_final_report(video_info: Dict):
     work_products = await load_work_products(INTERIM_DIR)
 
-    consolidated_products = {}
-    for wp_type, chunks in work_products.items():
-        consolidated_products[wp_type] = await consolidate_chunks(chunks, wp_type)
+    consolidated_products = await consolidate_all_analyses(work_products)
 
-    integrated_report = await generate_integrated_report(
+    # Generate report sections in parallel
+    integrated_report_task = generate_integrated_report(
         consolidated_products, video_info
     )
-    structured_elements_appendix = await generate_structured_elements_appendix(
+    structured_elements_task = generate_structured_elements_appendix(
         consolidated_products["video_analysis"]
     )
-    intertextual_appendix = await generate_intertextual_analysis_appendix(
+    intertextual_appendix_task = generate_intertextual_analysis_appendix(
         consolidated_products["intertextual_analysis"]
+    )
+
+    (
+        integrated_report,
+        structured_elements_appendix,
+        intertextual_appendix,
+    ) = await asyncio.gather(
+        integrated_report_task, structured_elements_task, intertextual_appendix_task
     )
 
     final_report = f"""
@@ -258,6 +274,7 @@ async def generate_final_report(video_info: Dict):
         await f.write(final_report)
 
     logger.info(f"Final report generated: {output_file}")
+    return output_file
 
 
 async def main(

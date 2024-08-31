@@ -2,7 +2,7 @@ import os
 import time
 import logging
 from api_statistics import api_stats
-from models import get_gemini_flash_model_json, get_gemini_flash_model_text
+from models import get_gemini_flash_model_text, get_gemini_flash_model_json
 from error_handling import handle_exceptions, VideoProcessingError
 
 logger = logging.getLogger(__name__)

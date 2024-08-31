@@ -2,6 +2,7 @@ import asyncio
 import time
 import logging
 from typing import List, Tuple
+from api_statistics import api_stats
 from file_uploader import upload_video, check_video_status
 from content_generator import (
     analyze_video_content,
@@ -9,24 +10,34 @@ from content_generator import (
     save_interim_work_product,
 )
 from prompt_logic_intertextual import analyze_intertextual_references
-from api_statistics import api_stats
-from models import get_gemini_flash_model_text
-from utils import debug_print
+from models import get_gemini_flash_model_text, get_gemini_pro_model_text
 
-# Set up logging
 logger = logging.getLogger(__name__)
 
 
 async def rate_limited_api_call(func, *args, **kwargs):
-    await api_stats.wait_for_rate_limit()
-    logger.debug(f"Making rate-limited API call to {func.__name__}")
-    try:
-        result = await func(*args, **kwargs)
-        logger.debug(f"Completed rate-limited API call to {func.__name__}")
-        return result
-    except Exception as e:
-        logger.error(f"Error in rate_limited_api_call to {func.__name__}: {str(e)}")
-        raise
+    model_type = (
+        "flash"
+        if func.__name__
+        in [
+            "analyze_video_content",
+            "analyze_transcript",
+            "analyze_intertextual_references",
+        ]
+        else "pro"
+    )
+
+    start_time = time.time()
+    await api_stats.wait_for_rate_limit(model_type)
+    result = await func(*args, **kwargs)
+    await api_stats.record_call(
+        module="video_processor",
+        function=func.__name__,
+        start_time=start_time,
+        response=result,
+        model_type=model_type,
+    )
+    return result
 
 
 async def process_video(
@@ -55,28 +66,9 @@ async def process_video(
 
         try:
             # Perform transcript and intertextual analyses immediately
-            logger.debug(
-                f"Initiating transcript analysis for chunk {chunk_start}-{chunk_end}"
-            )
-            try:
-                await api_stats.record_api_interaction(
-                    f"Transcript Analysis Init {chunk_start}-{chunk_end}"
-                )
-            except Exception as e:
-                logger.error(f"Error recording API interaction: {str(e)}")
             transcript_analysis_task = rate_limited_api_call(
                 analyze_transcript, chunk_transcript, chunk_start, chunk_end
             )
-
-            logger.debug(
-                f"Initiating intertextual analysis for chunk {chunk_start}-{chunk_end}"
-            )
-            try:
-                await api_stats.record_api_interaction(
-                    f"Intertextual Analysis Init {chunk_start}-{chunk_end}"
-                )
-            except Exception as e:
-                logger.error(f"Error recording API interaction: {str(e)}")
             intertextual_analysis_task = rate_limited_api_call(
                 analyze_intertextual_references,
                 chunk_transcript,
@@ -108,15 +100,6 @@ async def process_video(
             video_file = await check_video_status(video_file)
 
             # Perform video content analysis
-            logger.debug(
-                f"Initiating video content analysis for chunk {chunk_start}-{chunk_end}"
-            )
-            try:
-                await api_stats.record_api_interaction(
-                    f"Video Content Analysis Init {chunk_start}-{chunk_end}"
-                )
-            except Exception as e:
-                logger.error(f"Error recording API interaction: {str(e)}")
             video_analysis = await rate_limited_api_call(
                 analyze_video_content, video_file, chunk_start, chunk_end
             )
@@ -163,10 +146,7 @@ async def process_video(
     )
 
     end_time = time.time()
-    try:
-        await api_stats.record_process("process_video", start_time, end_time)
-    except Exception as e:
-        logger.error(f"Error recording process: {str(e)}")
+    await api_stats.record_process("process_video", start_time, end_time)
 
     logger.info("Video processing complete")
     return consolidated_intertextual, consolidated_video, consolidated_transcript
@@ -179,11 +159,7 @@ async def consolidate_analyses(
     prompt = f"Consolidate and summarize the following {analysis_type} analyses:\n\n{consolidated}"
 
     logger.debug(f"Initiating consolidation of {analysis_type} analyses")
-    try:
-        await api_stats.record_api_interaction(f"Consolidate {analysis_type} Analysis")
-    except Exception as e:
-        logger.error(f"Error recording API interaction: {str(e)}")
-    model = await get_gemini_flash_model_text()
+    model = await get_gemini_pro_model_text()
     response = await rate_limited_api_call(model.generate_content_async, prompt)
 
     consolidated_analysis = response.text

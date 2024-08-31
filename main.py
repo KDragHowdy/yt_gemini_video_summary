@@ -1,5 +1,5 @@
 # main.py
-# for commit
+
 import time
 import os
 import asyncio
@@ -7,7 +7,7 @@ import logging
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
-from new_final_report_generator import main as generate_final_report
+from new_final_report_generator import generate_final_report
 from utils import setup_directories, clear_directory, get_transcript, debug_print
 from error_handling import VideoProcessingError
 from api_statistics import api_stats
@@ -54,6 +54,9 @@ async def main():
 
         video_id = input("Enter the YouTube video ID: ")
 
+        # Start transcript retrieval early
+        transcript_task = asyncio.create_task(get_transcript(video_id))
+
         # Timer for video info retrieval
         logger.info("Retrieving video information...")
         video_info_start = time.time()
@@ -81,9 +84,6 @@ async def main():
                 return
 
         logger.info(f"Processing video: {video_title}")
-
-        # Start transcript retrieval early
-        transcript_task = asyncio.create_task(get_transcript(video_id))
 
         # Timer for video download
         logger.info("Downloading video...")
@@ -129,17 +129,16 @@ async def main():
         logger.info("Generating final report and API statistics...")
         report_start = time.time()
 
-        final_report_task = asyncio.create_task(
-            generate_final_report(
-                video_id,
-                video_title,
-                video_date,
-                channel_name,
-                speaker_name,
-                duration_minutes,
-            )
-        )
+        video_info = {
+            "id": video_id,
+            "title": video_title,
+            "date": video_date,
+            "channel": channel_name,
+            "speaker": speaker_name,
+            "duration": duration_minutes,
+        }
 
+        final_report_task = asyncio.create_task(generate_final_report(video_info))
         stats_report_task = asyncio.create_task(api_stats.generate_report_async())
 
         # Wait for both tasks to complete
