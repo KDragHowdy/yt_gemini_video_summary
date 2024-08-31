@@ -1,11 +1,8 @@
-# video_downloader.py
-
 import os
 import yt_dlp
 from datetime import datetime
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import asyncio
 
 
@@ -23,8 +20,11 @@ async def download_youtube_video(
 ) -> tuple:
     url = f"https://www.youtube.com/watch?v={video_id}"
     ydl_opts = {
-        "format": "bestvideo[ext=mp4]/mp4",  # Changed to download video only
+        "format": "bestvideo[height<=480][fps<=24]/best[height<=480][fps<=24]",  # Lower resolution and frame rate
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
+        "noplaylist": True,  # Ensure only a single video is downloaded
+        "noaudio": True,  # Do not download audio
+        "limit-rate": "1000K",  # Limit the download bitrate
     }
 
     try:
@@ -85,9 +85,12 @@ async def split_video_into_chunks(filename, chunk_duration):
         start = i
         end = min(i + chunk_duration, duration)
         chunk_filename = f"{os.path.splitext(filename)[0]}_chunk_{int(i//60):03d}-{int(end//60):03d}.mp4"
+
+        subclip = video.subclip(start, end)  # Using the subclip method of VideoFileClip
         await asyncio.to_thread(
-            ffmpeg_extract_subclip, filename, start, end, targetname=chunk_filename
+            subclip.write_videofile, chunk_filename, codec="libx264"
         )
+
         chunks.append(chunk_filename)
         print(f"Created chunk: {chunk_filename}")
     video.close()
