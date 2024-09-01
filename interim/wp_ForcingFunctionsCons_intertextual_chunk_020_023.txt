@@ -1,0 +1,58 @@
+[
+  {
+    "type": "other",
+    "reference": "forcing functions",
+    "context": "The speaker uses the term 'forcing functions' throughout the video to describe events or conditions that compel a system to change.",
+    "explanation": "A forcing function is a concept used in systems thinking and design. It refers to an external factor or event that forces a system to adapt or change its behavior. Forcing functions can be intentional or unintentional, and they can be used to improve system performance or to address problems.",
+    "relevance": "The speaker uses forcing functions as a key concept to illustrate how systems respond to challenges and adapt to changing conditions.",
+    "connections": "This concept is connected to the broader discussion of system behavior, operational tolerances, and critical boundaries."
+  },
+  {
+    "type": "other",
+    "reference": "affordances and forcing functions",
+    "context": "The speaker contrasts 'affordances' and 'forcing functions' as two different types of influences on system behavior.",
+    "explanation": "In this context, 'affordances' refer to the opportunities or possibilities that a system presents, while 'forcing functions' represent the constraints or pressures that drive change. This distinction is relevant to understanding how systems evolve and adapt.",
+    "relevance": "This distinction helps the speaker to clarify the different ways in which systems can be influenced and how those influences can shape their behavior.",
+    "connections": "This concept is connected to the broader discussion of system behavior, operational tolerances, and critical boundaries."
+  },
+  {
+    "type": "other",
+    "reference": "system fragility",
+    "context": "The speaker discusses 'system fragility' as a common type of forcing function, particularly in technology.",
+    "explanation": "System fragility refers to the vulnerability of a system to disruptions or failures. This concept is particularly relevant in engineering and technology, where complex systems are often susceptible to breakdowns.",
+    "relevance": "The speaker uses system fragility as an example of a forcing function that can trigger significant changes in system behavior.",
+    "connections": "This concept is connected to the broader discussion of system behavior, operational tolerances, and critical boundaries."
+  },
+  {
+    "type": "other",
+    "reference": "operational tolerances",
+    "context": "The speaker defines 'operational tolerances' as the range of conditions under which a system can function effectively.",
+    "explanation": "Operational tolerances represent the boundaries within which a system can operate without experiencing significant performance degradation. These tolerances are important for understanding the resilience and flexibility of a system.",
+    "relevance": "The speaker uses operational tolerances to explain how systems can adapt to changing conditions and maintain functionality.",
+    "connections": "This concept is connected to the broader discussion of system behavior, forcing functions, and critical boundaries."
+  },
+  {
+    "type": "other",
+    "reference": "critical boundaries",
+    "context": "The speaker introduces 'critical boundaries' as the limits beyond which a system will cease to function effectively.",
+    "explanation": "Critical boundaries represent the points at which a system's performance deteriorates significantly or fails completely. These boundaries are important for understanding the limits of a system's resilience and for preventing catastrophic failures.",
+    "relevance": "The speaker uses critical boundaries to highlight the potential consequences of exceeding the operational tolerances of a system.",
+    "connections": "This concept is connected to the broader discussion of system behavior, forcing functions, and operational tolerances."
+  },
+  {
+    "type": "other",
+    "reference": "system collapse",
+    "context": "The speaker uses the term 'system collapse' to describe the complete failure of a system.",
+    "explanation": "System collapse refers to a situation where a system ceases to function entirely. This can occur due to a variety of factors, including exceeding critical boundaries, experiencing catastrophic failures, or encountering unforeseen events.",
+    "relevance": "The speaker uses system collapse as an example of a potential outcome when a system's operational tolerances are exceeded.",
+    "connections": "This concept is connected to the broader discussion of system behavior, forcing functions, operational tolerances, and critical boundaries."
+  },
+  {
+    "type": "other",
+    "reference": "steam engine",
+    "context": "The speaker uses the example of a steam engine blowing up to illustrate system collapse.",
+    "explanation": "The steam engine is a historical example of a complex technological system that was susceptible to failures. The speaker uses this example to illustrate how even well-designed systems can experience catastrophic failures if their operational tolerances are exceeded.",
+    "relevance": "This example helps to concretize the concept of system collapse and its potential consequences.",
+    "connections": "This example is connected to the broader discussion of system behavior, forcing functions, operational tolerances, and critical boundaries."
+  }
+]

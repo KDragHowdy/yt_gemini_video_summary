@@ -1,0 +1,42 @@
+[
+  {
+    "type": "other",
+    "reference": "Kalashnikov",
+    "context": "The speaker uses the Kalashnikov as an example of design affordances, stating that it was designed with loose tolerances to make it reliable even in harsh conditions.",
+    "explanation": "The Kalashnikov, or AK-47, is a Soviet-designed assault rifle known for its ruggedness and reliability. Its design features, such as loose tolerances, allow it to function even in extreme environments, making it a popular weapon in many parts of the world.",
+    "relevance": "The speaker uses the Kalashnikov as an example of how design affordances can influence the behavior of a system by making desired actions easier and more likely to occur.",
+    "connections": "This reference connects to the broader theme of how systems can be designed to encourage or discourage certain behaviors."
+  },
+  {
+    "type": "other",
+    "reference": "AK-47",
+    "context": "The speaker uses the Kalashnikov, or AK-47, as an example of design affordances, stating that it was designed with loose tolerances to make it reliable even in harsh conditions.",
+    "explanation": "The AK-47 is a Soviet-designed assault rifle known for its ruggedness and reliability. Its design features, such as loose tolerances, allow it to function even in extreme environments, making it a popular weapon in many parts of the world.",
+    "relevance": "The speaker uses the AK-47 as an example of how design affordances can influence the behavior of a system by making desired actions easier and more likely to occur.",
+    "connections": "This reference connects to the broader theme of how systems can be designed to encourage or discourage certain behaviors."
+  },
+  {
+    "type": "other",
+    "reference": "North Carolina",
+    "context": "The speaker mentions North Carolina as an example of a state where it is easy to incorporate a business.",
+    "explanation": "North Carolina is a state in the southeastern United States known for its business-friendly environment. The speaker notes that the state has a streamlined process for incorporating businesses, making it attractive to entrepreneurs.",
+    "relevance": "The speaker uses this reference to illustrate how different jurisdictions can have different levels of friction associated with certain activities, such as starting a business.",
+    "connections": "This reference connects to the broader theme of how legal and regulatory frameworks can act as forcing functions, influencing the behavior of individuals and systems."
+  },
+  {
+    "type": "other",
+    "reference": "India",
+    "context": "The speaker contrasts North Carolina with India, noting that it is much more difficult to incorporate a business in India.",
+    "explanation": "India is a country in South Asia with a complex regulatory environment. The speaker suggests that the process of incorporating a business in India is more challenging than in North Carolina, due to a greater number of laws and regulations.",
+    "relevance": "The speaker uses this reference to illustrate how different jurisdictions can have different levels of friction associated with certain activities, such as starting a business.",
+    "connections": "This reference connects to the broader theme of how legal and regulatory frameworks can act as forcing functions, influencing the behavior of individuals and systems."
+  },
+  {
+    "type": "other",
+    "reference": "Secretary of Commerce",
+    "context": "The speaker mentions that in North Carolina, one can incorporate a business by sending a form to the Secretary of Commerce.",
+    "explanation": "The Secretary of Commerce is a government official responsible for overseeing business activities within a state. In North Carolina, the Secretary of Commerce is responsible for processing business incorporation applications.",
+    "relevance": "This reference provides a specific example of a government agency that plays a role in regulating business activity.",
+    "connections": "This reference connects to the broader theme of how legal and regulatory frameworks can act as forcing functions, influencing the behavior of individuals and systems."
+  }
+]

@@ -217,14 +217,15 @@ async def consolidate_analyses(
         {consolidated}
 
         Instructions:
-        1. Maintain the original chronological order of the content.
-        2. Remove redundant headers or section titles.
-        3. Ensure all unique information from each chunk is retained.
-        4. Use clear transitions between different sections to maintain flow.
-        5. If there are time stamps or segment markers, include them to indicate progression.
-        6. Do not summarize or alter the content beyond removing redundancies and improving flow.
+        1. Maintain the original structure and content of each chunk.
+        2. Combine the chunks in chronological order.
+        3. Use appropriate Markdown formatting to clearly delineate between chunks.
+        4. Retain all original headings, subheadings, and content organization.
+        5. Do not summarize or alter the content in any way.
+        6. Ensure that all information from each chunk is preserved in its entirety.
+        7. Use clear section breaks (e.g., horizontal rules) to separate chunks if necessary.
 
-        Format the output as a well-structured document, using appropriate headings to reflect the content hierarchy.
+        The output should be a well-formatted Markdown document that includes all original content from the input chunks, preserving their structure and detail.
         """
 
     logger.debug(f"Initiating consolidation of {analysis_type} analyses")
