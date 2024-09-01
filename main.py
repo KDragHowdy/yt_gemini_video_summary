@@ -1,5 +1,3 @@
-# main.py
-
 import time
 import os
 import asyncio
@@ -11,6 +9,8 @@ from new_final_report_generator import generate_final_report
 from utils import setup_directories, clear_directory, get_transcript, debug_print
 from error_handling import VideoProcessingError
 from api_statistics import api_stats
+
+print("Script started")
 
 # Load environment variables
 load_dotenv()
@@ -31,7 +31,7 @@ logging.basicConfig(
 
 # Add console handler to display logs in console as well
 console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
+console_handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 console_handler.setFormatter(formatter)
 logging.getLogger("").addHandler(console_handler)
@@ -40,6 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 async def main():
+    logger.debug("Entering main function")
     start_time = time.time()
     timings = {}
 
@@ -53,6 +54,7 @@ async def main():
         )
 
         video_id = input("Enter the YouTube video ID: ")
+        logger.debug(f"Received video ID: {video_id}")
 
         # Start transcript retrieval early
         transcript_task = asyncio.create_task(get_transcript(video_id))
@@ -194,6 +196,10 @@ async def main():
         logger.info(f"Total runtime: {total_runtime:.2f} seconds")
         logger.info("=" * 50)
 
+    logger.debug("Exiting main function")
+
 
 if __name__ == "__main__":
+    print("About to run main function")
     asyncio.run(main())
+    print("Main function completed")

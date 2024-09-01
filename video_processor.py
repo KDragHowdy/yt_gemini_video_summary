@@ -136,46 +136,48 @@ async def process_video(
             )
         )
 
-    async def wait_and_consolidate(chunk_tasks, analysis_type):
-        analyses = []
-        for task in asyncio.as_completed(chunk_tasks):
-            result = await task
-            if analysis_type == "transcript":
-                analyses.append(result[1])  # Transcript analysis is the second item
-            elif analysis_type == "intertextual":
-                analyses.append(result[2])  # Intertextual analysis is the third item
-            elif analysis_type == "video":
-                analyses.append(result[0])  # Video analysis is the first item
-            if len(analyses) == len(chunk_tasks):
-                return await consolidate_analyses(
-                    analyses, video_id, video_title, analysis_type
+    video_analyses = []
+    transcript_analyses = []
+    intertextual_analyses = []
+
+    transcript_consolidation_task = None
+    intertextual_consolidation_task = None
+
+    for completed_task in asyncio.as_completed(chunk_tasks):
+        (
+            video_analysis,
+            transcript_analysis,
+            intertextual_analysis,
+        ) = await completed_task
+        video_analyses.append(video_analysis)
+        transcript_analyses.append(transcript_analysis)
+        intertextual_analyses.append(intertextual_analysis)
+
+        if (
+            len(transcript_analyses) == len(chunk_tasks)
+            and transcript_consolidation_task is None
+        ):
+            transcript_consolidation_task = asyncio.create_task(
+                consolidate_analyses(
+                    transcript_analyses, video_id, video_title, "transcript"
                 )
+            )
 
-    transcript_tasks = [asyncio.create_task(task) for task in chunk_tasks]
-    intertextual_tasks = [asyncio.create_task(task) for task in chunk_tasks]
-    video_tasks = [asyncio.create_task(task) for task in chunk_tasks]
+        if (
+            len(intertextual_analyses) == len(chunk_tasks)
+            and intertextual_consolidation_task is None
+        ):
+            intertextual_consolidation_task = asyncio.create_task(
+                consolidate_analyses(
+                    intertextual_analyses, video_id, video_title, "intertextual"
+                )
+            )
 
-    transcript_consolidation_task = asyncio.create_task(
-        wait_and_consolidate(transcript_tasks, "transcript")
+    consolidated_video = await consolidate_analyses(
+        video_analyses, video_id, video_title, "video"
     )
-    intertextual_consolidation_task = asyncio.create_task(
-        wait_and_consolidate(intertextual_tasks, "intertextual")
-    )
-    video_consolidation_task = asyncio.create_task(
-        wait_and_consolidate(video_tasks, "video")
-    )
-
-    results = await asyncio.gather(*chunk_tasks)
-
-    (
-        consolidated_transcript,
-        consolidated_intertextual,
-        consolidated_video,
-    ) = await asyncio.gather(
-        transcript_consolidation_task,
-        intertextual_consolidation_task,
-        video_consolidation_task,
-    )
+    consolidated_transcript = await transcript_consolidation_task
+    consolidated_intertextual = await intertextual_consolidation_task
 
     end_time = time.time()
     await api_stats.record_process("process_video", start_time, end_time)
@@ -188,7 +190,21 @@ async def consolidate_analyses(
     analyses: List[str], video_id: str, video_title: str, analysis_type: str
 ) -> str:
     consolidated = "\n\n".join(analyses)
-    prompt = f"Consolidate and summarize the following {analysis_type} analyses:\n\n{consolidated}"
+    prompt = f"""
+    Combine the following {analysis_type} analyses into a single coherent document:
+
+    {consolidated}
+
+    Instructions:
+    1. Maintain the original chronological order of the content.
+    2. Remove redundant headers or section titles.
+    3. Ensure all unique information from each chunk is retained.
+    4. Use clear transitions between different sections to maintain flow.
+    5. If there are time stamps or segment markers, include them to indicate progression.
+    6. Do not summarize or alter the content beyond removing redundancies and improving flow.
+
+    Format the output as a well-structured document, using appropriate headings to reflect the content hierarchy.
+    """
 
     logger.debug(f"Initiating consolidation of {analysis_type} analyses")
     model = await get_gemini_pro_model_text()

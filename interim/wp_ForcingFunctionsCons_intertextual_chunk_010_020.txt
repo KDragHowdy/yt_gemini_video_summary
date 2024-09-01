@@ -1,0 +1,26 @@
+[
+  {
+    "type": "scientific",
+    "reference": "Kalashnikov",
+    "context": "The speaker uses the Kalashnikov AK-47 as an example of design affordances in engineering.",
+    "explanation": "The AK-47 is a famous assault rifle known for its reliability and durability, even in harsh conditions. Its design features, such as loose tolerances and fail-safes, contribute to its ability to function under stress. This design philosophy is often referred to as 'robust design' or 'design for reliability'.",
+    "relevance": "The speaker uses the AK-47 as an example of how design affordances can facilitate desired behaviors in a system. This relates to the broader discussion of forcing functions, incentives, and constraints in human systems.",
+    "connections": "This example connects to the broader theme of how design choices can influence behavior and outcomes in both physical and social systems."
+  },
+  {
+    "type": "other",
+    "reference": "Trophy Wife",
+    "context": "The speaker uses the term 'trophy wife' as an example of a social reward or incentive.",
+    "explanation": "A 'trophy wife' is a colloquial term for a young, attractive woman who is seen as a status symbol for a wealthy or powerful man. It is often used in a derogatory or sexist way, implying that the woman is valued primarily for her appearance and is not an equal partner in the relationship.",
+    "relevance": "The speaker uses this example to illustrate how social rewards can incentivize certain behaviors, even if those behaviors are considered undesirable or unethical.",
+    "connections": "This example connects to the broader discussion of incentives and how they can influence human behavior."
+  },
+  {
+    "type": "other",
+    "reference": "In Utero",
+    "context": "The speaker mentions that language acquisition may begin in utero.",
+    "explanation": "The phrase 'in utero' refers to the period of time when a fetus is developing inside the womb. Research has shown that fetuses can start to recognize and learn patterns in language even before birth.",
+    "relevance": "This example illustrates the concept of instinctive behaviors and how they can be influenced by biological factors.",
+    "connections": "This example connects to the broader discussion of instincts and forcing functions, and how they can shape human behavior."
+  }
+]
