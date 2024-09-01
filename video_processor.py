@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 
 async def rate_limited_api_call(func, *args, **kwargs):
-    # Determine the model type based on the function name
     if func.__name__ in [
         "generate_integrated_report",
         "generate_structured_elements_appendix",
@@ -29,6 +28,15 @@ async def rate_limited_api_call(func, *args, **kwargs):
     start_time = time.time()
     await api_stats.wait_for_rate_limit(model_type)
     result = await func(*args, **kwargs)
+
+    if hasattr(result, "usage_metadata"):
+        logger.debug(f"Usage metadata: {result.usage_metadata}")
+    else:
+        logger.warning("Response object does not have usage_metadata attribute")
+        if isinstance(result, str):
+            logger.debug("Result is a string, likely JSON content")
+        logger.debug(f"Result type: {type(result)}")
+
     await api_stats.record_call(
         module="video_processor",
         function=func.__name__,
@@ -49,7 +57,6 @@ async def process_video(
     start_time = time.time()
     logger.info("Starting video processing")
 
-    # Upload all video chunks at the beginning
     upload_tasks = [upload_video(chunk_path) for chunk_path in video_chunks]
     uploaded_files = await asyncio.gather(*upload_tasks)
     logger.info("All video chunks uploaded")
@@ -65,7 +72,6 @@ async def process_video(
 
         try:
             async with asyncio.timeout(300):  # 5-minute timeout per chunk
-                # Perform transcript and intertextual analyses immediately
                 transcript_analysis_task = rate_limited_api_call(
                     analyze_transcript, chunk_transcript, chunk_start, chunk_end
                 )
@@ -80,7 +86,6 @@ async def process_video(
                     transcript_analysis_task, intertextual_analysis_task
                 )
 
-                # Save interim work products for transcript and intertextual analyses
                 await asyncio.gather(
                     save_interim_work_product(
                         transcript_analysis,
@@ -96,15 +101,12 @@ async def process_video(
                     ),
                 )
 
-                # Wait for video file to be ready
                 video_file = await check_video_status(video_file)
 
-                # Perform video content analysis
                 video_analysis = await rate_limited_api_call(
                     analyze_video_content, video_file, chunk_start, chunk_end
                 )
 
-                # Save interim work product for video analysis
                 await save_interim_work_product(
                     video_analysis,
                     video_id,
@@ -134,18 +136,45 @@ async def process_video(
             )
         )
 
+    async def wait_and_consolidate(chunk_tasks, analysis_type):
+        analyses = []
+        for task in asyncio.as_completed(chunk_tasks):
+            result = await task
+            if analysis_type == "transcript":
+                analyses.append(result[1])  # Transcript analysis is the second item
+            elif analysis_type == "intertextual":
+                analyses.append(result[2])  # Intertextual analysis is the third item
+            elif analysis_type == "video":
+                analyses.append(result[0])  # Video analysis is the first item
+            if len(analyses) == len(chunk_tasks):
+                return await consolidate_analyses(
+                    analyses, video_id, video_title, analysis_type
+                )
+
+    transcript_tasks = [asyncio.create_task(task) for task in chunk_tasks]
+    intertextual_tasks = [asyncio.create_task(task) for task in chunk_tasks]
+    video_tasks = [asyncio.create_task(task) for task in chunk_tasks]
+
+    transcript_consolidation_task = asyncio.create_task(
+        wait_and_consolidate(transcript_tasks, "transcript")
+    )
+    intertextual_consolidation_task = asyncio.create_task(
+        wait_and_consolidate(intertextual_tasks, "intertextual")
+    )
+    video_consolidation_task = asyncio.create_task(
+        wait_and_consolidate(video_tasks, "video")
+    )
+
     results = await asyncio.gather(*chunk_tasks)
 
-    video_analyses, transcript_analyses, intertextual_analyses = zip(*results)
-
-    consolidated_video = await consolidate_analyses(
-        video_analyses, video_id, video_title, "video"
-    )
-    consolidated_transcript = await consolidate_analyses(
-        transcript_analyses, video_id, video_title, "transcript"
-    )
-    consolidated_intertextual = await consolidate_analyses(
-        intertextual_analyses, video_id, video_title, "intertextual"
+    (
+        consolidated_transcript,
+        consolidated_intertextual,
+        consolidated_video,
+    ) = await asyncio.gather(
+        transcript_consolidation_task,
+        intertextual_consolidation_task,
+        video_consolidation_task,
     )
 
     end_time = time.time()

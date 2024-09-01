@@ -17,6 +17,7 @@ class APIStatistics:
         self.calls = []
         self.processes = []
         self.api_interactions = []
+        self.total_wait_time = 0
 
     async def wait_for_rate_limit(self, model_type="flash"):
         try:
@@ -37,11 +38,17 @@ class APIStatistics:
 
                         if time_since_oldest < 60:
                             wait_time = 60 - time_since_oldest
-                            logger.debug(
-                                f"{model_type.capitalize()} rate limit reached. Waiting for {wait_time:.2f} seconds."
+                            logger.info(
+                                f"Rate limit reached for {model_type}. Waiting for {wait_time:.2f} seconds."
                             )
                             await asyncio.sleep(wait_time)
                             current_time = time.time()
+                            # Log the actual wait time
+                            actual_wait_time = current_time - (current_time - wait_time)
+                            logger.info(
+                                f"Actual wait time: {actual_wait_time:.2f} seconds"
+                            )
+                            self.total_wait_time += actual_wait_time
 
                     call_timestamps.append(current_time)
         except asyncio.TimeoutError:
@@ -76,8 +83,14 @@ class APIStatistics:
                 logger.warning(
                     f"Response object does not have usage_metadata attribute in {function}"
                 )
+                logger.debug(f"Response object: {response}")
+                logger.debug(f"Response object type: {type(response)}")
+                logger.debug(f"Response object attributes: {dir(response)}")
         except AttributeError as e:
             logger.error(f"Error accessing usage_metadata: {e}")
+            logger.debug(f"Response object: {response}")
+            logger.debug(f"Response object type: {type(response)}")
+            logger.debug(f"Response object attributes: {dir(response)}")
             input_tokens = output_tokens = total_tokens = 0
 
         call_data = {
@@ -125,6 +138,7 @@ class APIStatistics:
         report += f"Total duration: {total_duration:.2f} seconds\n"
         report += f"Total input tokens: {total_input_tokens}\n"
         report += f"Total output tokens: {total_output_tokens}\n"
+        report += f"Total wait time due to rate limiting: {self.total_wait_time:.2f} seconds\n"
 
         if self.processes:
             report += "\nProcess Durations:\n"
