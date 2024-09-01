@@ -190,21 +190,42 @@ async def consolidate_analyses(
     analyses: List[str], video_id: str, video_title: str, analysis_type: str
 ) -> str:
     consolidated = "\n\n".join(analyses)
-    prompt = f"""
-    Combine the following {analysis_type} analyses into a single coherent document:
 
-    {consolidated}
+    if analysis_type == "intertextual":
+        prompt = f"""
+        Combine the following JSON analyses into a single coherent JSON document:
 
-    Instructions:
-    1. Maintain the original chronological order of the content.
-    2. Remove redundant headers or section titles.
-    3. Ensure all unique information from each chunk is retained.
-    4. Use clear transitions between different sections to maintain flow.
-    5. If there are time stamps or segment markers, include them to indicate progression.
-    6. Do not summarize or alter the content beyond removing redundancies and improving flow.
+        {consolidated}
 
-    Format the output as a well-structured document, using appropriate headings to reflect the content hierarchy.
-    """
+        Instructions:
+        1. Be aware that each chunk may have a different JSON structure or schema.
+        2. Create a unified structure that accommodates all unique keys and data types from the input chunks.
+        3. Maintain the original JSON structure of individual entries as much as possible.
+        4. Combine similar entries, removing exact duplicates, but preserve unique information even if keys differ.
+        5. If entries have common keys (e.g., "type", "reference", "context"), use these as a basis for organization.
+        6. For entries with unique keys, include them in the consolidated structure, grouping similar concepts where possible.
+        7. Preserve the chronological order of entries if applicable.
+        8. Do not alter the content of individual entries beyond removing exact duplicates.
+        9. If there are conflicting data types for the same key, use a structure that can accommodate both (e.g., an array of possible types).
+
+        Format the output as a valid JSON document that encompasses all unique data from the input chunks.
+        """
+    else:
+        prompt = f"""
+        Combine the following {analysis_type} analyses into a single coherent document:
+
+        {consolidated}
+
+        Instructions:
+        1. Maintain the original chronological order of the content.
+        2. Remove redundant headers or section titles.
+        3. Ensure all unique information from each chunk is retained.
+        4. Use clear transitions between different sections to maintain flow.
+        5. If there are time stamps or segment markers, include them to indicate progression.
+        6. Do not summarize or alter the content beyond removing redundancies and improving flow.
+
+        Format the output as a well-structured document, using appropriate headings to reflect the content hierarchy.
+        """
 
     logger.debug(f"Initiating consolidation of {analysis_type} analyses")
     model = await get_gemini_pro_model_text()

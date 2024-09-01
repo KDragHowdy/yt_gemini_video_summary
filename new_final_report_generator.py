@@ -50,17 +50,38 @@ async def load_work_products(interim_dir: str):
 
 async def consolidate_chunks(chunks: List[str], work_product_type: str):
     if work_product_type == "intertextual_analysis":
-        consolidated_data = []
-        for chunk in chunks:
-            try:
-                chunk_data = json.loads(chunk)
-                if isinstance(chunk_data, list):
-                    consolidated_data.extend(chunk_data)
-                elif isinstance(chunk_data, dict):
-                    consolidated_data.append(chunk_data)
-            except json.JSONDecodeError:
-                consolidated_data.append({"unstructured_content": chunk})
-        consolidated = json.dumps(consolidated_data, indent=2)
+        model = await get_gemini_flash_model_text()
+        chunks_text = "\n\n".join(chunks)
+        prompt = f"""
+        Combine the following JSON analyses into a single coherent JSON document:
+
+        {chunks_text}
+
+        Instructions:
+        1. Be aware that each chunk may have a different JSON structure or schema.
+        2. Create a unified structure that accommodates all unique keys and data types from the input chunks.
+        3. Maintain the original JSON structure of individual entries as much as possible.
+        4. Combine similar entries, removing exact duplicates, but preserve unique information even if keys differ.
+        5. If entries have common keys (e.g., "type", "reference", "context"), use these as a basis for organization.
+        6. For entries with unique keys, include them in the consolidated structure, grouping similar concepts where possible.
+        7. Preserve the chronological order of entries if applicable.
+        8. Do not alter the content of individual entries beyond removing exact duplicates.
+        9. If there are conflicting data types for the same key, use a structure that can accommodate both (e.g., an array of possible types).
+
+        Format the output as a valid JSON document that encompasses all unique data from the input chunks.
+        """
+
+        await api_stats.wait_for_rate_limit()
+        start_time = time.time()
+        response = await model.generate_content_async(prompt)
+        await api_stats.record_call(
+            module="final_report_generator",
+            function="consolidate_chunks",
+            start_time=start_time,
+            response=response,
+        )
+
+        consolidated = response.text
     else:
         model = await get_gemini_flash_model_text()
         chunks_text = "\n\n".join(chunks)
