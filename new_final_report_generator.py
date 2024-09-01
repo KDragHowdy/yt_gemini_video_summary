@@ -15,19 +15,11 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 logger = logging.getLogger(__name__)
 
 
-async def save_consolidated_work_product(content: str, work_product_type: str):
-    filename = f"consolidated_{work_product_type}.txt"
-    file_path = os.path.join(OUTPUT_DIR, filename)
-    async with aiofiles.open(file_path, "w", encoding="utf-8") as f:
-        await f.write(content)
-    logger.debug(f"Saved consolidated {work_product_type} to {filename}")
-
-
 async def load_work_products(interim_dir: str):
     work_products = {
-        "video_analysis": [],
-        "transcript_analysis": [],
-        "intertextual_analysis": [],
+        "video_analysis": None,
+        "transcript_analysis": None,
+        "intertextual_analysis": None,
     }
 
     for filename in os.listdir(interim_dir):
@@ -36,94 +28,16 @@ async def load_work_products(interim_dir: str):
             try:
                 async with aiofiles.open(file_path, "r", encoding="utf-8") as f:
                     content = await f.read()
-                    if "video_chunk" in filename:
-                        work_products["video_analysis"].append(content)
-                    elif "transcript_chunk" in filename:
-                        work_products["transcript_analysis"].append(content)
-                    elif "intertextual_chunk" in filename:
-                        work_products["intertextual_analysis"].append(content)
+                    if "consolidated_video_analysis" in filename:
+                        work_products["video_analysis"] = content
+                    elif "consolidated_transcript_analysis" in filename:
+                        work_products["transcript_analysis"] = content
+                    elif "consolidated_intertextual_analysis" in filename:
+                        work_products["intertextual_analysis"] = content
             except Exception as e:
                 logger.error(f"Error processing file {filename}: {str(e)}")
 
     return work_products
-
-
-async def consolidate_chunks(chunks: List[str], work_product_type: str):
-    if work_product_type == "intertextual_analysis":
-        model = await get_gemini_flash_model_text()
-        chunks_text = "\n\n".join(chunks)
-        prompt = f"""
-        Combine the following JSON analyses into a single coherent JSON document:
-
-        {chunks_text}
-
-        Instructions:
-        1. Be aware that each chunk may have a different JSON structure or schema.
-        2. Create a unified structure that accommodates all unique keys and data types from the input chunks.
-        3. Maintain the original JSON structure of individual entries as much as possible.
-        4. Combine similar entries, removing exact duplicates, but preserve unique information even if keys differ.
-        5. If entries have common keys (e.g., "type", "reference", "context"), use these as a basis for organization.
-        6. For entries with unique keys, include them in the consolidated structure, grouping similar concepts where possible.
-        7. Preserve the chronological order of entries if applicable.
-        8. Do not alter the content of individual entries beyond removing exact duplicates.
-        9. If there are conflicting data types for the same key, use a structure that can accommodate both (e.g., an array of possible types).
-
-        Format the output as a valid JSON document that encompasses all unique data from the input chunks.
-        """
-
-        await api_stats.wait_for_rate_limit()
-        start_time = time.time()
-        response = await model.generate_content_async(prompt)
-        await api_stats.record_call(
-            module="final_report_generator",
-            function="consolidate_chunks",
-            start_time=start_time,
-            response=response,
-        )
-
-        consolidated = response.text
-    else:
-        model = await get_gemini_flash_model_text()
-        chunks_text = "\n\n".join(chunks)
-        prompt = f"""
-        Consolidate the following {work_product_type} chunks into a single coherent document:
-
-        {chunks_text}
-
-        Instructions:
-        1. Maintain the original chronological order of the content.
-        2. Preserve the structure and headings from the original chunks.
-        3. Combine similar or repeated information under unified headings.
-        4. Ensure all unique information from each chunk is retained.
-        5. Use clear transitions between different sections to maintain flow.
-        6. If there are time stamps or segment markers, include them to indicate progression.
-
-        Format the output as a well-structured Markdown document, using appropriate headings (##, ###, etc.) to reflect the content hierarchy.
-        """
-
-        await api_stats.wait_for_rate_limit()
-        start_time = time.time()
-        response = await model.generate_content_async(prompt)
-        await api_stats.record_call(
-            module="final_report_generator",
-            function="consolidate_chunks",
-            start_time=start_time,
-            response=response,
-        )
-
-        consolidated = response.text
-
-    await save_consolidated_work_product(consolidated, work_product_type)
-    return consolidated
-
-
-async def consolidate_all_analyses(work_products):
-    consolidation_tasks = []
-    for wp_type, chunks in work_products.items():
-        consolidation_tasks.append(consolidate_chunks(chunks, wp_type))
-
-    consolidated_products = await asyncio.gather(*consolidation_tasks)
-    return dict(zip(work_products.keys(), consolidated_products))
 
 
 async def generate_integrated_report(
@@ -245,17 +159,13 @@ async def generate_intertextual_analysis_appendix(intertextual_analysis: str):
 async def generate_final_report(video_info: Dict):
     work_products = await load_work_products(INTERIM_DIR)
 
-    consolidated_products = await consolidate_all_analyses(work_products)
-
     # Generate report sections in parallel
-    integrated_report_task = generate_integrated_report(
-        consolidated_products, video_info
-    )
+    integrated_report_task = generate_integrated_report(work_products, video_info)
     structured_elements_task = generate_structured_elements_appendix(
-        consolidated_products["video_analysis"]
+        work_products["video_analysis"]
     )
     intertextual_appendix_task = generate_intertextual_analysis_appendix(
-        consolidated_products["intertextual_analysis"]
+        work_products["intertextual_analysis"]
     )
 
     (
@@ -278,14 +188,6 @@ async def generate_final_report(video_info: Dict):
     ## Appendix B: Intertextual Analysis
 
     {intertextual_appendix}
-
-    ## Appendix C: Consolidated Video Analysis
-
-    {consolidated_products['video_analysis']}
-
-    ## Appendix D: Consolidated Intertextual Analysis
-
-    {consolidated_products['intertextual_analysis']}
     """
 
     short_title = "".join(e for e in video_info["title"] if e.isalnum())[:12]
