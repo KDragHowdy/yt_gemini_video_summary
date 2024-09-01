@@ -2,6 +2,7 @@ from collections import deque
 import time
 import asyncio
 import logging
+import aiofiles
 
 logger = logging.getLogger(__name__)
 
@@ -18,29 +19,39 @@ class APIStatistics:
         self.api_interactions = []
 
     async def wait_for_rate_limit(self, model_type="flash"):
-        async with self.lock:
-            current_time = time.time()
-
-            if model_type == "flash":
-                call_timestamps = self.flash_call_timestamps
-                max_calls = 60
-            else:  # 'pro'
-                call_timestamps = self.pro_call_timestamps
-                max_calls = 2
-
-            if len(call_timestamps) == max_calls:
-                oldest_call = call_timestamps[0]
-                time_since_oldest = current_time - oldest_call
-
-                if time_since_oldest < 60:
-                    wait_time = 60 - time_since_oldest
-                    logger.debug(
-                        f"{model_type.capitalize()} rate limit reached. Waiting for {wait_time:.2f} seconds."
-                    )
-                    await asyncio.sleep(wait_time)
+        try:
+            async with asyncio.timeout(30):  # 30-second timeout
+                async with self.lock:
                     current_time = time.time()
 
-            call_timestamps.append(current_time)
+                    if model_type == "flash":
+                        call_timestamps = self.flash_call_timestamps
+                        max_calls = 60
+                    else:  # 'pro'
+                        call_timestamps = self.pro_call_timestamps
+                        max_calls = 2
+
+                    if len(call_timestamps) == max_calls:
+                        oldest_call = call_timestamps[0]
+                        time_since_oldest = current_time - oldest_call
+
+                        if time_since_oldest < 60:
+                            wait_time = 60 - time_since_oldest
+                            logger.debug(
+                                f"{model_type.capitalize()} rate limit reached. Waiting for {wait_time:.2f} seconds."
+                            )
+                            await asyncio.sleep(wait_time)
+                            current_time = time.time()
+
+                    call_timestamps.append(current_time)
+        except asyncio.TimeoutError:
+            logger.error(f"Timeout while waiting for rate limit ({model_type})")
+        except asyncio.CancelledError:
+            logger.error(f"Rate limiting was cancelled ({model_type})")
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error in rate limiting: {str(e)}")
+            raise
 
     async def record_call(
         self,
@@ -55,10 +66,16 @@ class APIStatistics:
         duration = end_time - start_time
 
         try:
-            usage_metadata = response.usage_metadata
-            input_tokens = usage_metadata.prompt_token_count
-            output_tokens = usage_metadata.candidates_token_count
-            total_tokens = usage_metadata.total_token_count
+            if hasattr(response, "usage_metadata"):
+                usage_metadata = response.usage_metadata
+                input_tokens = usage_metadata.prompt_token_count
+                output_tokens = usage_metadata.candidates_token_count
+                total_tokens = usage_metadata.total_token_count
+            else:
+                input_tokens = output_tokens = total_tokens = 0
+                logger.warning(
+                    f"Response object does not have usage_metadata attribute in {function}"
+                )
         except AttributeError as e:
             logger.error(f"Error accessing usage_metadata: {e}")
             input_tokens = output_tokens = total_tokens = 0

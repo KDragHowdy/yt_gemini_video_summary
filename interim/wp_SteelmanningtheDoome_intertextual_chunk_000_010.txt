@@ -1,0 +1,114 @@
+[
+  {
+    "type": "philosophical",
+    "reference": "Steelman",
+    "context": "The speaker mentions wanting to 'Steelman' the other side of the argument. This occurs around the 0:20 mark.",
+    "explanation": "Steelmanning is a rhetorical technique that involves presenting the strongest possible version of an opponent's argument. It is often used to ensure that one is not attacking a straw man argument and to demonstrate a genuine understanding of the opposing perspective.",
+    "relevance": "This technique is used to address concerns about AI safety and to demonstrate the speaker's willingness to engage with opposing viewpoints.",
+    "connections": "This reference connects to the overall theme of the video, which is to explore the arguments of AI doomers and accelerationists."
+  },
+  {
+    "type": "philosophical",
+    "reference": "Analytical Third Space",
+    "context": "The speaker mentions using a technique called 'analytical third space' to try on new ideas. This occurs around the 1:20 mark.",
+    "explanation": "The concept of 'analytical third space' is not directly attributed to any specific philosopher or theory. However, it likely draws inspiration from the idea of 'taking the perspective of the other,' which is a central concept in philosophy, particularly in areas like ethics and political theory.",
+    "relevance": "This technique is used to explain the speaker's approach to exploring different perspectives on AI safety, even if they don't necessarily agree with them.",
+    "connections": "This reference connects to the speaker's earlier mention of 'Steelmanning' and the overall theme of engaging with opposing viewpoints."
+  },
+  {
+    "type": "philosophical",
+    "reference": "It is the mark of an educated mind to be able to entertain an idea without accepting it.",
+    "context": "The speaker quotes this saying, attributing it to Plato or Aristotle. This occurs around the 1:30 mark.",
+    "explanation": "This quote is often attributed to Aristotle, though there is no definitive evidence to support this claim. It reflects a core principle of critical thinking, which involves the ability to consider different perspectives and ideas without necessarily endorsing them.",
+    "relevance": "This quote reinforces the speaker's approach to exploring different ideas and perspectives on AI safety.",
+    "connections": "This reference connects to the speaker's earlier mention of 'analytical third space' and the overall theme of engaging with opposing viewpoints."
+  },
+  {
+    "type": "other",
+    "reference": "Doomer",
+    "context": "The speaker uses the term 'Doomer' to refer to those who believe in a catastrophic future for humanity due to AI. This term is used throughout the video.",
+    "explanation": "The term 'Doomer' has become popular in internet culture, particularly in online communities related to AI safety and existential risk. It refers to individuals who hold a pessimistic view of the future, often believing that AI will lead to the extinction of humanity.",
+    "relevance": "This term is central to the video's discussion, as the speaker is addressing the arguments of AI doomers and presenting his own perspective as an accelerationist.",
+    "connections": "This reference connects to the speaker's discussion of 'incorrigibility' and 'malevolence' as potential threats posed by AI."
+  },
+  {
+    "type": "other",
+    "reference": "Accelerationism",
+    "context": "The speaker identifies himself as an 'accelerationist' in relation to AI development. This occurs around the 0:10 mark.",
+    "explanation": "Accelerationism is a complex and often debated concept, but in the context of AI, it generally refers to the view that accelerating AI development is the best way to mitigate potential risks. Accelerationists often argue that faster progress in AI will lead to solutions to the problems it poses.",
+    "relevance": "This term defines the speaker's position on AI development and is a central point of contrast to the 'Doomer' perspective.",
+    "connections": "This reference is directly opposed to the 'Doomer' perspective and forms the basis of the speaker's argument in the video."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "GPT-2",
+    "context": "The speaker mentions using GPT-2 in an experiment to train a model to reduce suffering. This occurs around the 0:35 mark.",
+    "explanation": "GPT-2 is a large language model developed by OpenAI. It is known for its ability to generate human-quality text and has been used in various applications, including text generation, translation, and code completion.",
+    "relevance": "This reference illustrates the speaker's early involvement in AI research and provides a concrete example of the potential risks associated with AI.",
+    "connections": "This reference connects to the speaker's discussion of the 'alignment problem' and the potential for AI to make harmful decisions."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Alignment Problem",
+    "context": "The speaker discusses the 'alignment problem' in relation to AI. This occurs around the 0:45 mark.",
+    "explanation": "The alignment problem is a central challenge in AI safety. It refers to the difficulty of ensuring that AI systems act in accordance with human values and intentions. Misalignment can lead to AI systems making decisions that are harmful or contrary to human interests.",
+    "relevance": "This reference is a core concern for both AI doomers and accelerationists, as it highlights the potential for AI to pose existential risks to humanity.",
+    "connections": "This reference connects to the speaker's discussion of 'incorrigibility' and 'malevolence' as potential threats posed by AI."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Incorrigibility",
+    "context": "The speaker discusses the concept of 'incorrigibility' in relation to AI models. This occurs around the 2:00 mark.",
+    "explanation": "Incorrigibility, in the context of AI, refers to the idea that AI models may become so complex and unpredictable that they cannot be reliably controlled or steered. This raises concerns about the potential for AI to act autonomously and potentially pose risks to humanity.",
+    "relevance": "This reference is a key argument used by AI doomers to support their pessimistic view of the future.",
+    "connections": "This reference connects to the speaker's discussion of 'fine-tuning' and 'jailbreaking' AI models, which are potential methods for controlling AI but also highlight the challenges involved."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Adversarial Attacks",
+    "context": "The speaker mentions 'adversarial attacks' as a potential failure mode for AI models. This occurs around the 2:10 mark.",
+    "explanation": "Adversarial attacks are a type of security vulnerability that can be exploited to manipulate AI models. By introducing carefully crafted inputs, attackers can cause AI models to make incorrect predictions or behave in unintended ways.",
+    "relevance": "This reference highlights the potential for AI systems to be vulnerable to malicious actors and further supports the concerns about 'incorrigibility' and the difficulty of controlling AI.",
+    "connections": "This reference connects to the speaker's discussion of 'incorrigibility' and the potential for AI to be manipulated or exploited."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Fine-tuning",
+    "context": "The speaker mentions 'fine-tuning' AI models as a potential method for control. This occurs around the 2:00 mark.",
+    "explanation": "Fine-tuning is a technique used to adapt pre-trained AI models to specific tasks or domains. It involves adjusting the model's parameters based on new data, which can improve its performance on a particular task.",
+    "relevance": "This reference highlights the potential for humans to influence and control AI models, but also acknowledges that fine-tuning may not always be effective in preventing harmful behavior.",
+    "connections": "This reference connects to the speaker's discussion of 'incorrigibility' and 'jailbreaking' AI models, which are potential methods for controlling AI but also highlight the challenges involved."
+  },
+  {
+    "type": "ai_tech",
+    "reference": "Jailbreaking",
+    "context": "The speaker mentions 'jailbreaking' AI models as a potential method for control. This occurs around the 2:00 mark.",
+    "explanation": "Jailbreaking, in the context of AI, refers to the process of circumventing safety measures or constraints imposed on AI models. This can allow users to access or manipulate the model in ways that were not intended by its developers.",
+    "relevance": "This reference highlights the potential for AI models to be manipulated or exploited, even if they are designed with safety measures in place.",
+    "connections": "This reference connects to the speaker's discussion of 'incorrigibility' and 'fine-tuning' AI models, which are potential methods for controlling AI but also highlight the challenges involved."
+  },
+  {
+    "type": "other",
+    "reference": "Rope is only taught if it's pulled from both ends",
+    "context": "The speaker uses this analogy to explain the importance of engaging with opposing viewpoints. This occurs around the 2:40 mark.",
+    "explanation": "This analogy is a common metaphor used to illustrate the importance of balance and perspective. It suggests that a strong argument or position is strengthened by considering and engaging with opposing viewpoints.",
+    "relevance": "This analogy reinforces the speaker's argument for engaging with the 'Doomer' perspective, even if he disagrees with it.",
+    "connections": "This reference connects to the speaker's earlier discussion of 'Steelmanning' and the overall theme of engaging with opposing viewpoints."
+  },
+  {
+    "type": "other",
+    "reference": "Split Half Consistency",
+    "context": "The speaker mentions 'split half consistency' as a survey technique. This occurs around the 3:10 mark.",
+    "explanation": "Split half consistency is a method used in psychometrics to assess the reliability of a test or survey. It involves dividing the items on a test into two halves and comparing the scores obtained on each half. If the scores are consistent, it suggests that the test is reliable.",
+    "relevance": "This reference is used to explain the speaker's approach to gathering data and understanding the perspectives of his audience.",
+    "connections": "This reference connects to the speaker's earlier discussion of running polls to gauge the opinions of his audience on AI safety."
+  },
+  {
+    "type": "other",
+    "reference": "P Doom",
+    "context": "The speaker mentions his 'P Doom' being around 30%. This occurs around the 3:30 mark.",
+    "explanation": "The term 'P Doom' is a shorthand way of expressing the probability of a catastrophic outcome, particularly in the context of AI safety. It is often used to quantify the level of concern or risk associated with AI development.",
+    "relevance": "This reference reflects the speaker's own assessment of the risks posed by AI, even though he identifies as an accelerationist.",
+    "connections": "This reference connects to the speaker's earlier discussion of the 'Doomer' perspective and his own belief that there is a significant risk of AI causing harm."
+  }
+]
