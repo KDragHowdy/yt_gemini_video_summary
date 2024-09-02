@@ -1,0 +1,58 @@
+[
+  {
+    "reference": "X-risk",
+    "context": "you guys are pedal to the metal and some people are still worried about X risk um this this is this is good data I think",
+    "explanation": "X-risk, or existential risk, refers to a hypothetical event that could lead to human extinction or the permanent and severe decline of global civilization. It's a concept often discussed in the context of artificial intelligence, where the potential for an advanced AI to inadvertently or intentionally cause harm to humanity is a major concern.",
+    "relevance": "The speaker uses X-risk to frame the discussion about concerns related to advanced AI and its potential impact on humanity.",
+    "connections": "This reference is central to the overall theme of the video, which focuses on the potential risks and future of artificial intelligence."
+  },
+  {
+    "reference": "GPT-5, GPT-6",
+    "context": "put it this way if GPT 5 is has any sense of being uncont controllable like guess what open AI is going to revise it and by the time GPT 6 comes out they're going to have a better way of controlling it",
+    "explanation": "GPT-5 and GPT-6 refer to hypothetical future versions of the Generative Pre-trained Transformer (GPT) language model developed by OpenAI. These models represent the ongoing advancements in large language models and their potential to become increasingly sophisticated.",
+    "relevance": "The speaker uses these models as examples to illustrate how AI developers might address the issue of control and potential risks associated with advanced AI.",
+    "connections": "These references are related to the broader theme of AI safety and control, which is discussed throughout the video."
+  },
+  {
+    "reference": "OpenAI",
+    "context": "put it this way if GPT 5 is has any sense of being uncont controllable like guess what open AI is going to revise it",
+    "explanation": "OpenAI is a research company focused on developing and promoting friendly AI. They are known for developing models like GPT and DALL-E.",
+    "relevance": "The speaker mentions OpenAI in the context of discussing how AI developers might address control issues in future AI models.",
+    "connections": "This reference is connected to the discussion of GPT-5 and GPT-6, and the broader theme of AI safety and control."
+  },
+  {
+    "reference": "Artificial Superintelligence (ASI)",
+    "context": "what are the odds that Humanity can control as ASI um near zero",
+    "explanation": "Artificial Superintelligence (ASI) refers to a hypothetical AI that surpasses human intelligence in all aspects. It is a concept often discussed in the context of AI risk, as it raises questions about the potential for an ASI to pose a threat to humanity.",
+    "relevance": "The speaker uses ASI to discuss the potential for future AI to become vastly more intelligent than humans, highlighting the associated risks.",
+    "connections": "This reference is directly related to the theme of X-risk and the potential dangers of advanced AI."
+  },
+  {
+    "reference": "Wisdom of the Crowds",
+    "context": "assuming that wisdom of the masses applies",
+    "explanation": "The wisdom of crowds is a concept that suggests that the collective judgment of a large group of people can be surprisingly accurate, even if the individuals within the group are not particularly knowledgeable or insightful.",
+    "relevance": "The speaker uses the wisdom of crowds to justify his reliance on the results of his polls, suggesting that the collective opinion of his audience is likely to be informative.",
+    "connections": "This reference relates to the speaker's reliance on data from his audience to inform his views on AI and its future."
+  },
+  {
+    "reference": "Ipsos",
+    "context": "I trust this data a lot more than I trust the general polls about you know like the um the ipsos polls and whatever",
+    "explanation": "Ipsos is a global market research and consulting firm. They conduct surveys and polls on a wide range of topics, including public opinion on AI.",
+    "relevance": "The speaker uses Ipsos as an example of a general public opinion poll that he believes is less reliable than his own audience's responses on AI-related issues.",
+    "connections": "This reference is connected to the speaker's discussion of the limitations of general public opinion polls on AI, and his preference for data from his more informed audience."
+  },
+  {
+    "reference": "Generative AI",
+    "context": "when most Americans answer polls they're not even aware of generative AI they're just thinking in terms of like oh an algorithm decided how much money I get for my loan",
+    "explanation": "Generative AI refers to a type of artificial intelligence that can create new content, such as text, images, or music. It is a rapidly developing field with significant implications for various industries and aspects of society.",
+    "relevance": "The speaker uses generative AI to highlight the difference between the types of AI that the general public might be familiar with (e.g., algorithms for loan decisions) and the more advanced AI systems that are the focus of his discussion.",
+    "connections": "This reference is related to the discussion of GPT-5 and GPT-6, and the broader theme of AI's rapid development and its potential impact on society."
+  },
+  {
+    "reference": "Doomer",
+    "context": "sometimes I use the term Doomer and I had a few friends text me saying like hey like I've been called a Doomer",
+    "explanation": "In internet culture, particularly within online communities discussing existential risks or dystopian scenarios, \"Doomer\" is a term used to describe someone who holds a pessimistic or fatalistic view of the future, often related to societal collapse or technological catastrophe.",
+    "relevance": "The speaker uses the term \"Doomer\" in the context of discussing how some individuals within the AI community are perceived as overly pessimistic about the future of AI.",
+    "connections": "This reference is connected to the broader theme of AI risk and the different perspectives on the potential dangers of advanced AI."
+  }
+]

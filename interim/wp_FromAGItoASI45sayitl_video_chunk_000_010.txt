@@ -1,0 +1,136 @@
+- **Type:** Demonstration
+- **Title:** 0:00 - 0:20
+- A man is sitting in front of a computer screen. He is wearing a red shirt with a black collar. The screen shows a YouTube community tab. There is a poll with the question "Who is further ahead in the AI race in 2027?". The options are:
+    - USA by a mile - 67%
+    - USA by a little - 23%
+    - Even match - 12%
+    - China by a little - 0%
+    - China by a mile - 0%
+
+- **Type:** Demonstration
+- **Title:** 0:20 - 1:00
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "If you had a magic button where you could pause all progress for 5 years, would you push it? In other words, no more innovation or open source models, but everything we have today is still available as we know it."
+
+- **Type:** Demonstration
+- **Title:** 1:00 - 1:40
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Who is further ahead in the AI race in 2027?". The options are:
+    - USA by a mile - 67%
+    - USA by a little - 23%
+    - Even match - 12%
+    - China by a little - 0%
+    - China by a mile - 0%
+
+- **Type:** Demonstration
+- **Title:** 1:40 - 2:20
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "If you had a magic button where you could pause all progress for 5 years, would you push it? In other words, no more innovation or open source models, but everything we have today is still available as we know it."
+
+- **Type:** Demonstration
+- **Title:** 2:20 - 2:40
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Is AI, what is the optimal strategy?". The options are:
+    - Benevolent - 50%
+    - No change, let it play out naturally - 27%
+    - Regulate - 14%
+    - Government - 3%
+    - Ignore - 3%
+
+- **Type:** Demonstration
+- **Title:** 2:40 - 3:10
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Is AI, what is the optimal strategy?". The options are:
+    - Benevolent - 50%
+    - No change, let it play out naturally - 27%
+    - Regulate - 14%
+    - Government - 3%
+    - Ignore - 3%
+
+- **Type:** Demonstration
+- **Title:** 3:10 - 3:50
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "Let's steal from this argument as it is really so easy if China and Russia get AI at roughly the same time."
+
+- **Type:** Demonstration
+- **Title:** 3:50 - 4:30
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Let's steal from this argument as it is really so easy if China and Russia get AI at roughly the same time?". The options are:
+    - Yeah - 29%
+    - Yes - 37%
+    - Maybe - 27%
+    - Idk - 10%
+
+- **Type:** Demonstration
+- **Title:** 4:30 - 5:10
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you believe AI will eventually kill everyone?". The options are:
+    - 100% Absolutely - 7%
+    - Probably yes, good chance - 10%
+    - Undecided, 50%, coin toss - 24%
+    - Unlikely, remote possibility - 44%
+    - Nah - 14%
+
+- **Type:** Demonstration
+- **Title:** 5:10 - 5:50
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you believe AI will eventually kill everyone?". The options are:
+    - 100% Absolutely - 7%
+    - Probably yes, good chance - 10%
+    - Undecided, 50%, coin toss - 24%
+    - Unlikely, remote possibility - 44%
+    - Nah - 14%
+
+- **Type:** Demonstration
+- **Title:** 5:50 - 6:30
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you think international AI research is some capacity to a good idea?". The options are:
+    - Absolutely, 100% for as or similar - 69%
+    - Probably yes, lots of good - 14%
+    - Maybe, idk - 10%
+    - Slightly, potentially unforeseen consequences - 4%
+    - Nope, too much power at the top, idk - 3%
+
+- **Type:** Demonstration
+- **Title:** 6:30 - 7:10
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you think international AI research is some capacity to a good idea?". The options are:
+    - Absolutely, 100% for as or similar - 69%
+    - Probably yes, lots of good - 14%
+    - Maybe, idk - 10%
+    - Slightly, potentially unforeseen consequences - 4%
+    - Nope, too much power at the top, idk - 3%
+
+- **Type:** Demonstration
+- **Title:** 7:10 - 7:50
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you think international AI research is some capacity to a good idea?". The options are:
+    - Absolutely, 100% for as or similar - 69%
+    - Probably yes, lots of good - 14%
+    - Maybe, idk - 10%
+    - Slightly, potentially unforeseen consequences - 4%
+    - Nope, too much power at the top, idk - 3%
+
+- **Type:** Demonstration
+- **Title:** 7:50 - 8:30
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Do you think international AI research is some capacity to a good idea?". The options are:
+    - Absolutely, 100% for as or similar - 69%
+    - Probably yes, lots of good - 14%
+    - Maybe, idk - 10%
+    - Slightly, potentially unforeseen consequences - 4%
+    - Nope, too much power at the top, idk - 3%
+
+- **Type:** Demonstration
+- **Title:** 8:30 - 9:10
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "Let's do another question. Would it really be bad for us if we lose control over AI? Sound off in the comments."
+
+- **Type:** Demonstration
+- **Title:** 9:10 - 9:50
+- The man is scrolling through the YouTube community tab and stops on a poll with the question "Let's do another question. Would it really be bad for us if we lose control over AI? Sound off in the comments.". The options are:
+    - Sound off the comments - 13%
+    - Yeah, probably - 4%
+    - Maybe - 29%
+    - No, probably not - 19%
+    - No, what's the machine - 35%
+
+- **Type:** Demonstration
+- **Title:** 9:50 - 10:00
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "What we did had GPT 3 and GPT 4 for a few years now. Do you see any confidence that there is in either?"
+
+- **Type:** Demonstration
+- **Title:** 10:00 - 10:10
+- The man is scrolling through the YouTube community tab and stops on a comment that reads:
+    - "What we did had GPT 3 and GPT 4 for a few years now. Do you see any confidence that there is in either?"
