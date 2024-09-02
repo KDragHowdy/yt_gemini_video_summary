@@ -1,7 +1,6 @@
 import time
 import os
 import asyncio
-import logging
 from dotenv import load_dotenv
 from video_downloader import get_video_info, download_youtube_video
 from video_processor import process_video
@@ -9,6 +8,7 @@ from new_final_report_generator import generate_final_report
 from utils import setup_directories, clear_directory, get_transcript, debug_print
 from error_handling import VideoProcessingError
 from api_statistics import api_stats
+from logging_config import setup_logging
 
 print("Script started")
 
@@ -20,23 +20,10 @@ BASE_DIR = r"C:\Users\kevin\repos\yt_gemini_video_summary"
 INPUT_DIR = os.path.join(BASE_DIR, "input")
 OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 INTERIM_DIR = os.path.join(BASE_DIR, "interim")
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 
 # Set up logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    filename=os.path.join(BASE_DIR, "video_processing.log"),
-    filemode="w",
-)
-
-# Add console handler to display logs in console as well
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-console_handler.setFormatter(formatter)
-logging.getLogger("").addHandler(console_handler)
-
-logger = logging.getLogger(__name__)
+logger = setup_logging(LOG_DIR)
 
 
 async def main():
@@ -46,11 +33,12 @@ async def main():
 
     try:
         logger.info("Starting video processing pipeline...")
-        setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR])
+        setup_directories([INPUT_DIR, OUTPUT_DIR, INTERIM_DIR, LOG_DIR])
         await asyncio.gather(
             clear_directory(INTERIM_DIR),
             clear_directory(INPUT_DIR),
             clear_directory(OUTPUT_DIR),
+            clear_directory(LOG_DIR),  # Add this line to clear the log directory
         )
 
         video_id = input("Enter the YouTube video ID: ")

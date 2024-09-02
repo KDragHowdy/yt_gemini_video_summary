@@ -2,41 +2,41 @@
   {
     "type": "other",
     "reference": "Systems Thinking",
-    "context": "The speaker begins by introducing the topic as 'forcing functions' within 'systems thinking'.",
+    "context": "The speaker introduces the topic as 'forcing functions' within 'systems thinking'.",
     "explanation": "Systems thinking is a holistic approach to understanding complex systems by considering the interactions between their components. It emphasizes the interconnectedness of elements and the importance of feedback loops.",
-    "relevance": "The entire video focuses on explaining and illustrating the concept of forcing functions, which is a key tool within systems thinking.",
-    "connections": "This reference sets the stage for the entire video and connects to all subsequent examples and explanations of forcing functions."
+    "relevance": "The entire video focuses on the concept of forcing functions, which are a key tool within systems thinking.",
+    "connections": "The video explores the application of forcing functions in various aspects of life, from personal habits to household design, demonstrating how they can be used to influence behavior and system dynamics."
   },
   {
     "type": "other",
-    "reference": "Constraints, Affordances, Upper and Lower Bounds",
-    "context": "The speaker introduces these concepts as different ways to think about forcing functions.",
-    "explanation": "These terms are commonly used in design and systems thinking to describe how elements within a system limit or enable certain behaviors. Constraints are limitations, affordances are possibilities, and upper and lower bounds define the range of acceptable values.",
-    "relevance": "These concepts provide a framework for understanding how forcing functions operate and how they can be applied in various contexts.",
-    "connections": "These concepts are used throughout the video to categorize and explain different types of forcing functions."
+    "reference": "Constraints and Affordances",
+    "context": "The speaker mentions 'constraints and affordances' as ways to think about forcing functions.",
+    "explanation": "Constraints are limitations or restrictions that shape behavior, while affordances are possibilities or opportunities for action. Both concepts are central to design thinking and understanding how users interact with systems.",
+    "relevance": "These concepts provide a framework for understanding how forcing functions work by shaping behavior through limitations and possibilities.",
+    "connections": "The examples of pant size, workshop size, and kitchen size all illustrate how constraints and affordances can be used to create forcing functions."
   },
   {
     "type": "other",
+    "reference": "Upper and Lower Bounds",
+    "context": "The speaker mentions 'upper and lower bounds' as a way to think about forcing functions.",
+    "explanation": "Upper and lower bounds define the limits within which a system can operate. They can be used to set thresholds for behavior or performance.",
+    "relevance": "This concept helps to clarify the role of forcing functions in setting boundaries and guiding behavior within a system.",
+    "connections": "The example of the laundry basket filling up as a trigger for doing laundry demonstrates the concept of an upper bound as a forcing function."
+  },
+  {
+    "type": "pop_culture",
     "reference": "Garage Shows",
-    "context": "The speaker mentions 'those garage shows' when discussing his large workshop.",
-    "explanation": "This refers to popular television shows that feature home improvement projects, often involving elaborate garages or workshops.",
-    "relevance": "This reference helps to contextualize the speaker's experience with his large workshop and provides a common point of reference for viewers.",
-    "connections": "This reference connects to the speaker's discussion of the challenges of maintaining a large workshop and the potential for clutter."
+    "context": "The speaker mentions 'garage shows' in the context of workshops.",
+    "explanation": "Garage shows are television programs that feature people working on projects in their garages, often involving car customization or restoration.",
+    "relevance": "This reference helps to provide a relatable context for the discussion of workshops and their size.",
+    "connections": "The speaker contrasts the large workshops featured on these shows with his own experience of a smaller workshop, highlighting the importance of scale in relation to forcing functions."
   },
   {
     "type": "other",
-    "reference": "Building Cars, Tools, Watches",
-    "context": "The speaker uses these examples to illustrate different scales of workshops and the types of projects they might accommodate.",
-    "explanation": "These are common examples of activities that require workshops or workspaces, ranging from large-scale automotive projects to smaller, more intricate tasks.",
-    "relevance": "These examples help to demonstrate the principle of scaling forcing functions to the specific needs of a task or project.",
-    "connections": "These examples connect to the speaker's earlier discussion of the relationship between workspace size and the amount of effort required for organization and cleaning."
-  },
-  {
-    "type": "other",
-    "reference": "Doing Everything Digitally",
-    "context": "The speaker mentions that he no longer builds physical objects and now works digitally.",
-    "explanation": "This reflects a shift in modern work practices, where many tasks are now performed digitally rather than physically.",
-    "relevance": "This reference highlights the evolving nature of work and how forcing functions might need to adapt to changing circumstances.",
-    "connections": "This reference connects to the speaker's earlier discussion of the challenges of maintaining a large workshop and the potential for clutter, suggesting that digital work may have different constraints and affordances."
+    "reference": "Exponential Growth",
+    "context": "The speaker describes the relationship between workshop size and effort as 'almost exponential'.",
+    "explanation": "Exponential growth refers to a pattern of rapid increase where the rate of growth itself increases over time. This concept is often used in mathematics and economics.",
+    "relevance": "This reference helps to illustrate the disproportionate impact of size on the effort required for organization and cleaning.",
+    "connections": "This concept reinforces the idea that small changes in constraints can have significant effects on behavior and system dynamics."
   }
 ]

@@ -15,21 +15,18 @@ async def upload_video(video_path):
 
     logger.info(f"Starting upload for {video_path}...")
     try:
-        video_file = await asyncio.to_thread(genai.upload_file, path=video_path)
-        logger.info(f"Upload completed: {video_file.uri}")
-        try:
-            await api_stats.record_api_interaction("File Upload")
-        except Exception as e:
-            logger.error(f"Error recording API interaction: {str(e)}")
-        return video_file
+        file = await asyncio.to_thread(genai.upload_file, path=video_path)
+        logger.info(f"Upload completed: {file.uri}")
+        await api_stats.record_api_interaction("File Upload")
+        return file, file.uri
     except Exception as e:
         logger.error(f"Error uploading file: {str(e)}")
         raise
 
 
 async def check_video_status(video_file):
-    max_retries = 30
-    retry_delay = 15  # Reduced from 60 to 15 seconds
+    max_retries = 10
+    retry_delay = 15
     for _ in range(max_retries):
         if video_file.state.name == "PROCESSING":
             logger.debug(
