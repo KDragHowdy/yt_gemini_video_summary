@@ -22,11 +22,10 @@ async def analyze_intertextual_references(transcript_analysis, chunk_start, chun
 
     For each reference, provide the following information in a JSON object:
     {{
-        "type": "literary/philosophical/historical/scientific/pop_culture/ai_tech/research/internet_culture/other",
         "reference": "The actual reference",
-        "context": "How it was used in the video, including the approximate timestamp if possible",
+        "context": "How it was used in the video and a snippet of the dialogue if applicable",
         "explanation": "Detailed explanation of the reference, including its origin and broader significance",
-        "relevance": "How this reference relates to the main topic of the video",
+        "relevance": "How this reference relates to the portion of the transcript where it appears",
         "connections": "Any connections to other references or themes in the video"
     }}
 

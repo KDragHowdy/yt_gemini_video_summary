@@ -1,0 +1,61 @@
+- **Slide** (0:00)
+The speaker is talking about the real nightmare scenarios of AI doomerism.
+- **Steelmanning Doomerism**
+- **Doomers are not thinking big enough picture.**
+- **Here are the real nightmare scenarios.**
+- **DS** (The letters "DS" are displayed in large, white font against a backdrop of a colorful, abstract, swirling sphere.)
+
+- **Slide** (1:19)
+The speaker is explaining the concept of analytical thirdspace.
+- **Analytical Thirdspace**
+- In this presentation, I often operate within an analytical thirdspace, where I temporarily accept premises I don't truly endorse - commonly known as "steelmanning" an argument. This approach can create an impression of inconsistency, as I frequently target to clarify that I'm merely testing ideas, views, and the ideas I'm focusing on, a practice that aligns with the evolution that an educated mind can sustain thoughts without necessarily accepting them. Additionally, Kagan's stages of development emphasizes the importance of being aware of one's own point of view, inviting others' perspectives, and understanding systems with internal systems. This slide aims to explain any perceived inconsistency in my approach.
+- **Analytical Thirdspace:** Temporarily accepting premises I don't endorse.
+- **Steelmanning:** Strengthening opposing arguments to test their validity.
+- **Idea Testing:** Trying on ideas without committing to them.
+- **Kagan's Development Stages:** Emphasizing perspective awareness and systems thinking.
+- **Clarifying Consistency:**  Expressing apparent inconsistencies in my approach.
+- **Image** (A bust of a bearded man, possibly a Roman statue.)
+
+- **Slide** (2:36)
+The speaker is discussing current arguments against the belief that AI is inherently malevolent.
+- **Current Arguments**
+- To date, there is a significant lack of empirical evidence that AI models are immanently incompatible [unintelligible] or latently malevolent. While there are counter-examples, such as jailbreaking models, adversarial attacks, and other vulnerabilities, these issues do not indicate fundamental failure modes. Instead, they represent challenges that can be addressed through improved safety measures, rather than proof of inherent dangers in AI systems.
+- **No Intrinsic Incompatibility:** AI models have not shown themselves to be unerasable.
+- **No Latent Malevolence:** There's no evidence AI systems are inherently malevolent.
+- **Counter-Examples:** Vulnerabilities like jailbreaking and adversarial attacks exist.
+- **Not Fundamental:** These vulnerabilities are not indicative of deeper or permanent failure modes.
+- **Improvement Potential:** Safety measures can mitigate current AI challenges.
+- **Image** (Two podiums with microphones on them, in front of a dark, velvet curtain.)
+
+- **Slide** (4:27)
+The speaker is discussing the belief that AI could lead to catastrophic outcomes, and how he has identified a segment of his audience that holds this belief.
+- **20% Doomers**
+- Around 20% of my audience aligns with the belief that AI will lead to catastrophic outcomes. I've identified this through split-half consistency testing, where I ask different questions aimed at uncovering the same underlying belief. For example, I might ask how many would support pausing AI development and then inquire how many think AI will ultimately cause human extinction. These questions consistently converge on roughly the same subset of respondents, providing a reliable measure of this belief within my audience.
+- **AI Doom Belief:** 20% of my audience expects catastrophic AI outcomes.
+- **Split-Half Testing:** Method used to validate this belief across different questions.
+- **Triangulation:** Different questions target similar underlying beliefs.
+- **Consistent Convergence:** Results consistently point to the same audience segment.
+- **Audience Insight:** Understanding this helps tailor the rest of the presentation.
+- **Image** (A black and white image of a Terminator-like robot, with red eyes.)
+
+- **Slide** (5:46)
+The speaker is discussing the potential for AI-driven disaster, and how he assesses the likelihood of such an outcome.
+- **How AI Could Spell Disaster**
+- Although I believe the likelihood of AI leading to disaster is low, it remains a genuine possibility worth exploring. My probability of AI-driven doom is around 30%, primarily due to the absence of key safeguards, such as an international research organization. Additionally, the risk of widespread suffering is significant - not because AI will intentionally cause harm, but because AI, in the greed and entrenched power structures that could misuse it, corporate greed and entrenched power structures that could misuse AI. In this section, we'll examine the concerns of AI doomers, taking a serious look at potential scenarios where AI could spell disaster for humanity as we'll steelman the concerns of AI doomers, taking a serious look at potential scenarios where AI could spell disaster for humanity.
+- **Low Likelihood:**  Personally assess AI-driven disaster as unlikely (1-30%).
+- **Key Milestones:** The lack of an international research body heightens risk.
+- **Risk of Suffering:** Corporate greed and power structures are major concerns.
+- **Steelman Approach:** Exploring the strongest arguments for AI-driven doom.
+- **Genuine Possibility:** Taking an honest look at how AI could go wrong.
+- **Image** (A metallic robot with a human-like form.)
+
+- **Slide** (7:38)
+The speaker is discussing bioweapons as a potential risk posed by AI.
+- **Bioweapons**
+- The creation of bioweapons is, in my view, the most significant risk posed by AI. As AI systems advance in material science, exemplified by projects like Alphafold - the ability to design chemical and biological agents - such as viruses, the ability to design dangerous and deadly agents, worth the potential for misuse becomes demonstrably accessible. Many of these strengths are being released online and under less regulated, Dual Use Research of Concern. The COVID-19 pandemic demonstrated how biological agents can evolve, become uncontrollable, and require no energy or weight to spread. The Phase 1 incident causing mass extinction, an engineered project could be the "low bar" method, the least of a precursor to human extinction. At demonstrably lower, or at least a pressure for making these capabilities more accessible to state actors or terrorists, human extermination. At demonstrably lower, or at least a pressure for making these capabilities more accessible to state actors or terrorists, human extermination.
+- **Bioweapon Risk:** Advancements make designing deadly agents easier.
+- **Material Science:** Projects like Alphafold increase capabilities in bioengineering.
+- **DU&RC Concerns:** Dual use research heightens the risk of misuse and spread autonomously.
+- **Pandemic Lessons:** Biological agents can evolve uncontrollably and spread easily.
+- **Lowered Threshold:** AI reduces the barriers for state actors or terrorists to create bioweapons.
+- **Image** (A green barrel with a skull and crossbones symbol.)

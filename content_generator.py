@@ -47,22 +47,17 @@ async def analyze_video_content(video_file, chunk_start, chunk_end):
 
     For each structured element you identify:
     1. Determine the type of element (e.g., Slide, Graph, Chart, Code Snippet, Demonstration).
-    2. Provide the timestamp or time range when it appears.
-    3. Describe the element in detail, including:
-       - For slides: Title, main points, and any imagery or diagrams.
+    2. Provide a title with timestamp or time range when it appears.
+    3. Give a brief description of the context but dont preceed the descrip with a lablel.
+    3. Recreate the element in detail, including:
+       - For slides: bullet points, any imagery or diagrams.
        - For graphs/charts: Type of graph, axes labels, data representation, and key trends or insights.
-       - For code snippets: Language used, purpose of the code, and key functions or concepts demonstrated.
+       - For code snippets: purpose of the code and key functions or concepts demonstrated.
        - For demonstrations: Step-by-step breakdown of what's being shown.
-    4. Explain how this element relates to the overall content of the video.
-    5. Note any emphasis or particular focus the presenter places on this element.
+    
 
-    Additionally:
-    - Describe any recurring visual themes or motifs.
-    - Mention any notable transitions or visual effects used.
-    - Comment on the overall visual style and how it contributes to the video's message.
-
-    Format your response in Markdown using appropriate headings, subheadings and formatting to recreate the structured elements as closely as possible.
-    Ensure that each element is clearly presented sequentially, with a descriptive title.
+    Format your response in Markdown to recreate the structured elements as closely as possible.
+    Ensure that each element is clearly presented sequentially.
     Separate each structured element with a blank line.
 
     Don't add any other text at the beginning or end other than your analysis.
@@ -91,8 +86,8 @@ async def analyze_transcript(transcript, chunk_start, chunk_end):
        - Highlight any recurring themes or motifs in the speaker's discourse.
 
     2. Key Arguments and Points:
-       - Outline the main arguments or points made by the speaker.
-       - Explain how these points are developed or supported throughout the segment.
+       - Outline the descriptions, arguments or points being made by the speaker.
+       - Explain how these points are developed or supported throughout the segment and their significance.
 
     3. Notable Quotes:
        - Identify and transcribe verbatim at least 3-5 significant quotes.
@@ -102,21 +97,14 @@ async def analyze_transcript(transcript, chunk_start, chunk_end):
 
     4. Rhetorical Devices and Speaking Style:
        - Note any rhetorical devices or unique speaking styles employed.
-       - Comment on the tone and how it shifts throughout the segment, if applicable.
-
+       
     5. Technical or Specialized Language:
-       - Highlight any technical terms or jargon used.
+       - Highlight any technical terms, jargon, or memetic language used.
        - Briefly explain these terms if they're crucial to understanding the content.
 
-    6. Narrative Structure:
-       - Describe how the speaker structures their argument or presentation.
-       - Note any significant transitions or shifts in the discourse.
-
-    7. Audience Engagement:
-       - Identify any direct addresses to the audience or calls to action.
-       - Note any hypothetical scenarios or examples used to illustrate points.
-
-    Format your response in Markdown, using appropriate headings, subheadings, and bullet points. Ensure that your analysis flows logically and captures the progression of ideas in the transcript.
+    6. Discuss any other notable aspects of the content
+    
+    Format your response in Markdown in note style with any helpful headings and subheadings.  The idea is to create detail notes to be untilzide as input in generating a future report about the detailed content of the video. Your job is to get the detailed record, not to create a summaryEnsure that your analysis flows logically and captures the progression of ideas in the transcript.
 
     Don't add any other text at the beginning or end other than your analysis.
     """

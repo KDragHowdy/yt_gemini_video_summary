@@ -44,26 +44,31 @@ async def generate_integrated_report(
     consolidated_products: Dict[str, str], video_info: Dict
 ):
     total_input_chars = sum(len(product) for product in consolidated_products.values())
-    target_word_count = max(
-        1000, int(video_info["duration"] * 50 + total_input_chars / 100)
+    target_word_count = min(
+        1800, int(video_info["duration"] * 50 + total_input_chars / 100)
     )
 
     prompt = f"""
     Create a comprehensive report on "{video_info['title']}" by {video_info['speaker']}, aired on {video_info['date']} on {video_info['channel']}. 
     The video is approximately {video_info['duration']:.0f} minutes long.
     
-    Use the following consolidated analyses to create a flowing, essay-like discussion of the topic:
-    Video Analysis: {consolidated_products['video_analysis']}
-    Transcript Analysis: {consolidated_products['transcript_analysis']}
-    Intertextual Analysis: {consolidated_products['intertextual_analysis']}
+    Do not include a title, just begin with the introduction.
+    
+    Use the following consolidated analyses to create a flowing, essay-like discussion of the topic.  These analyses notes meant to capture notes from the video to serve as input for the report.
+    
+    Transcript Analysis: This is notes from the full audio dialogue from the video.  It provides details, facts, sequence and argument and description development presented sequentially through the video {consolidated_products['transcript_analysis']}
+    
+    Video Analysis: This is a recreation of any structured visual elements presented in the video, like slides, graphs or other exhibit.{consolidated_products['video_analysis']}
+    
+    Intertextual Analysis: This is an exhibit capturing any unique language, jargon, references, and memetic language from the video. The exhibit explains the meaning and relationship of the languiage to the segment being discussed to provide further context for generating the details of the report, as the terms are likely assumed to be understood and not actually explained in the dialogue and can add the flavor of the speakers meaning. {consolidated_products['intertextual_analysis']}
 
     Your report should:
-    1. Identify the overarching storyline or themes that emerge from the video, transcript, and intertextual analyses.
-    2. Present the speaker's views as our own, building a coherent argument or description that follows the linear flow and development of ideas in the video.
-    3. Use the identified overarching themes to expand on this linear flow, providing deeper insights and connections.
-    4. Integrate visual elements, quotes, and intertextual references by explaining their relevance and significance, rather than presenting them as separate exhibits.
+    1. Identify the overarching storyline or themes that emerge from the transcript notes, including any additional context provided by the recreated elements of the video analysis and the intertextual analyses.
+    2. Present the speaker's views as our own, building a coherent argument or description that follows the linear flow and development of ideas in the video. We should aim to provide a detailed, insightful analysis that captures the essence of the content includind the idea development to support our conclusions.
+    3. Include a significant amount of direct facts, quotes, intertextual references naturally throughout the report to help make the points being discusses through their relevance and significance from the input thorughout the report so as to provide a rich flavor to the report, not a generic summary document.
+    4. Use the identified overarching themes to expand on the linear flow presented in the transcript. This helps present the both the flow of the video and the deeper insights and connections.
     5. Develop the argument or description progressively, mirroring the structure of the video while expanding on key points.
-    6. Use a scholarly tone that demonstrates deep understanding and critical analysis of the content.
+    6. Use a scholarly tone that demonstrates deep understanding and critical analysis of the content. Remeber, you are taking the notes as work product and creating a detailed report, not a summary.
     7. Aim for a word count of approximately {target_word_count} words for the main body of the report.
 
     Structure the report as follows:
@@ -73,9 +78,8 @@ async def generate_integrated_report(
 
     Formatting:
     - Use Markdown for structuring.
-    - Use blockquotes (>) for direct quotes from the video.
-    - Use bold for emphasizing key points.
-    - Use italics for introducing intertextual references.
+    - Use "" for direct quotes from the video.
+    - Use bold for emphasizing the intertextual reference.
 
     Aim for a comprehensive, engaging, and insightful report that captures the essence of the video's content while providing a deeper analysis guided by the identified themes.
     """
@@ -96,19 +100,12 @@ async def generate_integrated_report(
 
 async def generate_structured_elements_appendix(video_analysis: str):
     prompt = f"""
-    Create a detailed appendix of structured elements from the video analysis:
+    Present a well formatted Appendix of Structured Video Elements based on this analysis.  This appendix is a detailed recreation of the structured visual elements presented in the video, such as slides, graphs, or other exhibits.  Use Markdown formatting for clarity and readability.:
 
     {video_analysis}
 
-    For each slide or major visual element:
-    1. Create a markdown representation of the slide, including:
-       - A clear title (use ## for the slide title)
-       - A description of the visual elements (use italic text)
-       - The main points or content of the slide (use bullet points)
-    2. Provide the timestamp or time range when it appears.
-    3. Explain its relevance to the video's content.
-
-    Use markdown formatting for clarity and readability. Aim to recreate the visual structure of the slides as closely as possible using markdown syntax.
+    Only show structured visual elements (ignore unstructured video descriptions, such as segments mainly showing just the speaker talking or looping or "b-role" video)
+    
     """
 
     model = await get_gemini_pro_model_text()
@@ -127,17 +124,9 @@ async def generate_structured_elements_appendix(video_analysis: str):
 
 async def generate_intertextual_analysis_appendix(intertextual_analysis: str):
     prompt = f"""
-    Create a comprehensive appendix of intertextual references based on this analysis:
+    "Presednt a well formatted appendix of Intertextual References based on this analysis:
 
     {intertextual_analysis}
-
-    For each reference:
-    1. Categorize it (e.g., Philosophical, Literary, Scientific, Technological, etc.).
-    2. Provide the context in which it was mentioned in the video.
-    3. Explain the reference's significance to the video's content.
-    4. If applicable, provide a brief background of the reference for viewers who might be unfamiliar.
-
-    Organize the appendix by categories, and within each category, list references chronologically as they appear in the video.
 
     Use Markdown formatting for clarity and readability.
     """
@@ -177,15 +166,11 @@ async def generate_final_report(video_info: Dict):
     )
 
     final_report = f"""
-    # {video_info['title']} - Comprehensive Analysis
+    # {video_info['title']}
 
     {integrated_report}
 
-    ## Appendix A: Structured Elements from Video Analysis
-
     {structured_elements_appendix}
-
-    ## Appendix B: Intertextual Analysis
 
     {intertextual_appendix}
     """

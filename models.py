@@ -35,7 +35,7 @@ async def get_gemini_flash_model_text():
     return AsyncGenerativeModel(
         "gemini-1.5-flash",  # Experimental version: "gemini-1.5-flash-exp-0827"
         generation_config={
-            "temperature": 0.5,
+            "temperature": 0.6,
             "top_p": 0.9,
             "top_k": 40,
         },
@@ -45,9 +45,9 @@ async def get_gemini_flash_model_text():
 
 async def get_gemini_flash_model_json():
     return AsyncGenerativeModel(
-        "gemini-1.5-flash",  # Experimental version: "gemini-1.5-flash-exp-0827"
+        "gemini-1.5-flash-exp-0827",  # Experimental version: "gemini-1.5-flash-exp-0827"
         generation_config={
-            "temperature": 0.5,
+            "temperature": 0.6,
             "top_p": 0.9,
             "top_k": 40,
             "response_mime_type": "application/json",
@@ -58,9 +58,9 @@ async def get_gemini_flash_model_json():
 
 async def get_gemini_pro_model_text():
     return AsyncGenerativeModel(
-        "gemini-1.5-pro",  # Experimental version: "gemini-1.5-pro-exp-0827"
+        "gemini-1.5-pro-exp-0827",  # Experimental version: "gemini-1.5-pro-exp-0827"
         generation_config={
-            "temperature": 0.5,
+            "temperature": 0.7,
             "top_p": 0.9,
             "top_k": 40,
         },
@@ -72,7 +72,7 @@ async def get_gemini_pro_model_json():
     return AsyncGenerativeModel(
         "gemini-1.5-pro",  # Experimental version: "gemini-1.5-pro-exp-0827"
         generation_config={
-            "temperature": 0.5,
+            "temperature": 0.7,
             "top_p": 0.9,
             "top_k": 40,
             "response_mime_type": "application/json",
