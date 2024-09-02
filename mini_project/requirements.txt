@@ -1,0 +1,8 @@
+python-dotenv
+yt-dlp
+pytube
+moviepy
+Pillow
+google-generativeai
+aiofiles
+youtube_transcript_api

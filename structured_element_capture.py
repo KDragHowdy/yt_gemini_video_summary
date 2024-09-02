@@ -224,18 +224,43 @@ async def process_image_batches(all_image_paths, batch_size=10):
     return all_descriptions
 
 
+def sort_slides_by_timestamp(all_captured_images, all_image_descriptions):
+    # Extract timestamps from image filenames
+    timestamps = [
+        float(os.path.basename(img).split("_")[-1].split(".")[0])
+        for img in all_captured_images
+    ]
+
+    # Create a list of tuples: (timestamp, image_path, description)
+    sorted_slides = sorted(
+        zip(timestamps, all_captured_images, all_image_descriptions), key=lambda x: x[0]
+    )
+
+    return sorted_slides
+
+
 async def generate_markdown_report(
     output_dir, all_captured_images, all_image_descriptions
 ):
     markdown_content = "# Structured Elements Picture Report\n\n"
 
-    for img_path, desc in zip(all_captured_images, all_image_descriptions):
+    # Sort slides by timestamp
+    sorted_slides = sort_slides_by_timestamp(
+        all_captured_images, all_image_descriptions
+    )
+
+    for i, (timestamp, img_path, desc) in enumerate(sorted_slides, start=1):
         relative_path = os.path.relpath(img_path, output_dir)
         img_filename = os.path.basename(img_path)
-        timestamp = img_filename.split("_")[-1].split(".")[0]
 
-        markdown_content += f"## Slide {desc['slide_number']}: {desc['title']} (Timestamp: {timestamp}s)\n\n"
-        markdown_content += f"![{desc['title']}]({relative_path})\n\n"
+        # Extract the original title from the filename
+        original_title = "_".join(img_filename.split("_")[:-1]).replace("_", " ")
+
+        markdown_content += (
+            f"## Slide {i}: {original_title} (Timestamp: {timestamp:.2f}s)\n\n"
+        )
+        markdown_content += f"![{original_title}]({relative_path})\n\n"
+        markdown_content += f"**Title (from analysis):** {desc['title']}\n\n"
         markdown_content += f"**Description:** {desc['description']}\n\n"
         markdown_content += "**Key Points:**\n"
         for point in desc["key_points"]:
@@ -290,6 +315,8 @@ async def main():
         os.path.join(output_dir, "image_descriptions.json"), "w", encoding="utf-8"
     ) as f:
         json.dump(all_image_descriptions, f, indent=2)
+
+    logger.info("Processing complete. Check the output directory for results.")
 
 
 if __name__ == "__main__":
