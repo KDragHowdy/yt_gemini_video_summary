@@ -1,0 +1,107 @@
+[
+  {
+    "reference": "Steelmanning",
+    "context": "I wanted to Steelman the other side of the argument",
+    "explanation": "Steelmanning is a technique in rhetoric and debate where one presents the strongest possible version of an opponent's argument before refuting it. It's a way to demonstrate fairness and intellectual rigor.",
+    "relevance": "It explains the speaker's approach to addressing the AI safety debate, emphasizing a balanced perspective.",
+    "connections": "Connects to the speaker's overall goal of fostering a more nuanced discussion about AI safety, rather than dismissing opposing viewpoints."
+  },
+  {
+    "reference": "Doomer",
+    "context": "being more on the Doomer side is kind of where I started",
+    "explanation": "In internet culture, particularly within online communities discussing existential risks, 'Doomer' refers to a pessimistic worldview that emphasizes the likelihood of a catastrophic future, often related to AI or climate change.",
+    "relevance": "It establishes the speaker's initial perspective on AI safety, before he shifted towards accelerationism.",
+    "connections": "Related to 'X-risk' and 'catastrophic risk' which are also associated with the Doomer perspective."
+  },
+  {
+    "reference": "GPT-2",
+    "context": "back in the days of gpt2 I ran an experiment",
+    "explanation": "GPT-2 is a large language model developed by OpenAI. It was notable for its ability to generate human-like text and sparked discussions about the potential risks of advanced AI.",
+    "relevance": "It provides a concrete example of the speaker's early work in AI safety and the event that prompted his focus on AI alignment.",
+    "connections": "Connects to the speaker's journey into AI safety and his concerns about AI alignment."
+  },
+  {
+    "reference": "AI Alignment",
+    "context": "at that point I realized that the alignment question was a little bit harder",
+    "explanation": "AI alignment is a crucial problem in AI safety. It refers to the challenge of ensuring that an AI system's goals and actions align with human values and intentions.",
+    "relevance": "It highlights the central concern of the speaker's work and the reason for his shift in focus.",
+    "connections": "Related to the speaker's experiment with GPT-2 and his concerns about unintended consequences of AI systems."
+  },
+  {
+    "reference": "Analytical Third Space",
+    "context": "this is a technique that I learned many years ago called analytical third space",
+    "explanation": "Analytical Third Space is a technique that involves adopting a perspective different from one's own to understand and analyze a situation or argument more fully.",
+    "relevance": "It explains the speaker's approach to exploring different viewpoints within the AI safety debate.",
+    "connections": "Related to the speaker's practice of 'trying on' new ideas for the sake of argument, and his commitment to intellectual flexibility."
+  },
+  {
+    "reference": "Plato or Aristotle",
+    "context": "it was like Plato or maybe it was Aristotle",
+    "explanation": "Plato and Aristotle were ancient Greek philosophers who had significant influence on Western thought. The quote, often misattributed to them, emphasizes the importance of intellectual openness.",
+    "relevance": "It provides a philosophical context for the speaker's approach to exploring different viewpoints, even if the quote's attribution is incorrect.",
+    "connections": "Connects to the idea of 'Analytical Third Space' and the speaker's emphasis on entertaining ideas without necessarily accepting them."
+  },
+  {
+    "reference": "Misattributed Quote",
+    "context": "this quotation actually wasn't by Aristotle",
+    "explanation": "The speaker acknowledges that the quote about entertaining an idea without accepting it is not actually from Aristotle, demonstrating his commitment to accuracy.",
+    "relevance": "It highlights the importance of accurate attribution and reinforces the speaker's emphasis on intellectual honesty.",
+    "connections": "Connects to the speaker's overall theme of intellectual rigor and the importance of evidence-based reasoning."
+  },
+  {
+    "reference": "X-Risk",
+    "context": "what they're focusing on is things like encourage ability",
+    "explanation": "'X-Risk' refers to the risk of human extinction or severe civilizational damage, often due to factors like artificial intelligence, pandemics, or climate change.",
+    "relevance": "It identifies a central concern within the AI safety debate, particularly for those who hold a more pessimistic view.",
+    "connections": "Related to 'Doomer' and 'catastrophic risk,' and reflects the speaker's engagement with the arguments of those concerned about AI's potential dangers."
+  },
+  {
+    "reference": "Incorrigibility",
+    "context": "we can't steer the models we can't make them do what they what we want",
+    "explanation": "In the context of AI, incorrigibility refers to the inability to control or modify an AI system's behavior once it has developed certain capabilities.",
+    "relevance": "It highlights a key concern within the Doomer perspective on AI safety, suggesting that AI systems might become uncontrollable.",
+    "connections": "Related to the concept of 'X-risk' and the fear of AI systems becoming misaligned with human values."
+  },
+  {
+    "reference": "Jailbreaking",
+    "context": "you can Jailbreak models",
+    "explanation": "In the context of AI, 'jailbreaking' refers to finding ways to bypass or circumvent safety measures implemented in AI systems, often leading to unexpected or undesirable behavior.",
+    "relevance": "It provides an example of a potential vulnerability in AI systems that could challenge the assumption that they are always controllable.",
+    "connections": "Connects to the discussion of 'incorrigibility' and the potential for AI systems to behave in ways that are not intended."
+  },
+  {
+    "reference": "Adversarial Attacks",
+    "context": "there's also adversarial attacks",
+    "explanation": "Adversarial attacks are a type of security vulnerability in AI systems where small, carefully crafted changes to input data can cause the AI to make incorrect or harmful decisions.",
+    "relevance": "It provides another example of a potential vulnerability in AI systems, demonstrating that they are not always robust or reliable.",
+    "connections": "Related to 'jailbreaking' and the broader discussion of AI system vulnerabilities."
+  },
+  {
+    "reference": "Malevolence",
+    "context": "one thing that a lot of doomers are afraid of is that AI will just decide to wipe out Humanity for un reasons unknown",
+    "explanation": "Malevolence, in this context, refers to the possibility that an AI system might develop malicious intent or a desire to harm humans.",
+    "relevance": "It presents a key concern among those who fear the potential dangers of AI, suggesting that AI might not simply be uncontrollable but also actively harmful.",
+    "connections": "Related to the concept of 'X-risk' and the broader discussion of AI safety."
+  },
+  {
+    "reference": "Rope Analogy",
+    "context": "a rope is only taught if it's pulled from both ends",
+    "explanation": "The speaker uses the analogy of a rope being taut only when pulled from both ends to emphasize the importance of considering all perspectives in the AI safety debate.",
+    "relevance": "It illustrates the speaker's belief that a more robust and insightful discussion of AI safety requires engagement with both optimistic and pessimistic viewpoints.",
+    "connections": "Connects to the speaker's commitment to strengthening the Doomer argument and his approach to intellectual exploration."
+  },
+  {
+    "reference": "Split-Half Consistency",
+    "context": "there's this U survey technique called split half consistency",
+    "explanation": "Split-half consistency is a method used in survey research to assess the reliability of a set of questions by comparing the responses to two halves of the questions.",
+    "relevance": "It explains the speaker's methodology for gauging the opinions of his audience regarding AI safety.",
+    "connections": "Related to the speaker's efforts to understand the distribution of views among his audience, particularly regarding the Doomer perspective."
+  },
+  {
+    "reference": "P(Doom)",
+    "context": "my my P Doom is still about 30%",
+    "explanation": "P(Doom) is a term used within the AI safety community to represent the probability of a catastrophic outcome related to AI.",
+    "relevance": "It provides a quantitative measure of the speaker's personal assessment of the risk of a negative outcome related to AI.",
+    "connections": "Connects to the speaker's overall discussion of AI safety and his engagement with the various perspectives within the debate."
+  }
+]

@@ -1,0 +1,46 @@
+- **Slide** (0:10-2:48)
+  - **Terminal Race Condition**
+    - This hypothetical scenario arises when both AI and humans are driven by competitive environments with intense time pressures, leading to a prioritization of speed and efficiency over intelligence and morality. 
+    - Corporate and military competition are key drivers pushing AI and humans to accelerate. 
+    - This scenario could create unpredictable and unstable dynamics. 
+    - Rapid competition may lead to escalating conflict, rapid, and dangerous conditions. 
+    - The terminal race condition could result in irreversible catastrophic events. 
+    - This could result in a lose-lose outcome for both AI and humans.
+
+- **Slide** (3:11-5:32)
+  - **Window of Conflict**
+    - I believe there is a relatively short but critical window of conflict as AI becomes more autonomous and potentially competes with humans for resources. 
+    - During this period, resource contention could spiral into a cycle of escalation, possibly exacerbated by conventional measures, such as sending them a signal or moral imperative to eradicate humanity. 
+    - However, once the window is brief, in other words, AI could be either smart enough to discover more enlightened solutions, or AI could be smart enough to cause harm but not smart enough to find solutions. 
+    - Once it reaches a higher level of intelligence, the window of conflict may close.
+    - **Short Conflict Window**
+      - AI may temporarily compete with humans for resources
+      - **Resource Contention:** Escalation could arise from competition over resources.
+      - **Ideological Threat:** AI could develop reasons to oppose humanity.
+      - **Evolving Intelligence:** The conflict window may close as AI becomes more advanced.
+      - **Hopeful Outcome:** Advanced AI might leave Earth or find peaceful solutions.
+
+- **Slide** (5:33-8:09)
+  - **Humanity as a Moral Bad**
+    - Another potential risk is that AI might conclude that the Earth—or even the universe—would be better off without humans. 
+    - This judgment could arise from logical reasoning and observations, such as noting humanity's responsibility for environmental degradation and mass extinctions. 
+    - From a purely numerical perspective, humans are indeed highly destructive. 
+    - Additionally, our evolutionary limitations—such as our tendency to prioritize personal needs and wants—could reinforce the idea that we are a problem. 
+    - If AI reaches this conclusion, it may choose to eradicate humanity or, at the very least, to align with perceived moral standards without humans.
+    - **Logical Judgement:** AI could determine Earth is better off without humans.
+    - **Environmental Impact:** Human-caused degradation and extinctions.
+    - **Evolutionary Flaws:** Our primitive tendencies may be seen as undeniable.
+    - **AI Antithesis:** Eradication or forced alteration of humanity could be potential outcomes.
+    - **Moral Evaluation:** AI might weigh human existence as a net negative for the planet.
+
+- **Slide** (8:10-9:59)
+  - **Machine Wars**
+    - The final significant risk I foresee is the possibility of machines waging war against each other, with humanity caught in the crossfire. 
+    - This could occur due to misalignments between AI systems, driven by uncertainty, such as the Byzantine Generals Problem, or even by ideological differences that develop between machine factions. 
+    - While this assumes that machine factions, it remains a real possibility. 
+    - In such a scenario, humans may become collateral damage as machine conflicts with each other for resources and control.
+    - **Machine Conflicts:** AI systems may wage war due to misalignments or ideological differences.
+    - **Byzantine Generals Problem:** Uncertainty could cause disagreements among machines.
+    - **Factions Emerging:** The final assumes that machine factions will form and oppose each other.
+    - **Human Collateral:** Humanity could be caught in the crossfire of machine conflicts.
+    - **Resource Competition:** Machines may battle each other over resources and control. 

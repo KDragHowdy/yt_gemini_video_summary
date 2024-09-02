@@ -1,0 +1,16 @@
+- **Slide** 0:20
+   -  The slide is titled "Machine Wars" and has a dark, apocalyptic image of a futuristic city under attack by large, mechanical spiders. The slide is accompanied by a list of points:
+      - Machine Conflicts: AI systems may wage war due to misalignments or ideological differences.
+      - Byzantine Generals Problem: Uncertainty could cause disagreements among machines.
+      - Factions Emerging: The text assumes that machine factions will form and oppose each other.
+      - Human Collateral: Humanity could be caught in the crossfire of machine conflicts.
+      - Resource Competition: Machines may battle each other over resources and control.
+
+
+- **Slide** 0:29
+   - The slide is titled "Cyberpunk Outcome" and has a futuristic cityscape with neon lights and advertisements. The slide is accompanied by a list of points:
+      - Cyberpunk Dystopia: A "high-tech, low-life" world dominated by corporate elites.
+      - Regulatory Capture: Corporations could entirely control through politics.
+      - Neo-feudal Status Quo: Continuation of economic systems favoring the wealthy.
+      - International Conflict: Wars could trigger authoritarian measures and repression.
+      - 50% Risk: This outcome is plausible unless global political will changes significantly. 

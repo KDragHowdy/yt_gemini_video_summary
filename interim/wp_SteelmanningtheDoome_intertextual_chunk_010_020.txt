@@ -1,0 +1,133 @@
+[
+  {
+    "reference": "CERN",
+    "context": "my P Doom would be drastically lower if we had an international research organization like a CERN for AI which both Demis cabis and Imad mustak have both uh uh called for just this week actually or last week technically uh by the time you're watching this",
+    "explanation": "CERN is the European Organization for Nuclear Research, a large-scale international research facility near Geneva, Switzerland. It is best known for its Large Hadron Collider, used to study particle physics. In this context, it's used as a metaphor for a potential international research organization for AI.",
+    "relevance": "The speaker uses CERN as an example of a successful international scientific collaboration that could be replicated for AI research, aiming to mitigate risks.",
+    "connections": [
+      "International cooperation",
+      "AI safety",
+      "Demis Hassabis",
+      "Imad Mustafa"
+    ]
+  },
+  {
+    "reference": "AlphaFold",
+    "context": "so any any AI whether it's Alpha fold which is not even a chatbot or a language model um Alpha fold 2 is out Alpha fold 3 is being trained um and Alpha fold 3 allegedly according to the rumors will be able to not only simulate every protein but every single molecule involved in the human body uh when you can do that you can create designer drugs you can also just as easily create designer weapons that kind of Technology really scares me in terms of what is possible",
+    "explanation": "AlphaFold is a deep learning-based system developed by DeepMind for predicting protein structures from amino acid sequences. It has revolutionized structural biology and has potential implications for drug discovery and other fields. Here, it's used as an example of powerful AI that could be misused for bioweapons development.",
+    "relevance": "The speaker uses AlphaFold as an example of advanced AI technology that could pose a risk if used for malicious purposes, particularly in the creation of bioweapons.",
+    "connections": [
+      "Bioweapons",
+      "Open-source AI",
+      "X-risk"
+    ]
+  },
+  {
+    "reference": "COVID-19 pandemic",
+    "context": "now another thing is that from because of the covid-19 pandemic that we just saw what we realize is that biological agents are you want to talk about incorrigibility biological agents are the maximum in terms of incorrigibility they evolve on their own they require no energy no supervision and just by virtue of hijacking human processes um they can move from person to person so far in way this is um what I consider the most concrete risk profile",
+    "explanation": "The COVID-19 pandemic is a global health crisis caused by the SARS-CoV-2 virus. It had a significant impact on societies worldwide and highlighted the potential dangers of biological agents.",
+    "relevance": "The speaker uses the COVID-19 pandemic as a real-world example of the potential dangers of biological agents and their unpredictable nature, emphasizing the risk of bioweapons.",
+    "connections": [
+      "Bioweapons",
+      "Incorrigibility",
+      "Chaos actors",
+      "Lab leaks"
+    ]
+  },
+  {
+    "reference": "GPT-4",
+    "context": "and so gp4 was smarter than GPT 40 was smarter than GPT 40 mini and so what we're seeing in for example is that open AI is currently sacrificing intelligence and they're creating a model that just barely passes the threshold of useful but it is much less corrigible it is much less intelligent but they're doing so for the sake of saving money",
+    "explanation": "GPT-4 is a large language model developed by OpenAI. It's known for its advanced capabilities in generating human-like text, translating languages, and writing different kinds of creative content.",
+    "relevance": "The speaker uses GPT-4 as an example of how the pursuit of speed and efficiency in AI development can lead to a decline in the quality and corrigibility of AI models.",
+    "connections": [
+      "Terminal race condition",
+      "OpenAI",
+      "Corrigibility",
+      "Efficiency"
+    ]
+  },
+  {
+    "reference": "OpenAI",
+    "context": "and so what we're seeing in for example is that open AI is currently sacrificing intelligence and they're creating a model that just barely passes the threshold of useful but it is much less corrigible it is much less intelligent but they're doing so for the sake of saving money",
+    "explanation": "OpenAI is an artificial intelligence research company that aims to ensure that artificial general intelligence benefits all of humanity. It's known for developing various AI models, including GPT-3 and GPT-4.",
+    "relevance": "The speaker mentions OpenAI as an example of a company that is prioritizing speed and efficiency over intelligence in AI development, contributing to the terminal race condition.",
+    "connections": [
+      "GPT-4",
+      "Terminal race condition",
+      "Corrigibility",
+      "Efficiency"
+    ]
+  },
+  {
+    "reference": "Doomer",
+    "context": "and I really hope that the doomers move their arguments to these morec risk profiles",
+    "explanation": "\"Doomer\" is a term used in internet culture, particularly within online communities discussing AI risk, to describe individuals who hold pessimistic views about the future of humanity in relation to artificial intelligence. They often believe that AI poses an existential threat.",
+    "relevance": "The speaker acknowledges the \"Doomer\" perspective on AI risk and encourages them to focus their concerns on more concrete risk profiles, such as bioweapons.",
+    "connections": [
+      "X-risk",
+      "AI safety",
+      "Bioweapons",
+      "Terminal race condition"
+    ]
+  },
+  {
+    "reference": "X-risk",
+    "context": "so I am very much in favor of that and I suspect that a lot of the pause people and a lot lot of the doomers are also in favor of it in fact I just ran a poll just before recording this and a huge chunk of my audience is in favor of international cooperation either creating an international research organization or at least having some kind of treaty so taking a step back even if we disagree on the threat profile or the likelihoods or anything I think that there is already very strong consensus that we need International cooperation and so you know finding common ground is the point of these kinds of debates or dialectics all right now let's get into the actual risk scenarios the number one risk that I am personally most afraid of is bioweapons um this to me is the strongest argument against open source artificial intelligence so any any AI whether it's Alpha fold which is not even a chatbot or a language model um Alpha fold 2 is out Alpha fold 3 is being trained um and Alpha fold 3 allegedly according to the rumors will be able to not only simulate every protein but every single molecule involved in the human body uh when you can do that you can create designer drugs you can also just as easily create designer weapons that kind of Technology really scares me in terms of what is possible",
+    "explanation": "X-risk, or existential risk, refers to a hypothetical event that could lead to human extinction or severely curtail the potential of humanity. It's often associated with discussions around AI safety and other potential threats to civilization.",
+    "relevance": "The speaker acknowledges the concept of X-risk, particularly in relation to AI, and suggests that international cooperation could help mitigate such risks.",
+    "connections": [
+      "AI safety",
+      "Bioweapons",
+      "Doomer",
+      "International cooperation"
+    ]
+  },
+  {
+    "reference": "Demis Hassabis",
+    "context": "my P Doom would be drastically lower if we had an international research organization like a CERN for AI which both Demis cabis and Imad mustak have both uh uh called for just this week actually or last week technically uh by the time you're watching this uh and I would agree that International cooperation and that the model that particularly Demis cabus outlined",
+    "explanation": "Demis Hassabis is a British AI researcher and the CEO and co-founder of DeepMind, a leading AI research company known for its work on AlphaFold and other AI systems.",
+    "relevance": "The speaker mentions Demis Hassabis as a prominent figure in the AI field who has advocated for international cooperation in AI research.",
+    "connections": [
+      "CERN",
+      "Imad Mustafa",
+      "AI safety",
+      "International cooperation"
+    ]
+  },
+  {
+    "reference": "Imad Mustafa",
+    "context": "my P Doom would be drastically lower if we had an international research organization like a CERN for AI which both Demis cabis and Imad mustak have both uh uh called for just this week actually or last week technically uh by the time you're watching this",
+    "explanation": "Imad Mustafa is a researcher and writer who has written extensively about the risks and opportunities of artificial intelligence. He is known for his work on AI safety and the potential for AI to cause harm.",
+    "relevance": "The speaker mentions Imad Mustafa as another figure who has advocated for international cooperation in AI research.",
+    "connections": [
+      "CERN",
+      "Demis Hassabis",
+      "AI safety",
+      "International cooperation"
+    ]
+  },
+  {
+    "reference": "Game Theory",
+    "context": "this is going to be a permanent condition this is a permanent Game Theory condition where imagine let's say 80 years from now you know it's all said and done and the Earth is it let let's imagine that the doomers are right and that uh and that AI takes over the planet there's no humans left even AI will be incentivized you know a machine successor species will be incentivized to prioritize efficiency",
+    "explanation": "Game theory is a mathematical framework used to analyze strategic interactions between individuals or entities. It's often used to model decision-making in situations where the outcome depends on the choices of multiple players.",
+    "relevance": "The speaker uses game theory to explain why even a hypothetical future AI civilization would likely prioritize efficiency over other goals, leading to a terminal race condition.",
+    "connections": [
+      "Terminal race condition",
+      "Efficiency",
+      "Evolution",
+      "AI alignment"
+    ]
+  },
+  {
+    "reference": "Evolution",
+    "context": "Evolution for instance has prioritized efficiency in our brains and bodies there is a constant downward pressure to become more efficient over time this race for efficiency at the expense of intelligence",
+    "explanation": "Evolution is the process by which organisms change over time through natural selection. It's a fundamental concept in biology and explains the diversity of life on Earth.",
+    "relevance": "The speaker draws an analogy between biological evolution and the potential for AI to prioritize efficiency, suggesting that even AI could be subject to similar pressures.",
+    "connections": [
+      "Terminal race condition",
+      "Game theory",
+      "Efficiency",
+      "AI alignment"
+    ]
+  }
+]
