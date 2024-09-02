@@ -26,8 +26,11 @@ async def rate_limited_api_call(func, *args, **kwargs):
         model_type = "flash"
 
     start_time = time.time()
+    logger.info(f"Attempting API call for {func.__name__}")
     await api_stats.wait_for_rate_limit(model_type)
+    logger.info(f"Rate limit check passed for {func.__name__}")
     result = await func(*args, **kwargs)
+    logger.info(f"API call completed for {func.__name__}")
 
     if hasattr(result, "usage_metadata"):
         logger.debug(f"Usage metadata: {result.usage_metadata}")
@@ -61,68 +64,6 @@ async def process_video(
     uploaded_files = await asyncio.gather(*upload_tasks)
     logger.info("All video chunks uploaded")
 
-    async def process_chunk(
-        chunk_path: str,
-        chunk_start: float,
-        chunk_end: float,
-        chunk_transcript: str,
-        video_file,
-    ):
-        logger.debug(f"Processing chunk {chunk_start}-{chunk_end}")
-
-        try:
-            async with asyncio.timeout(300):  # 5-minute timeout per chunk
-                transcript_analysis_task = rate_limited_api_call(
-                    analyze_transcript, chunk_transcript, chunk_start, chunk_end
-                )
-                intertextual_analysis_task = rate_limited_api_call(
-                    analyze_intertextual_references,
-                    chunk_transcript,
-                    chunk_start,
-                    chunk_end,
-                )
-
-                transcript_analysis, intertextual_analysis = await asyncio.gather(
-                    transcript_analysis_task, intertextual_analysis_task
-                )
-
-                await asyncio.gather(
-                    save_interim_work_product(
-                        transcript_analysis,
-                        video_id,
-                        video_title,
-                        f"transcript_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-                    ),
-                    save_interim_work_product(
-                        intertextual_analysis,
-                        video_id,
-                        video_title,
-                        f"intertextual_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-                    ),
-                )
-
-                video_file = await check_video_status(video_file)
-
-                video_analysis = await rate_limited_api_call(
-                    analyze_video_content, video_file, chunk_start, chunk_end
-                )
-
-                await save_interim_work_product(
-                    video_analysis,
-                    video_id,
-                    video_title,
-                    f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
-                )
-
-                logger.debug(f"Chunk {chunk_start}-{chunk_end} processing complete")
-                return video_analysis, transcript_analysis, intertextual_analysis
-        except asyncio.TimeoutError:
-            logger.error(f"Timeout processing chunk {chunk_start}-{chunk_end}")
-            return f"Error: Timeout", f"Error: Timeout", f"Error: Timeout"
-        except Exception as e:
-            logger.error(f"Error processing chunk {chunk_start}-{chunk_end}: {str(e)}")
-            return f"Error: {str(e)}", f"Error: {str(e)}", f"Error: {str(e)}"
-
     chunk_tasks = []
     for i, (chunk_path, video_file) in enumerate(zip(video_chunks, uploaded_files)):
         chunk_start = i * 10
@@ -132,7 +73,13 @@ async def process_video(
         ]
         chunk_tasks.append(
             process_chunk(
-                chunk_path, chunk_start, chunk_end, chunk_transcript, video_file
+                chunk_path,
+                chunk_start,
+                chunk_end,
+                chunk_transcript,
+                video_file,
+                video_id,
+                video_title,
             )
         )
 
@@ -157,6 +104,7 @@ async def process_video(
             len(transcript_analyses) == len(chunk_tasks)
             and transcript_consolidation_task is None
         ):
+            logger.info("Starting transcript consolidation task")
             transcript_consolidation_task = asyncio.create_task(
                 consolidate_analyses(
                     transcript_analyses, video_id, video_title, "transcript"
@@ -167,23 +115,93 @@ async def process_video(
             len(intertextual_analyses) == len(chunk_tasks)
             and intertextual_consolidation_task is None
         ):
+            logger.info("Starting intertextual consolidation task")
             intertextual_consolidation_task = asyncio.create_task(
                 consolidate_analyses(
                     intertextual_analyses, video_id, video_title, "intertextual"
                 )
             )
 
-    consolidated_video = await consolidate_analyses(
-        video_analyses, video_id, video_title, "video"
+    logger.info("Starting video consolidation task")
+    video_consolidation_task = asyncio.create_task(
+        consolidate_analyses(video_analyses, video_id, video_title, "video")
     )
+
+    # Wait for all consolidation tasks to complete
     consolidated_transcript = await transcript_consolidation_task
     consolidated_intertextual = await intertextual_consolidation_task
+    consolidated_video = await video_consolidation_task
 
     end_time = time.time()
     await api_stats.record_process("process_video", start_time, end_time)
 
     logger.info("Video processing complete")
     return consolidated_intertextual, consolidated_video, consolidated_transcript
+
+
+async def process_chunk(
+    chunk_path,
+    chunk_start,
+    chunk_end,
+    chunk_transcript,
+    video_file,
+    video_id,
+    video_title,
+):
+    logger.debug(f"Processing chunk {chunk_start}-{chunk_end}")
+
+    try:
+        async with asyncio.timeout(300):  # 5-minute timeout per chunk
+            transcript_task = rate_limited_api_call(
+                analyze_transcript, chunk_transcript, chunk_start, chunk_end
+            )
+            intertextual_task = rate_limited_api_call(
+                analyze_intertextual_references,
+                chunk_transcript,
+                chunk_start,
+                chunk_end,
+            )
+
+            transcript_analysis, intertextual_analysis = await asyncio.gather(
+                transcript_task, intertextual_task
+            )
+
+            await asyncio.gather(
+                save_interim_work_product(
+                    transcript_analysis,
+                    video_id,
+                    video_title,
+                    f"transcript_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+                ),
+                save_interim_work_product(
+                    intertextual_analysis,
+                    video_id,
+                    video_title,
+                    f"intertextual_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+                ),
+            )
+
+            video_file = await check_video_status(video_file)
+
+            video_analysis = await rate_limited_api_call(
+                analyze_video_content, video_file, chunk_start, chunk_end
+            )
+
+            await save_interim_work_product(
+                video_analysis,
+                video_id,
+                video_title,
+                f"video_analysis_chunk_{chunk_start:03.0f}_{chunk_end:03.0f}",
+            )
+
+            logger.debug(f"Chunk {chunk_start}-{chunk_end} processing complete")
+            return video_analysis, transcript_analysis, intertextual_analysis
+    except asyncio.TimeoutError:
+        logger.error(f"Timeout processing chunk {chunk_start}-{chunk_end}")
+        return f"Error: Timeout", f"Error: Timeout", f"Error: Timeout"
+    except Exception as e:
+        logger.error(f"Error processing chunk {chunk_start}-{chunk_end}: {str(e)}")
+        return f"Error: {str(e)}", f"Error: {str(e)}", f"Error: {str(e)}"
 
 
 async def consolidate_analyses(

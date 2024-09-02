@@ -2,57 +2,41 @@
   {
     "type": "other",
     "reference": "Systems Thinking",
-    "context": "The speaker introduces the topic as 'forcing functions' within 'systems thinking.'",
-    "explanation": "Systems thinking is a holistic approach to understanding complex systems by considering the interactions between their various components. It emphasizes the interconnectedness of elements and the importance of feedback loops.",
-    "relevance": "The concept of forcing functions is directly related to systems thinking, as it involves understanding how constraints and affordances within a system can influence behavior and outcomes.",
-    "connections": "This reference sets the stage for the entire discussion, framing the examples and insights within the broader context of systems thinking."
+    "context": "The speaker begins by introducing the topic as 'forcing functions' within 'systems thinking'.",
+    "explanation": "Systems thinking is a holistic approach to understanding complex systems by considering the interactions between their components. It emphasizes the interconnectedness of elements and the importance of feedback loops.",
+    "relevance": "The entire video focuses on explaining and illustrating the concept of forcing functions, which is a key tool within systems thinking.",
+    "connections": "This reference sets the stage for the entire video and connects to all subsequent examples and explanations of forcing functions."
   },
   {
     "type": "other",
-    "reference": "Constraints and Affordances",
-    "context": "The speaker mentions 'constraints and affordances' as ways to think about forcing functions.",
-    "explanation": "Constraints refer to limitations or restrictions within a system, while affordances are opportunities or possibilities for action. These concepts are central to design thinking and understanding user behavior.",
-    "relevance": "These concepts provide a framework for understanding how forcing functions work. Constraints can be used to guide behavior, while affordances can be leveraged to create desired outcomes.",
-    "connections": "These concepts are closely tied to the idea of forcing functions, as they both involve understanding how elements within a system can influence behavior."
-  },
-  {
-    "type": "other",
-    "reference": "Upper and Lower Bounds",
-    "context": "The speaker mentions 'upper and lower bounds' as another way to think about forcing functions.",
-    "explanation": "Upper and lower bounds define the limits of acceptable behavior or performance within a system. They can be used to ensure that systems operate within safe and efficient parameters.",
-    "relevance": "This concept provides a specific example of how constraints can be used to shape behavior and outcomes within a system.",
-    "connections": "This concept is closely related to the idea of constraints, as it involves defining the limits of acceptable behavior within a system."
+    "reference": "Constraints, Affordances, Upper and Lower Bounds",
+    "context": "The speaker introduces these concepts as different ways to think about forcing functions.",
+    "explanation": "These terms are commonly used in design and systems thinking to describe how elements within a system limit or enable certain behaviors. Constraints are limitations, affordances are possibilities, and upper and lower bounds define the range of acceptable values.",
+    "relevance": "These concepts provide a framework for understanding how forcing functions operate and how they can be applied in various contexts.",
+    "connections": "These concepts are used throughout the video to categorize and explain different types of forcing functions."
   },
   {
     "type": "other",
     "reference": "Garage Shows",
-    "context": "The speaker mentions 'garage shows' in the context of workshops.",
-    "explanation": "Garage shows are television programs that feature individuals who build, modify, or restore vehicles in their garages. They are often associated with a DIY culture and a focus on customization.",
-    "relevance": "This reference is used to provide a contrasting example of a highly specialized and elaborate workshop compared to the speaker's own more basic workshop.",
-    "connections": "This reference highlights the difference between a highly specialized workshop and a more general-purpose workshop, illustrating the concept of how the size of a space can influence behavior and outcomes."
+    "context": "The speaker mentions 'those garage shows' when discussing his large workshop.",
+    "explanation": "This refers to popular television shows that feature home improvement projects, often involving elaborate garages or workshops.",
+    "relevance": "This reference helps to contextualize the speaker's experience with his large workshop and provides a common point of reference for viewers.",
+    "connections": "This reference connects to the speaker's discussion of the challenges of maintaining a large workshop and the potential for clutter."
   },
   {
     "type": "other",
-    "reference": "Building Cars",
-    "context": "The speaker mentions 'building cars' as an example of an activity that requires a large workshop.",
-    "explanation": "Building cars is a complex and demanding activity that typically requires a significant amount of space, specialized tools, and expertise.",
-    "relevance": "This reference is used to provide an example of a situation where a large workshop is necessary due to the nature of the activity being undertaken.",
-    "connections": "This reference further emphasizes the idea that the size of a space can influence behavior and outcomes, depending on the specific activity being undertaken."
-  },
-  {
-    "type": "other",
-    "reference": "Building Tools or Watches",
-    "context": "The speaker mentions 'building tools or watches' as examples of activities that require smaller workshops.",
-    "explanation": "Building tools or watches are less demanding activities than building cars, and can often be done in smaller workshops or even at home.",
-    "relevance": "This reference is used to provide an example of a situation where a smaller workshop is sufficient, depending on the nature of the activity being undertaken.",
-    "connections": "This reference further emphasizes the idea that the size of a space can influence behavior and outcomes, depending on the specific activity being undertaken."
+    "reference": "Building Cars, Tools, Watches",
+    "context": "The speaker uses these examples to illustrate different scales of workshops and the types of projects they might accommodate.",
+    "explanation": "These are common examples of activities that require workshops or workspaces, ranging from large-scale automotive projects to smaller, more intricate tasks.",
+    "relevance": "These examples help to demonstrate the principle of scaling forcing functions to the specific needs of a task or project.",
+    "connections": "These examples connect to the speaker's earlier discussion of the relationship between workspace size and the amount of effort required for organization and cleaning."
   },
   {
     "type": "other",
     "reference": "Doing Everything Digitally",
-    "context": "The speaker mentions 'doing everything digitally' as a reason for no longer needing a large workshop.",
-    "explanation": "The speaker is referring to the shift towards digital workflows and technologies, where many tasks that were previously done physically can now be done virtually.",
-    "relevance": "This reference highlights how technological advancements can influence the need for physical spaces and the types of activities that are undertaken.",
-    "connections": "This reference connects to the earlier discussion of the speaker's own experience with a large workshop and the realization that smaller spaces can be more efficient for certain activities."
+    "context": "The speaker mentions that he no longer builds physical objects and now works digitally.",
+    "explanation": "This reflects a shift in modern work practices, where many tasks are now performed digitally rather than physically.",
+    "relevance": "This reference highlights the evolving nature of work and how forcing functions might need to adapt to changing circumstances.",
+    "connections": "This reference connects to the speaker's earlier discussion of the challenges of maintaining a large workshop and the potential for clutter, suggesting that digital work may have different constraints and affordances."
   }
 ]
