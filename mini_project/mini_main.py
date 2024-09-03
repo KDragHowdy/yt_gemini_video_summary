@@ -3,12 +3,7 @@ import os
 import sys
 import time
 from dotenv import load_dotenv
-
-# Add the main project directory to the Python path
-main_project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.append(main_project_dir)
-
-from mini_video_downloader import get_video_info
+from mini_video_downloader import get_video_info, download_youtube_video
 from mini_utils import setup_directories, clear_directory, get_transcript
 from mini_error_handling import MiniVideoProcessingError
 from mini_logging_config import setup_logging
@@ -84,8 +79,6 @@ async def mini_main():
         logger.info(f"Video processed in {processing_time:.2f} seconds")
 
         logger.info(f"Final report generated: {report_path}")
-
-        logger.info("Mini video processing completed successfully.")
 
     except MiniVideoProcessingError as e:
         logger.error(f"MiniVideoProcessingError: {str(e)}")

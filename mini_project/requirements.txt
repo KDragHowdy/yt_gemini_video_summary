@@ -1,8 +1,7 @@
-python-dotenv
-yt-dlp
-pytube
-moviepy
-Pillow
-google-generativeai
-aiofiles
-youtube_transcript_api
+google-generativeai==0.3.2
+moviepy==1.0.3
+Pillow==10.1.0
+python-dotenv==1.0.0
+youtube_transcript_api==0.6.1
+yt-dlp==2023.11.16
+imagehash==4.3.1
